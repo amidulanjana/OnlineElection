@@ -7,35 +7,77 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    @*Sasindu*@
+        @*Vote Design Css*@
+        <link rel="stylesheet" href="~/Content/voteDesign.css" />
+        @*Navigation Css*@
+        <link rel="stylesheet" href="~/Content/NewNavigation.css" />
+
+
+
+    @*Used In votes View*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+<body style="background-color:#2e80ab">
+
+    @*Side Navigation*@
+    <nav class="navbar navbar-fixed-left navbar-minimal animate" role="navigation">
+        <div class="navbar-toggler animate">
+            <span class="menu-icon"></span>
         </div>
-    </div>
-    <div class="container body-content">
+        <ul class="navbar-menu animate">
+            <li>
+                <a href="@Url.Action("Index", "Home")">             @*<a href="@Url.Action(   Action Name        ,    Controller Name)">*@ 
+                    <span class="desc animate"> Home</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("About", "Home")">
+                    <span class="desc animate"> About Us </span>
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Contact", "Home")">
+                    <span class="desc animate"> Contact </span>
+                    <span class="glyphicon glyphicon-comment"></span>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Vote")">
+                    <span class="desc animate"> Vote</span>
+                    <span class="glyphicon glyphicon-comment"></span>
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    @*End Navigation Bar*@
+
+
+    <div class="container body-content" style="width:100% !important">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year -Online Election</p>
         </footer>
     </div>
+
+
+
+    @*Script For Navigation Click*@
+    <script>
+        $(function () {
+            $('.navbar-toggler').on('click', function(event) {
+            event.preventDefault();
+            $(this).closest('.navbar-minimal').toggleClass('open');
+            })
+        });
+    </script>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
