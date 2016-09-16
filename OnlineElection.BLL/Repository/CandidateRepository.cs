@@ -15,20 +15,19 @@ namespace OnlineElection.BLL.Repository
 
         public IEnumerable<CandidateViewModel> GetAllCandidates()
         {
+
+           
+
             var query = (from m in _dbContext.Candidates
+                         select new CandidateViewModel
+                        {
+                            CandidateName=m.CandidateName,
+                            Address=m.Address,
+                            Telephone=m.Telephone
+                        }).ToList();
 
-                         select m).ToList();
-
-            //return query;
-            //select new CandidateViewModel {
-            //CandidateName = m.
-            //}).to;
-
-            throw new NotImplementedException();
-
-            
-            //all database queries goes here
-
+            return query;
+           
         }
 
         public void InsertCandidate(CandidateViewModel _objCandidate)

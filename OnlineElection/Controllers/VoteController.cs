@@ -79,7 +79,7 @@ namespace OnlineElection.Controllers
             try
             {
                 // TODO: Add update logic here
-                var query=from m in d
+               // var query=from m in d
                 return RedirectToAction("Index");
             }
             catch
@@ -110,16 +110,7 @@ namespace OnlineElection.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult updateCandidate()
-        {
-          //  var id =_candidateRepository.InsertCandidate(ParamArrayAttribute);
-
-            if (id)
-            {
-                //viewdata = "";
-                
-            }
-        } 
+        
+     
     }
 }

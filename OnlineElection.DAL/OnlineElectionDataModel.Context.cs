@@ -9,10 +9,12 @@
 
 namespace OnlineElection.DAL
 {
+    using Domain.ViewModels;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
+
     public partial class OnlineElectionEntities : DbContext
     {
         public OnlineElectionEntities()
@@ -33,5 +35,7 @@ namespace OnlineElection.DAL
         public virtual DbSet<Poll> Polls { get; set; }
         public virtual DbSet<staff> staffs { get; set; }
         public virtual DbSet<student> students { get; set; }
+
+        public System.Data.Entity.DbSet<CandidateViewModel> CandidateViewModels { get; set; }
     }
 }
