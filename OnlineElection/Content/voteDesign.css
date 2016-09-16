@@ -1,0 +1,40 @@
+﻿input[type="radio"] {
+    -webkit-appearance: checkbox; /* Chrome, Safari, Opera */
+    -moz-appearance: checkbox;    /* Firefox */
+}
+
+.myTable {
+    width:100%;
+    font-size:medium;
+}
+.myTable td{
+    padding:6px;
+}
+.myTable tr{
+    border-bottom:groove;
+}
+.myTable tr:last-child { 
+    border-bottom:none 
+}
+
+#tableNew td {
+    padding:4px;
+}
+
+
+
+#dropdownwrap{
+    height:auto;
+    float:left;
+    margin:0px 0px 20px 50px;
+    background-color:aqua;
+    display:none;
+    padding:10px;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px;
+}
+
+.img-responsive {
+display:inline !important;
+}
+
