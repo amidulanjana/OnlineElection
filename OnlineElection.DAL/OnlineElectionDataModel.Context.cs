@@ -36,6 +36,6 @@ namespace OnlineElection.DAL
         public virtual DbSet<staff> staffs { get; set; }
         public virtual DbSet<student> students { get; set; }
 
-        public System.Data.Entity.DbSet<CandidateViewModel> CandidateViewModels { get; set; }
+        //public System.Data.Entity.DbSet<CandidateViewModel> CandidateViewModels { get; set; }
     }
 }
