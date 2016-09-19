@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>@Page.Title</title>
+
+        <link rel="stylesheet" href="~/Content/materialize.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="~/Scripts/materialize.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+
+        <style>
+            label {
+                width: 100%;
+            }
+
+                label:after {
+                    -moz-transition-property: all !important;
+                    -o-transition-property: all !important;
+                    -webkit-transition-property: all !important;
+                    transition-property: all !important;
+                    font-size: 0.8rem;
+                    -moz-transform: none;
+                    -ms-transform: none;
+                    -o-transform: none;
+                    -webkit-transform: none;
+                    transform: none;
+                }
+
+                label:not(.active):after {
+                    -moz-transform: translateY(-140%);
+                    -ms-transform: translateY(-140%);
+                    -o-transform: translateY(-140%);
+                    -webkit-transform: translateY(-140%);
+                    transform: translateY(-140%);
+                }
+        </style>
+
+    </head>
+<body style="background-image:url('../content/images/bg.jpg')">
+    <div class="row">
+        <div class="col m10 offset-m1">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

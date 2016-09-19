@@ -40,17 +40,6 @@
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="Dean" Type="varchar" MaxLength="15" />
         </EntityType>
-        <EntityType Name="person">
-          <Key>
-            <PropertyRef Name="Person_ID" />
-          </Key>
-          <Property Name="Person_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Phone" Type="int" />
-          <Property Name="Address" Type="varchar" MaxLength="25" />
-          <Property Name="FirstName" Type="varchar" MaxLength="25" />
-          <Property Name="LastName" Type="varchar" MaxLength="25" />
-          <Property Name="DOB" Type="datetime" />
-        </EntityType>
         <EntityType Name="Poll">
           <Key>
             <PropertyRef Name="ID" />
@@ -85,6 +74,20 @@
           <Property Name="Year" Type="int" />
           <Property Name="Degree_ID" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="Person_ID" />
+          </Key>
+          <Property Name="Person_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Phone" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="25" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <Association Name="fk1_Degree">
           <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
           <End Role="Degree" Type="Self.Degree" Multiplicity="*" />
@@ -98,10 +101,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk1_staff">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="users">
               <PropertyRef Name="Person_ID" />
             </Principal>
             <Dependent Role="staff">
@@ -110,10 +113,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk1_student">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="student" Type="Self.student" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="users">
               <PropertyRef Name="Person_ID" />
             </Principal>
             <Dependent Role="student">
@@ -134,10 +137,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk2_poll_person">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="poll_person" Type="Self.poll_person" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="users">
               <PropertyRef Name="Person_ID" />
             </Principal>
             <Dependent Role="poll_person">
@@ -174,21 +177,21 @@
           <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Poll" EntityType="Self.Poll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="poll_person" EntityType="Self.poll_person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk1_Degree" Association="Self.fk1_Degree">
             <End Role="Department" EntitySet="Department" />
             <End Role="Degree" EntitySet="Degree" />
           </AssociationSet>
           <AssociationSet Name="fk1_staff" Association="Self.fk1_staff">
-            <End Role="person" EntitySet="person" />
+            <End Role="users" EntitySet="users" />
             <End Role="staff" EntitySet="staff" />
           </AssociationSet>
           <AssociationSet Name="fk1_student" Association="Self.fk1_student">
-            <End Role="person" EntitySet="person" />
+            <End Role="users" EntitySet="users" />
             <End Role="student" EntitySet="student" />
           </AssociationSet>
           <AssociationSet Name="fk2_Department" Association="Self.fk2_Department">
@@ -196,7 +199,7 @@
             <End Role="Department" EntitySet="Department" />
           </AssociationSet>
           <AssociationSet Name="fk2_poll_person" Association="Self.fk2_poll_person">
-            <End Role="person" EntitySet="person" />
+            <End Role="users" EntitySet="users" />
             <End Role="poll_person" EntitySet="poll_person" />
           </AssociationSet>
           <AssociationSet Name="fk2_student" Association="Self.fk2_student">
@@ -226,7 +229,6 @@
           <EntitySet Name="Degrees" EntityType="OnlineElectionDbModel.Degree" />
           <EntitySet Name="Departments" EntityType="OnlineElectionDbModel.Department" />
           <EntitySet Name="Faculties" EntityType="OnlineElectionDbModel.Faculty" />
-          <EntitySet Name="people" EntityType="OnlineElectionDbModel.person" />
           <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
           <EntitySet Name="staffs" EntityType="OnlineElectionDbModel.staff" />
           <EntitySet Name="students" EntityType="OnlineElectionDbModel.student" />
@@ -242,16 +244,17 @@
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="Department" EntitySet="Departments" />
           </AssociationSet>
-          <AssociationSet Name="fk1_staff" Association="OnlineElectionDbModel.fk1_staff">
-            <End Role="person" EntitySet="people" />
+          <EntitySet Name="users" EntityType="OnlineElectionDbModel.user" />
+          <AssociationSet Name="fk1_staff1" Association="OnlineElectionDbModel.fk1_staff1">
+            <End Role="user" EntitySet="users" />
             <End Role="staff" EntitySet="staffs" />
           </AssociationSet>
-          <AssociationSet Name="fk1_student" Association="OnlineElectionDbModel.fk1_student">
-            <End Role="person" EntitySet="people" />
+          <AssociationSet Name="fk1_student1" Association="OnlineElectionDbModel.fk1_student1">
+            <End Role="user" EntitySet="users" />
             <End Role="student" EntitySet="students" />
           </AssociationSet>
-          <AssociationSet Name="poll_person" Association="OnlineElectionDbModel.poll_person">
-            <End Role="person" EntitySet="people" />
+          <AssociationSet Name="poll_person1" Association="OnlineElectionDbModel.poll_person1">
+            <End Role="user" EntitySet="users" />
             <End Role="Poll" EntitySet="Polls" />
           </AssociationSet>
         </EntityContainer>
@@ -286,20 +289,6 @@
           <Property Name="Dean" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Departments" Relationship="OnlineElectionDbModel.fk2_Department" FromRole="Faculty" ToRole="Department" />
         </EntityType>
-        <EntityType Name="person">
-          <Key>
-            <PropertyRef Name="Person_ID" />
-          </Key>
-          <Property Name="Person_ID" Type="Guid" Nullable="false" />
-          <Property Name="Phone" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DOB" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="staff" Relationship="OnlineElectionDbModel.fk1_staff" FromRole="person" ToRole="staff" />
-          <NavigationProperty Name="student" Relationship="OnlineElectionDbModel.fk1_student" FromRole="person" ToRole="student" />
-          <NavigationProperty Name="Polls" Relationship="OnlineElectionDbModel.poll_person" FromRole="person" ToRole="Poll" />
-        </EntityType>
         <EntityType Name="Poll">
           <Key>
             <PropertyRef Name="ID" />
@@ -310,7 +299,7 @@
           <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="max_candidates" Type="Int32" />
           <Property Name="No_of_Votes" Type="Int32" />
-          <NavigationProperty Name="people" Relationship="OnlineElectionDbModel.poll_person" FromRole="Poll" ToRole="person" />
+          <NavigationProperty Name="users" Relationship="OnlineElectionDbModel.poll_person1" FromRole="Poll" ToRole="user" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -318,7 +307,7 @@
           </Key>
           <Property Name="Person_ID" Type="Guid" Nullable="false" />
           <Property Name="Position" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.fk1_staff" FromRole="staff" ToRole="person" />
+          <NavigationProperty Name="user" Relationship="OnlineElectionDbModel.fk1_staff1" FromRole="staff" ToRole="user" />
         </EntityType>
         <EntityType Name="student">
           <Key>
@@ -328,7 +317,7 @@
           <Property Name="Year" Type="Int32" />
           <Property Name="Degree_ID" Type="Guid" />
           <NavigationProperty Name="Degree" Relationship="OnlineElectionDbModel.fk2_student" FromRole="student" ToRole="Degree" />
-          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.fk1_student" FromRole="student" ToRole="person" />
+          <NavigationProperty Name="user" Relationship="OnlineElectionDbModel.fk1_student1" FromRole="student" ToRole="user" />
         </EntityType>
         <Association Name="fk1_Degree">
           <End Type="OnlineElectionDbModel.Department" Role="Department" Multiplicity="0..1" />
@@ -366,11 +355,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk1_staff">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Person_ID" />
+          </Key>
+          <Property Name="Person_ID" Type="Guid" Nullable="false" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="staff" Relationship="OnlineElectionDbModel.fk1_staff1" FromRole="user" ToRole="staff" />
+          <NavigationProperty Name="student" Relationship="OnlineElectionDbModel.fk1_student1" FromRole="user" ToRole="student" />
+          <NavigationProperty Name="Polls" Relationship="OnlineElectionDbModel.poll_person1" FromRole="user" ToRole="Poll" />
+        </EntityType>
+        <Association Name="fk1_staff1">
+          <End Type="OnlineElectionDbModel.user" Role="user" Multiplicity="1" />
           <End Type="OnlineElectionDbModel.staff" Role="staff" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="user">
               <PropertyRef Name="Person_ID" />
             </Principal>
             <Dependent Role="staff">
@@ -378,11 +384,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk1_student">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+        <Association Name="fk1_student1">
+          <End Type="OnlineElectionDbModel.user" Role="user" Multiplicity="1" />
           <End Type="OnlineElectionDbModel.student" Role="student" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="person">
+            <Principal Role="user">
               <PropertyRef Name="Person_ID" />
             </Principal>
             <Dependent Role="student">
@@ -390,8 +396,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="poll_person">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="*" />
+        <Association Name="poll_person1">
+          <End Type="OnlineElectionDbModel.user" Role="user" Multiplicity="*" />
           <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="*" />
         </Association>
       </Schema>
@@ -439,18 +445,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="people">
-            <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
-              <MappingFragment StoreEntitySet="person">
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Polls">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
               <MappingFragment StoreEntitySet="Poll">
@@ -480,11 +474,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="poll_person" TypeName="OnlineElectionDbModel.poll_person" StoreEntitySet="poll_person">
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="poll_person1" TypeName="OnlineElectionDbModel.poll_person1" StoreEntitySet="poll_person">
             <EndProperty Name="Poll">
               <ScalarProperty Name="ID" ColumnName="ID" />
             </EndProperty>
-            <EndProperty Name="person">
+            <EndProperty Name="user">
               <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
             </EndProperty>
           </AssociationSetMapping>

@@ -1,41 +1,113 @@
-﻿@model OnlineElection.Models.RegisterViewModel
-@{
-    ViewBag.Title = "Register";
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+
 }
 
-<h2>@ViewBag.Title.</h2>
+<style>
+    .registerform {
+        margin-top: 50px;
+    }
+</style>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
+
+<div class="row registerform">
+    <div class="col s10 m8 l4 offset-l4 offset-m2 offset-s1">
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title center-align"><h4>Register Form</h4></div>
+                <div class="row">
+                    <form class="col s12" id="form">
+                        <div class="row">
+
+                            <div class="input-field col s12 ">
+                                <i class="material-icons prefix">subtitles</i>
+                                <input id="SID" name="SID" type="text" class="validate">
+                                <label for="SID">Student ID</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" name="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock_outline</i>
+                                <input id="password" name="password" type="password" class="validate">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock_outline</i>
+                                <input id="confirmPassword" name="confirmPassword" type="password" class="validate">
+                                <label for="confirmPassword">Confirm Password</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light" type="submit" name="action" style="width:100%">Submit</button>
+                            </div>
+                            <div class="input-field col s10 offset-s1" style="margin-bottom:-30px">
+                                <p> Already have an account ? <a href="login"> Login</a></p>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $.validator.setDefaults({
+        errorClass: 'invalid',
+        validClass: "valid",
+        errorPlacement: function (error, element) {
+            $(element)
+                .closest("form")
+                .find("label[for='" + element.attr("id") + "']")
+                .attr('data-error', error.text());
+        },
+        submitHandler: function (form) {
+            console.log('form ok');
+        }
+    });
+
+    $.validator.addMethod("regx", function (value, element, regexpr) {
+        return regexpr.test(value);
+    }, "Password must contain more than 8 characters and at least 1 Alphabet and 1 Number");
+
+    $("#form").validate({
+        rules: {
+            SID: {
+                required: true,
+                minlength: 10,
+                maxlength: 10
+            },
+
+            email: {
+                required: true,
+                email: true
+            },
+
+
+            password: {
+                required: true,
+                regx: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+            },
+            confirmPassword: {
+                equalTo: "#password"
+            }
+        },
+
+            messages: {
+                SID: {
+                    minlength: "Enter valid SLIIT ID",
+                    maxlength: "Enter valid SLIIT ID"
+                }
+            }
+        });
+
+</script>

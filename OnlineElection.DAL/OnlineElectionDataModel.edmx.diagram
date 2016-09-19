@@ -9,16 +9,16 @@
         <EntityTypeShape EntityType="OnlineElectionDbModel.Degree" Width="1.5" PointX="7.125" PointY="8.625" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Department" Width="1.5" PointX="4.125" PointY="6.75" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Faculty" Width="1.5" PointX="1" PointY="7.125" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.person" Width="1.5" PointX="3.25" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Poll" Width="1.5" PointX="5.625" PointY="2.5" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.staff" Width="1.5" PointX="1.375" PointY="4.375" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.student" Width="1.5" PointX="7.875" PointY="3.625" />
         <AssociationConnector Association="OnlineElectionDbModel.fk1_Degree" />
         <AssociationConnector Association="OnlineElectionDbModel.fk2_student" />
         <AssociationConnector Association="OnlineElectionDbModel.fk2_Department" />
-        <AssociationConnector Association="OnlineElectionDbModel.fk1_staff" />
-        <AssociationConnector Association="OnlineElectionDbModel.fk1_student" />
-        <AssociationConnector Association="OnlineElectionDbModel.poll_person" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.user" Width="1.5" PointX="3.5" PointY="1.625" />
+        <AssociationConnector Association="OnlineElectionDbModel.fk1_staff1" />
+        <AssociationConnector Association="OnlineElectionDbModel.fk1_student1" />
+        <AssociationConnector Association="OnlineElectionDbModel.poll_person1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

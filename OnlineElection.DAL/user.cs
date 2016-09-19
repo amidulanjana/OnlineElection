@@ -12,10 +12,10 @@ namespace OnlineElection.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class person
+    public partial class user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public person()
+        public user()
         {
             this.Polls = new HashSet<Poll>();
         }
@@ -26,6 +26,9 @@ namespace OnlineElection.DAL
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
+        public string email { get; set; }
+        public string SID { get; set; }
+        public string password { get; set; }
     
         public virtual staff staff { get; set; }
         public virtual student student { get; set; }
