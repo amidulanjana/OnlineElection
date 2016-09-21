@@ -3,28 +3,51 @@
     ViewBag.Title = "View";
 }
 
+
+
+
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-<body>
-    <div class="col s12 m6" style="margin-left:80%;opacity:40;">
-        <div class="card horizontal">
-                    <div class="fixed-action-btn vertical" style="bottom: 45px; right: 24px;">
-                        <a class="btn-floating btn-large red">
-                            <i class="large material-icons">mode_edit</i>
-                        </a>
-                        <ul>
-                            <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-                            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-                            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-                            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-                        </ul>
-                    </div>
-                    <img src="~/Content/Images/images.jpg" alt="" class="circle">
-                    
-                    <span class="title">Harsha Kantha</span>                 
-        </div>
-    </div>
+
+
+
+
+
+<body>       
+    <div class="row">
+        <a class="col s8 m3" style="margin-top:5%;margin-left:5%;">
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/Images/images.jpg" />
+                    <span class="card-content white-text">
+                        <span class="card-title ">Create Poll</span>
+                    </span>
+                </div>
+            </div>
+        </a>
+        <a class="col s8 m3" style="margin-top:5%;margin-left:5%;" href="../Vote/index">
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/Images/images.jpg" />
+                    <span class="card-content white-text">
+                        <span class="card-title ">Create Poll</span>
+                    </span>
+                </div>     
+            </div>
+        </a>
+        <a class="col s8 m3" style="margin-top:5%;margin-left:5%;" href="../CreatePoll/index" >
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/Images/election.jpg"/>
+                    <span class="card-content white-text">
+                        <span class="card-title ">Create Poll</span>
+                    </span>
+                </div>          
+           </div>
+ </a>
+</div>        
 </body>
