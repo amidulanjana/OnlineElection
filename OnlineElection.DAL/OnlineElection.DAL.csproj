@@ -51,7 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Candidate.cs">
+    <Compile Include="batch.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="candidate.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Degree.cs">
@@ -84,11 +87,17 @@
     <Compile Include="Poll.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="poll_access.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="staff.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="student.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="votes_person.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

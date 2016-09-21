@@ -16,17 +16,18 @@ namespace OnlineElection.BLL.Repository
         public IEnumerable<CandidateViewModel> GetAllCandidates()
         {
 
-           
 
-            var query = (from m in _dbContext.Candidates
-                         select new CandidateViewModel
-                        {
-                            CandidateName=m.CandidateName,
-                            Address=m.Address,
-                            Telephone=m.Telephone
-                        }).ToList();
 
-            return query;
+            //var query = (from m in _dbContext.Candidates
+            //             select new CandidateViewModel
+            //            {
+            //                CandidateName=m.CandidateName,
+            //                Address=m.Address,
+            //                Telephone=m.Telephone
+            //            }).ToList();
+
+            //return query;
+            return null;
            
         }
 

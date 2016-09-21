@@ -17,7 +17,8 @@ namespace OnlineElection.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public person()
         {
-            this.Polls = new HashSet<Poll>();
+            this.votes_person = new HashSet<votes_person>();
+            this.candidates = new HashSet<candidate>();
         }
     
         public System.Guid Person_ID { get; set; }
@@ -30,6 +31,8 @@ namespace OnlineElection.DAL
         public virtual staff staff { get; set; }
         public virtual student student { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Poll> Polls { get; set; }
+        public virtual ICollection<votes_person> votes_person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<candidate> candidates { get; set; }
     }
 }
