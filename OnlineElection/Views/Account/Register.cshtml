@@ -1,4 +1,5 @@
-﻿@{
+﻿@model OnlineElection.DAL.user
+@{
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 
 }
@@ -20,38 +21,51 @@
             <div class="card-content">
                 <div class="card-title center-align"><h4>Register Form</h4></div>
                 <div class="row">
-                    <form class="col s12" id="form">
-                        <div class="row">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @id = "form", @class = "col s12" }))
+                                {
+                                    @Html.AntiForgeryToken()
 
-                            <div class="input-field col s12 ">
-                                <i class="material-icons prefix">subtitles</i>
-                                <input id="SID" name="SID" type="text" class="validate">
-                                <label for="SID">Student ID</label>
-                            </div>
+                                        <div class="row">
 
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">email</i>
-                                <input id="email" name="email" type="email" class="validate">
-                                <label for="email">Email</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">lock_outline</i>
-                                <input id="password" name="password" type="password" class="validate">
-                                <label for="password">Password</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">lock_outline</i>
-                                <input id="confirmPassword" name="confirmPassword" type="password" class="validate">
-                                <label for="confirmPassword">Confirm Password</label>
-                            </div>
-                            <div class="input-field col s12">
-                                <button class="btn waves-effect waves-light" type="submit" name="action" style="width:100%">Submit</button>
-                            </div>
-                            <div class="input-field col s10 offset-s1" style="margin-bottom:-30px">
-                                <p> Already have an account ? <a href="login"> Login</a></p>
-                            </div>
-                        </div>
-                    </form>
+                                            <div class="input-field col s12 ">
+                                                <i class="material-icons prefix">subtitles</i>
+                                                @Html.EditorFor(model => model.SID, new { htmlAttributes = new { @class = "validate" } })
+                                                @Html.LabelFor(model => model.SID)
+
+                                                @*<input id="SID" name="SID" type="text" class="validate">*@
+                                                @*<label for="Phone">Student ID</label>*@
+                                            </div>
+
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "validate" } })
+                                                @Html.LabelFor(model => model.email)
+
+                                                @*<input id="email" name="email" type="email" class="validate">
+                                                <label for="email">Email</label>*@
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">lock_outline</i>
+                                                @Html.EditorFor(model => model.password, new { htmlAttributes = new {@type="password", @class = "validate" } })
+                                                @Html.LabelFor(model => model.password)
+
+                                                @*<input id="password" name="password" type="password" class="validate">
+                                                <label for="password">Password</label>*@
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">lock_outline</i>
+                                                <input id="confirmPassword" name="confirmPassword" type="password" class="validate">
+                                                <label for="confirmPassword">Confirm Password</label>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <button class="btn waves-effect waves-light" type="submit" name="action" style="width:100%">Submit</button>
+                                            </div>
+                                            <div class="input-field col s10 offset-s1" style="margin-bottom:-30px">
+                                                <p> Already have an account ? <a href="login"> Login</a></p>
+                                            </div>
+                                        </div>
+                   
+                                }
 
                 </div>
             </div>
@@ -69,15 +83,13 @@
                 .closest("form")
                 .find("label[for='" + element.attr("id") + "']")
                 .attr('data-error', error.text());
-        },
-        submitHandler: function (form) {
-            console.log('form ok');
         }
+        
     });
 
     $.validator.addMethod("regx", function (value, element, regexpr) {
         return regexpr.test(value);
-    }, "Password must contain more than 8 characters and at least 1 Alphabet and 1 Number");
+    }, "must contain more than 8 characters & at least 1 Alphabet and 1 Number");
 
     $("#form").validate({
         rules: {

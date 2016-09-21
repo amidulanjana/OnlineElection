@@ -17,6 +17,6 @@ namespace OnlineElection.DAL
         public System.Guid Person_ID { get; set; }
         public string Position { get; set; }
     
-        public virtual user user { get; set; }
+        public virtual person person { get; set; }
     }
 }

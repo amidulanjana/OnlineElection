@@ -12,11 +12,13 @@ namespace OnlineElection.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Candidate
+    public partial class candidate
     {
-        public int ID { get; set; }
-        public string CandidateName { get; set; }
-        public string Address { get; set; }
-        public string Telephone { get; set; }
+        public System.Guid Person_ID { get; set; }
+        public System.Guid Poll_ID { get; set; }
+        public Nullable<int> vote_count { get; set; }
+    
+        public virtual person person { get; set; }
+        public virtual Poll Poll { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace OnlineElection.Controllers
 {
     public class AccountController : Controller
     {
-        UserRepository repository = new UserRepository();
+        //UserRepository repository = new UserRepository();
         // GET: Account
         public ActionResult Index()
         {
@@ -23,15 +23,15 @@ namespace OnlineElection.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Register(user user)
-        {
-            if (!ModelState.IsValid) return View();
-            repository.RegisterUser(user);
-            repository.SaveChanges();
-            return RedirectToAction("Login");
+        //[HttpPost]
+        //public ActionResult Register(user user)
+        //{
+        //    if (!ModelState.IsValid) return View();
+        //    repository.RegisterUser(user);
+        //    repository.SaveChanges();
+        //    return RedirectToAction("Login");
 
-        }
+        //}
 
         public ActionResult Login()
         {

@@ -25,7 +25,10 @@
             <div class="card-content">
                 <div class="card-title center-align"><h4>Login Form</h4></div>
                 <div class="row">
-                    <form id="form" class="col s12" novalidate="novalidate">
+                    @Html.BeginForm("Register", "Account", FormMethod.Post,new { @id = "form", @class = "col s12", novalidate = "novalidate" })
+                    {
+                    @Html.AntiForgeryToken()
+                    @*<form id="form" class="col s12" novalidate="novalidate">*@
                         <div class="row">
 
                             <div class="input-field col s12">
@@ -55,7 +58,8 @@
                                 <a href="forgot-password.html">Forgot password?</a>
                             </div>
                         </div>
-                    </form>
+                    @*</form>*@
+                    }
                 </div>
             </div>   
         </div>
