@@ -4,14 +4,17 @@ using OnlineElection.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace OnlineElection.Controllers
 {
     public class AccountController : Controller
     {
-        //UserRepository repository = new UserRepository();
+        PersonRepository repository = new PersonRepository();
         // GET: Account
         public ActionResult Index()
         {
@@ -23,19 +26,31 @@ namespace OnlineElection.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult Register(user user)
-        //{
-        //    if (!ModelState.IsValid) return View();
-        //    repository.RegisterUser(user);
-        //    repository.SaveChanges();
-        //    return RedirectToAction("Login");
+        [HttpPost]
+        public JsonResult Register(person person)
+        {
+            person _person = new person();
+            _person.SID = person.SID;
+            _person.email = person.email;
+            _person.password = Crypto.SHA1(person.password);
+           
+            bool status;
+            if (!ModelState.IsValid) return Json(false,JsonRequestBehavior.AllowGet);
+            status=repository.registerPerson(_person);
 
-        //}
+            //if (status) { ViewBag.Status = "Wait until admin approve"; }
+            //else { ViewBag.Status = "Dont know what to do"; }
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+
+        }
 
         public ActionResult Login()
         {
             return View();
         }
+
+
+        
     }
 }
