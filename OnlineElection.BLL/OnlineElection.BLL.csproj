@@ -55,9 +55,11 @@
     <Compile Include="Repository\IDegreeRepository.cs" />
     <Compile Include="Repository\IDepartmentRepository.cs" />
     <Compile Include="Repository\IFacultyRepository.cs" />
+    <Compile Include="Repository\IPersonRepository.cs" />
     <Compile Include="Repository\IPollRepository.cs" />
     <Compile Include="Repository\IStaffRepository.cs" />
     <Compile Include="Repository\IStudentRepository.cs" />
+    <Compile Include="Repository\PersonRepository.cs" />
     <Compile Include="Repository\PollRepository.cs" />
     <Compile Include="Repository\StaffRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
