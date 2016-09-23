@@ -15,29 +15,28 @@ namespace OnlineElection.Controllers
         // GET: Vote
         public ActionResult Index()
         {
-            //ViewData["Message"] = "Vote Name";
-            //ViewData["Description"] = "Vote Description";
+           
 
-            ////retreve data from database
-            //var candidates = new List<string>
-            //{
-            //    "Candidate 1",
-            //    "Candidate 2",
-            //    "Candidate 3",
-            //    "Candidate 4",
-            //    "Candidate 5",
-            //    "Candidate 6",
-            //    "Candidate 7",
-            //    "Candidate 8"
-            //};
-            //ViewBag.Candidates = candidates;
-
-            ViewBag.candidateList = _candidateRepository.GetAllCandidates();
+            //ViewBag.candidateList = _candidateRepository.GetAllCandidates();
             
             return View();
         }
 
-        
+
+        // GET: Vote
+        public ActionResult VotingPage()
+        {
+            ViewData["Message"] = "Vote Name";
+            ViewData["Description"] = "Vote Description";
+            string poll_id = "d9e2a9c5-e2ca-41b9-a811-adab5647a76f";
+
+
+
+            ViewBag.candidateList = _candidateRepository.GetPollSpecificCandidates(poll_id);
+
+            return View();
+        }
+
         // GET: Vote/Details/5
         public ActionResult Details(int id)
         {

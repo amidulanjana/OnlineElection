@@ -8,9 +8,10 @@ namespace OnlineElection.Domain.ViewModels
 {
     public class CandidateViewModel
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string CandidateName { get; set; }
         public string Address { get; set; }
         public string Telephone { get; set; }
+        
     }
 }

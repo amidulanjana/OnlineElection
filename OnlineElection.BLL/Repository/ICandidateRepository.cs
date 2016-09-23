@@ -11,5 +11,8 @@ namespace OnlineElection.BLL.Repository
     {
         IEnumerable<CandidateViewModel> GetAllCandidates();
         void InsertCandidate(CandidateViewModel _objCandidate);
+
+        //Sasindu
+        IEnumerable<CandidateDetailedViewModel> GetPollSpecificCandidates(string poll_ID);
     }
 }
