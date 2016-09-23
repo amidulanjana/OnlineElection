@@ -168,6 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountController1.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
@@ -183,8 +185,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\Images\user2.png" />
+    <Content Include="Content\materialize.css" />
+    <Content Include="Content\materialize.min.css" />
     <Content Include="Content\NewNavigation.css" />
     <Content Include="Content\voteDesign.css" />
     <Content Include="favicon.ico" />
@@ -193,6 +198,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="fonts\roboto\Roboto-Regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -201,6 +209,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\materialize.js" />
+    <Content Include="Scripts\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -219,18 +229,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account1\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account1\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account1\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account1\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account1\ForgotPassword.cshtml" />
+    <Content Include="Views\Account1\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account1\Login.cshtml" />
+    <Content Include="Views\Account1\Register.cshtml" />
+    <Content Include="Views\Account1\ResetPassword.cshtml" />
+    <Content Include="Views\Account1\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account1\SendCode.cshtml" />
+    <Content Include="Views\Account1\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -240,6 +250,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
+    <Content Include="Views\Candidate\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutAccount.cshtml" />
+    <Content Include="Views\Account\Register2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -251,6 +266,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineElection.BLL\OnlineElection.BLL.csproj">
+      <Project>{45774ebe-9c4e-4a70-8d25-a4f1ad5edb5e}</Project>
+      <Name>OnlineElection.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineElection.DAL\OnlineElection.DAL.csproj">
+      <Project>{b7b5f02a-3288-41d9-87e2-512cd76cd218}</Project>
+      <Name>OnlineElection.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineElection.Domain\OnlineElection.Domain.csproj">
+      <Project>{3d1822de-f20d-48a9-985b-c7c1544c5da0}</Project>
+      <Name>OnlineElection.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
