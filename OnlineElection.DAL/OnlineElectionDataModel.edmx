@@ -63,6 +63,7 @@
           <Property Name="SID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="AdminApproved" Type="bit" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -500,6 +501,7 @@
           <Property Name="SID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AdminApproved" Type="Boolean" />
         </EntityType>
         <Association Name="candidate_fk2">
           <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
@@ -655,6 +657,7 @@
           <EntitySetMapping Name="people">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
               <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="AdminApproved" ColumnName="AdminApproved" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="SID" ColumnName="SID" />
