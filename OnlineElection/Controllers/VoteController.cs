@@ -3,34 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OnlineElection.BLL.Repository;
 
 namespace OnlineElection.Controllers
 {
+    
     public class VoteController : Controller
     {
+        CandidateRepository _candidateRepository = new CandidateRepository();
+
         // GET: Vote
         public ActionResult Index()
         {
-            ViewData["Message"] = "Vote Name";
-            ViewData["Description"] = "Vote Description";
+            //ViewData["Message"] = "Vote Name";
+            //ViewData["Description"] = "Vote Description";
 
-            //retreve data from database
-            var candidates = new List<string>
-            {
-                "Candidate 1",
-                "Candidate 2",
-                "Candidate 3",
-                "Candidate 4",
-                "Candidate 5",
-                "Candidate 6",
-                "Candidate 7",
-                "Candidate 8"
-            };
-            ViewBag.Candidates = candidates;
+            ////retreve data from database
+            //var candidates = new List<string>
+            //{
+            //    "Candidate 1",
+            //    "Candidate 2",
+            //    "Candidate 3",
+            //    "Candidate 4",
+            //    "Candidate 5",
+            //    "Candidate 6",
+            //    "Candidate 7",
+            //    "Candidate 8"
+            //};
+            //ViewBag.Candidates = candidates;
+
+            ViewBag.candidateList = _candidateRepository.GetAllCandidates();
             
             return View();
         }
 
+        
         // GET: Vote/Details/5
         public ActionResult Details(int id)
         {
@@ -72,7 +79,7 @@ namespace OnlineElection.Controllers
             try
             {
                 // TODO: Add update logic here
-
+               // var query=from m in d
                 return RedirectToAction("Index");
             }
             catch
@@ -102,5 +109,8 @@ namespace OnlineElection.Controllers
                 return View();
             }
         }
+
+        
+     
     }
 }
