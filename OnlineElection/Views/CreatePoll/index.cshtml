@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "poll";
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+<body style="background-color:cornflowerblue">
+    <!--creation of the create Poll Form-->
+    <div class="card horizontal" style="margin-left:15%;margin-right:15%;">
+        <div class="panel panel-success" style="color:blue">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create Poll</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <form class="col s6">
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Poll Type</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <ul id="dropdown" class="dropdown-content">
+                                    <li><a href="#">BatchRep</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">EventCoordinator</a></li>
+                                </ul>
+                                <a class="btn dropdown-button" href="#" data-activates="dropdown" style="background-color:aliceblue;color:black;">Poll Type<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Poll Name</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <input id="icon_prefix" type="text" class="materialize-textarea">
+                                <label for="address">Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>No of candidates</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <i class="material-icons prefix">label</i>
+                                <input id="icon_prefix" type="number" class="materialize-textarea">
+                                <label for="address">No Of Candidates</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m4">
+                                <div class="card" style="background-color:aquamarine;">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Computing</span>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Year</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown3" class="dropdown-content">
+                                                    <li><a href="#">1st year</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">2nd year</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown3" style="background-color:aliceblue;color:black;">Year<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Batch</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown4" class="dropdown-content">
+                                                    <li><a href="#">Batch 1</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Batch 2</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown4" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m4">
+                                <div class="card" style="background-color:aquamarine;">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Business</span>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Year</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown5" class="dropdown-content">
+                                                    <li><a href="#">1st year</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">2nd year</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown5" style="background-color:aliceblue;color:black;">Year<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Batch</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown6" class="dropdown-content">
+                                                    <li><a href="#">Batch 1</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Batch 2</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown6" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m4">
+                                <div class="card" style="background-color:aquamarine;">
+                                    <div class="card-content white-text">
+                                        <span class="card-title">Engineering</span>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Year</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown7" class="dropdown-content">
+                                                    <li><a href="#">1st year</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">2nd year</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown7" style="background-color:aliceblue;color:black;">Year<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <label>Batch</label>
+                                            </div>
+                                            <div class="input-field col s8">
+                                                <ul id="dropdown8" class="dropdown-content">
+                                                    <li><a href="#">Batch 1</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Batch 2</a></li>
+                                                </ul>
+                                                <a class="btn dropdown-button" href="#" data-activates="dropdown8" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s3">
+                                <label>Poll Date</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <i class="material-icons prefix">today</i>
+                                <input id="icon_prefix" type="datetime-local" class="materialize-textarea">
+
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card-action">
+                        <a href="#">Create Poll</a>
+                        <a class="divider"></a>
+                        <a href="#">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+

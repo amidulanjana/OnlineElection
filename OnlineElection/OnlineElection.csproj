@@ -170,9 +170,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <Compile Include="Controllers\CreatePollController.cs" />
+=======
     <Compile Include="Controllers\AccountController1.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
+>>>>>>> refs/remotes/origin/BranchAmila
+=======
+    <Compile Include="Controllers\AccountController1.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
+>>>>>>> refs/remotes/origin/BranchAmila
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomeViewController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,6 +197,13 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <Content Include="Content\Images\election.jpg" />
+    <Content Include="Content\Images\images.jpg" />
+=======
+=======
+>>>>>>> refs/remotes/origin/BranchAmila
     <Content Include="Content\icons\create_poll.svg" />
     <Content Include="Content\icons\view_vote.svg" />
     <Content Include="Content\icons\vote.svg" />
@@ -196,6 +213,10 @@
     <Content Include="Content\icons\material-icons.css" />
     <Content Include="Content\icons\MaterialIcons-Regular.svg" />
     <Content Include="Content\Images\bg.jpg" />
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/BranchAmila
+=======
+>>>>>>> refs/remotes/origin/BranchAmila
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\Images\user2.png" />
     <Content Include="Content\materialize.css" />
@@ -284,6 +305,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Vote\Index.cshtml" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <Content Include="Views\CreatePoll\index.cshtml" />
+    <Content Include="Views\HomeView\index.cshtml" />
+=======
+=======
+>>>>>>> refs/remotes/origin/BranchAmila
     <Content Include="Views\Candidate\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -291,6 +319,10 @@
     <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/BranchAmila
+=======
+>>>>>>> refs/remotes/origin/BranchAmila
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
