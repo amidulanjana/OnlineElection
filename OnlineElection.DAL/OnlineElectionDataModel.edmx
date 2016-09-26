@@ -54,12 +54,15 @@
           <Key>
             <PropertyRef Name="Person_ID" />
           </Key>
-          <Property Name="Person_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Person_ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Phone" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="25" />
           <Property Name="FirstName" Type="varchar" MaxLength="25" />
           <Property Name="LastName" Type="varchar" MaxLength="25" />
           <Property Name="DOB" Type="datetime" />
+          <Property Name="SID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -286,9 +289,23 @@
             <End Role="Department" EntitySet="Departments" />
           </AssociationSet>
           <EntitySet Name="batches" EntityType="OnlineElectionDbModel.batch" />
-          <EntitySet Name="people" EntityType="OnlineElectionDbModel.person" />
           <EntitySet Name="poll_access" EntityType="OnlineElectionDbModel.poll_access" />
           <EntitySet Name="votes_person" EntityType="OnlineElectionDbModel.votes_person" />
+          <EntitySet Name="candidates" EntityType="OnlineElectionDbModel.candidate" />
+          <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
+          <AssociationSet Name="candidate_fk3" Association="OnlineElectionDbModel.candidate_fk3">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="candidate" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="votes_personfk3" Association="OnlineElectionDbModel.votes_personfk3">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="votes_person" EntitySet="votes_person" />
+          </AssociationSet>
+          <EntitySet Name="people" EntityType="OnlineElectionDbModel.person" />
+          <AssociationSet Name="candidate_fk2" Association="OnlineElectionDbModel.candidate_fk2">
+            <End Role="person" EntitySet="people" />
+            <End Role="candidate" EntitySet="candidates" />
+          </AssociationSet>
           <AssociationSet Name="staff_fk1" Association="OnlineElectionDbModel.staff_fk1">
             <End Role="person" EntitySet="people" />
             <End Role="staff" EntitySet="staffs" />
@@ -299,20 +316,6 @@
           </AssociationSet>
           <AssociationSet Name="votes_personfk2" Association="OnlineElectionDbModel.votes_personfk2">
             <End Role="person" EntitySet="people" />
-            <End Role="votes_person" EntitySet="votes_person" />
-          </AssociationSet>
-          <EntitySet Name="candidates" EntityType="OnlineElectionDbModel.candidate" />
-          <AssociationSet Name="candidate_fk2" Association="OnlineElectionDbModel.candidate_fk2">
-            <End Role="person" EntitySet="people" />
-            <End Role="candidate" EntitySet="candidates" />
-          </AssociationSet>
-          <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
-          <AssociationSet Name="candidate_fk3" Association="OnlineElectionDbModel.candidate_fk3">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="candidate" EntitySet="candidates" />
-          </AssociationSet>
-          <AssociationSet Name="votes_personfk3" Association="OnlineElectionDbModel.votes_personfk3">
-            <End Role="Poll" EntitySet="Polls" />
             <End Role="votes_person" EntitySet="votes_person" />
           </AssociationSet>
           </EntityContainer>
@@ -412,21 +415,6 @@
           <Property Name="Year" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="fac_ID" Type="Guid" />
         </EntityType>
-        <EntityType Name="person">
-          <Key>
-            <PropertyRef Name="Person_ID" />
-          </Key>
-          <Property Name="Person_ID" Type="Guid" Nullable="false" />
-          <Property Name="Phone" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DOB" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="staff" Relationship="OnlineElectionDbModel.staff_fk1" FromRole="person" ToRole="staff" />
-          <NavigationProperty Name="student" Relationship="OnlineElectionDbModel.stu_fk1" FromRole="person" ToRole="student" />
-          <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk2" FromRole="person" ToRole="votes_person" />
-          <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk2" FromRole="person" ToRole="candidate" />
-        </EntityType>
         <EntityType Name="poll_access">
           <Key>
             <PropertyRef Name="poll_ID" />
@@ -442,45 +430,9 @@
           <Property Name="Person_ID" Type="Guid" Nullable="false" />
           <Property Name="Poll_ID" Type="Guid" Nullable="false" />
           <Property Name="vote_date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.votes_personfk2" FromRole="votes_person" ToRole="person" />
           <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="votes_person" ToRole="Poll" />
+          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.votes_personfk2" FromRole="votes_person" ToRole="person" />
         </EntityType>
-        <Association Name="staff_fk1">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.staff" Role="staff" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Person_ID" />
-            </Principal>
-            <Dependent Role="staff">
-              <PropertyRef Name="Person_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="stu_fk1">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.student" Role="student" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Person_ID" />
-            </Principal>
-            <Dependent Role="student">
-              <PropertyRef Name="Person_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="votes_personfk2">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.votes_person" Role="votes_person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Person_ID" />
-            </Principal>
-            <Dependent Role="votes_person">
-              <PropertyRef Name="Person_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="candidate">
           <Key>
             <PropertyRef Name="Person_ID" />
@@ -489,21 +441,9 @@
           <Property Name="Person_ID" Type="Guid" Nullable="false" />
           <Property Name="Poll_ID" Type="Guid" Nullable="false" />
           <Property Name="vote_count" Type="Int32" />
-          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.candidate_fk2" FromRole="candidate" ToRole="person" />
           <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="candidate" ToRole="Poll" />
+          <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.candidate_fk2" FromRole="candidate" ToRole="person" />
         </EntityType>
-        <Association Name="candidate_fk2">
-          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.candidate" Role="candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="Person_ID" />
-            </Principal>
-            <Dependent Role="candidate">
-              <PropertyRef Name="Person_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Poll">
           <Key>
             <PropertyRef Name="ID" />
@@ -540,6 +480,72 @@
             </Principal>
             <Dependent Role="votes_person">
               <PropertyRef Name="Poll_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Person_ID" />
+          </Key>
+          <Property Name="Person_ID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk2" FromRole="person" ToRole="candidate" />
+          <NavigationProperty Name="staff" Relationship="OnlineElectionDbModel.staff_fk1" FromRole="person" ToRole="staff" />
+          <NavigationProperty Name="student" Relationship="OnlineElectionDbModel.stu_fk1" FromRole="person" ToRole="student" />
+          <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk2" FromRole="person" ToRole="votes_person" />
+          <Property Name="SID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="candidate_fk2">
+          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.candidate" Role="candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Person_ID" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="staff_fk1">
+          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.staff" Role="staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Person_ID" />
+            </Principal>
+            <Dependent Role="staff">
+              <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stu_fk1">
+          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.student" Role="student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Person_ID" />
+            </Principal>
+            <Dependent Role="student">
+              <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="votes_personfk2">
+          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.votes_person" Role="votes_person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Person_ID" />
+            </Principal>
+            <Dependent Role="votes_person">
+              <PropertyRef Name="Person_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -606,18 +612,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="people">
-            <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
-              <MappingFragment StoreEntitySet="person">
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="poll_access">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.poll_access">
               <MappingFragment StoreEntitySet="poll_access">
@@ -655,6 +649,21 @@
                 <ScalarProperty Name="starttime" ColumnName="starttime" />
                 <ScalarProperty Name="poll_date" ColumnName="poll_date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
