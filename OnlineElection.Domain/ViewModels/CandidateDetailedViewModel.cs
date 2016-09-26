@@ -18,5 +18,6 @@ namespace OnlineElection.Domain.ViewModels
         public string degree { get; set; }
         public string Telephone { get; set; }
         public string ImageUrl { get; set; }
+        public int vote_count { get; set; }
     }
 }

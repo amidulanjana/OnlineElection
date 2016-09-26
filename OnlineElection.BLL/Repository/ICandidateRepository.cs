@@ -14,5 +14,7 @@ namespace OnlineElection.BLL.Repository
 
         //Sasindu
         IEnumerable<CandidateDetailedViewModel> GetPollSpecificCandidates(string poll_ID);
+        //Sasindu
+        bool VoteStubmit(string loggedIn, string poll_id, string candidateID);
     }
 }

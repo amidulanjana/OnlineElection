@@ -22,7 +22,7 @@ namespace OnlineElection.Controllers
             return View();
         }
 
-
+        //Sasindu 
         // GET: Vote
         public ActionResult VotingPage()
         {
@@ -36,6 +36,34 @@ namespace OnlineElection.Controllers
 
             return View();
         }
+
+
+        //Sasindu
+        // POST: Vote/VoteSubmit
+        [HttpPost]
+        public ActionResult VoteSubmit()
+        {
+            try
+            {
+                //get the person ID of logged in student
+                string loggedid = "D358BC1A-F92E-4C5B-8F16-EE0C15086BE0";
+
+                //get the poll iD
+                string PollID = "d9e2a9c5-e2ca-41b9-a811-adab5647a76f";
+
+                //get the candidate ID
+                string candidateId = Request.Form["selctedCandidate"];
+                bool result = _candidateRepository.VoteStubmit(loggedid, PollID, candidateId);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
 
         // GET: Vote/Details/5
         public ActionResult Details(int id)

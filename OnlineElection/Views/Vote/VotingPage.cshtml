@@ -23,7 +23,7 @@
         <div class="col-sm-12" style="padding:10px;">
             <h4><b>Candidates List</b></h4>
         </div>
-        <form action="/home/VoteSubmit" method="post">
+        <form action="/Vote/VoteSubmit" method="post">
             <table class="myTable">
                 @foreach (var cand in ViewBag.candidateList as List<OnlineElection.Domain.ViewModels.CandidateDetailedViewModel>)
                 {

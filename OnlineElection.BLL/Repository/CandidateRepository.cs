@@ -73,6 +73,59 @@ namespace OnlineElection.BLL.Repository
             
         }
 
+        //Sasindu
+        public bool VoteStubmit(string loggedIn, string poll_id, string candidateID)
+        {
+            try
+            {
+                Guid poll = Guid.Parse(poll_id);
+                Guid cand = Guid.Parse(candidateID);
+                Guid user = Guid.Parse(loggedIn);
+                int votecount=0;
+                var _query = (from m in _dbContext.candidates
+                             where (m.Person_ID == cand &&
+                                m.Poll_ID == poll)
+                             select m);
+                foreach (var item in _query)
+                {
+                    votecount = (int)item.vote_count;
+                }
+
+                votecount = votecount + 1;
+                
+                //update candidate table with candidateID and vote count
+                var query =(from ord in _dbContext.candidates
+                            where (ord.Person_ID == cand &&
+                                    ord.Poll_ID == poll)
+                            select ord);
+                
+                foreach (var ord in query)
+                {
+                    ord.vote_count = votecount;
+                }
+                _dbContext.SaveChanges();
+
+
+                //update vote_person table with loggedIn and poll_id
+                votes_person newvotesP = new votes_person
+                {
+                    Person_ID = user,
+                    Poll_ID = poll,
+                    vote_date =  DateTime.Now
+                };
+
+                _dbContext.votes_person.Add(newvotesP);
+                _dbContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+        }
+
         public void InsertCandidate(CandidateViewModel _objCandidate)
         {
         }
