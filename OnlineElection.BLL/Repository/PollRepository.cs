@@ -8,9 +8,9 @@ namespace OnlineElection.BLL.Repository
 {
     public class PollRepository : IPollRepository
     {
-        public void InsertCandidate()
+        public void createPoll()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

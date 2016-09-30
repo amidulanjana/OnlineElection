@@ -8,6 +8,6 @@ namespace OnlineElection.BLL.Repository
 {
     public interface IPollRepository
     {
-        void InsertCandidate();
+        void createPoll();
     }
 }
