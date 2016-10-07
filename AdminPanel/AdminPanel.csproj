@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\build\" />
     <Folder Include="Content\vendors\animate.css\" />
     <Folder Include="Content\vendors\autosize\" />
     <Folder Include="Content\vendors\bootstrap-daterangepicker\" />
