@@ -25,10 +25,10 @@
             <div class="card-content">
                 <div class="card-title center-align"><h4>Login Form</h4></div>
                 <div class="row">
-                    @Html.BeginForm("Register", "Account", FormMethod.Post,new { @id = "form", @class = "col s12", novalidate = "novalidate" })
+                    @*@Html.BeginForm("Register", "Account", FormMethod.Post,new { @id = "form", @class = "col s12", novalidate = "novalidate" })
                     {
-                    @Html.AntiForgeryToken()
-                    @*<form id="form" class="col s12" novalidate="novalidate">*@
+                    @Html.AntiForgeryToken()*@
+                    <form id="form" class="col s12" novalidate="novalidate" method="post">
                         <div class="row">
 
                             <div class="input-field col s12">
@@ -39,8 +39,8 @@
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock_outline</i>
-                                <input id="field2" type="password"  required="" aria-required="true" class="validate" minlength="4">
-                                <label for="field2">Password</label>
+                                <input id="password" type="password" name="password"  required="" aria-required="true" class="validate" minlength="4">
+                                <label for="password">Password</label>
                             </div>
 
                             <div class="input-field col s12">
@@ -54,12 +54,23 @@
                             <div class="input-field col s6 m6 l6" style="margin-top:20px">
                                <a href="Register">Register Now</a>
                             </div>
-                            <div class="input-field col s6 m6 l6 " style="margin-top:20px">
+                            <div class="input-field col s6 m6 l6 " style="margin-bottom:10px">
                                 <a href="forgot-password.html">Forgot password?</a>
                             </div>
+                   
+                                
+                                <div class="input-field col s12 m12 l12 card-panel red red lighten-1" style="height:30px;margin-bottom:-30px" hidden id="showError">
+                                    <div class="row">
+                                        <div class="col l12 m12 s12 white-text" style="height:30px;position:center">
+                                            <h6 style="font-family:Roboto Condensed;" id="error"></h6>
+                                           
+                                        </div>
+                                       
+                                    </div>
+                            </div>
                         </div>
-                    @*</form>*@
-                    }
+                    </form>
+                    @*}*@
                 </div>
             </div>   
         </div>
@@ -77,8 +88,51 @@
                 .find("label[for='" + element.attr("id") + "']")
                 .attr('data-error', error.text());
         },
-        submitHandler: function (form) {
-            console.log('form ok');
+        submitHandler: function () {
+            
+            event.preventDefault();
+            var SID = $("[name='SID']").val();
+            var password = $("[name='password']").val();
+
+            var user = {
+
+                SID: SID,
+                password: password
+
+            }
+
+            // console.log(SID + " " + email + " " + password);
+
+            $.ajax({
+                type: 'POST',
+                url: 'Login',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                 
+                       // Materialize.toast('You will recieve an email by confirming </br> your request. Thank you !', 4000, 'blue')
+                    //alert(data.passwordVerify);
+                    if (!data.passwordVerify) {
+                        $("#showError").show();
+                        $('#error').html("");
+                        $('#error').html("Password is invalid");
+                    }
+                    else if (!data.adminApprove) {
+                        $("#showError").show();
+                        $('#error').html("");
+                        $('#error').html("Admin is not approved your account");
+                    }
+                    else {
+                        window.location.replace("LoggedIn");
+                    }
+
+                   
+                }
+
+            });
+
         }
     });
 

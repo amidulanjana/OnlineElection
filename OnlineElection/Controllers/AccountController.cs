@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineElection.Controllers
 {
+
     public class AccountController : Controller
     {
         PersonRepository repository = new PersonRepository();
@@ -32,14 +33,12 @@ namespace OnlineElection.Controllers
             person _person = new person();
             _person.SID = person.SID;
             _person.email = person.email;
-            _person.password = Crypto.SHA1(person.password);
-           
-            bool status;
-            if (!ModelState.IsValid) return Json(false,JsonRequestBehavior.AllowGet);
-            status=repository.registerPerson(_person);
+            _person.password = Crypto.HashPassword(person.password);
+            _person.AdminApproved = false;
 
-            //if (status) { ViewBag.Status = "Wait until admin approve"; }
-            //else { ViewBag.Status = "Dont know what to do"; }
+            bool status;
+            if (!ModelState.IsValid) return Json(false, JsonRequestBehavior.AllowGet);
+            status = repository.registerPerson(_person);
 
             return Json(status, JsonRequestBehavior.AllowGet);
 
@@ -50,7 +49,58 @@ namespace OnlineElection.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Login(person LoggedUser)
+        {
+            bool verify = false;
+            bool _adminApprove = false;
 
-        
+            if (!ModelState.IsValid) return Json(false, JsonRequestBehavior.AllowGet);
+            person _person = repository.LoggedUser(LoggedUser);
+
+            if (_person != null)
+            {
+                verify = Crypto.VerifyHashedPassword(_person.password, LoggedUser.password);
+            }
+
+            if (_person.AdminApproved != false)
+            {
+                _adminApprove = true;
+            }
+
+            if (verify == true && _adminApprove == true)
+            {
+              
+                Session["userID"] = _person.Person_ID.ToString();
+                Session["SID"] = _person.SID.ToString();
+                
+            }
+
+            var data = new
+            {
+                passwordVerify = verify,
+                adminApprove = _adminApprove
+
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult LoggedIn()
+        {
+            if (Session["userID"].ToString() == null) return View("Login");
+            
+            return RedirectToAction("Index","Home");
+            
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return View("Login");
+        }
+
+
     }
 }
