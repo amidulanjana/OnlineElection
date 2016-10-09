@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OnlineElection.Controllers
 {
+
     public class AccountController : Controller
     {
         PersonRepository repository = new PersonRepository();
@@ -38,9 +39,6 @@ namespace OnlineElection.Controllers
             bool status;
             if (!ModelState.IsValid) return Json(false, JsonRequestBehavior.AllowGet);
             status = repository.registerPerson(_person);
-
-            //if (status) { ViewBag.Status = "Wait until admin approve"; }
-            //else { ViewBag.Status = "Dont know what to do"; }
 
             return Json(status, JsonRequestBehavior.AllowGet);
 
@@ -72,9 +70,10 @@ namespace OnlineElection.Controllers
 
             if (verify == true && _adminApprove == true)
             {
-                this.Session["userID"] = _person.Person_ID.ToString();
-                this.Session["SID"] = _person.SID.ToString();
-               
+              
+                Session["userID"] = _person.Person_ID.ToString();
+                Session["SID"] = _person.SID.ToString();
+                
             }
 
             var data = new
@@ -90,13 +89,16 @@ namespace OnlineElection.Controllers
 
         public ActionResult LoggedIn()
         {
-            if (Session["userID"] != null)
-            {
-                RedirectToAction("Home/Index");
-               
-            }
+            if (Session["userID"].ToString() == null) return View("Login");
+            
+            return RedirectToAction("Index","Home");
+            
+        }
 
-            return RedirectToAction("Login");
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            return View("Login");
         }
 
 
