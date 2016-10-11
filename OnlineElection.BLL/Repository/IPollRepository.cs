@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineElection.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace OnlineElection.BLL.Repository
 {
     public interface IPollRepository
     {
-        void createPoll();
+        bool createPoll(Poll _objpoll);
     }
 }
