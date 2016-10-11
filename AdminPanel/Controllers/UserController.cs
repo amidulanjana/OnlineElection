@@ -17,7 +17,7 @@ namespace AdminPanel.Controllers
         public ActionResult AddUser()
         {
 
-            return View();
+            return View(); 
         }
     }
 }
