@@ -23,7 +23,11 @@ namespace OnlineElection.Controllers
         {
 
             Poll _poll = new Poll();
-            _poll.candidates = poll.candidates;
+            _poll.ID = poll.ID;
+            _poll.Name = poll.Name;
+            _poll.Type = poll.Type;
+            _poll.max_candidates = poll.max_candidates;
+            _poll.poll_date = poll.poll_date;
 
 
             bool status;
