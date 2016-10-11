@@ -282,6 +282,7 @@
     <Content Include="ViewsAdmin\User\AddUser.cshtml" />
     <Content Include="ViewsAdmin\User\ViewUsers.cshtml" />
     <Content Include="ViewsAdmin\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
