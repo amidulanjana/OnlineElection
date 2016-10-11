@@ -258,8 +258,8 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="ViewsAdmin\Web.config" />
+    <Content Include="ViewsAdmin\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
@@ -276,11 +276,12 @@
     <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
-    <Content Include="Views\AdminViews\Home\Index.cshtml" />
+    <Content Include="ViewsAdmin\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\AdminViews\User\AddUser.cshtml" />
-    <Content Include="Views\AdminViews\User\ViewUsers.cshtml" />
+    <Content Include="ViewsAdmin\User\AddUser.cshtml" />
+    <Content Include="ViewsAdmin\User\ViewUsers.cshtml" />
+    <Content Include="ViewsAdmin\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

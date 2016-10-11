@@ -11,7 +11,7 @@ namespace OnlineElection.Controllers.Admin
         // GET: Home
         public ActionResult Index()
         {
-            return View("~/Views/AdminViews/Home/Index.cshtml");
+            return View("~/ViewsAdmin/Home/Index.cshtml");
         }
     }
 }

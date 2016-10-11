@@ -20,12 +20,12 @@ namespace AdminPanel.Controllers
         public ActionResult AddUser()
         {
             person person = new person();
-            return View("~/Views/AdminViews/User/AddUser.cshtml");
+            return View("~/ViewsAdmin/User/AddUser.cshtml");
         }
 
         public ActionResult ViewUsers()
         {
-            return View("~/Views/AdminViews/User/ViewUsers.cshtml");
+            return View("~/ViewsAdmin/User/ViewUsers.cshtml");
         }
     }
 }
