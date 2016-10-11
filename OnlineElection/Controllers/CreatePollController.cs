@@ -21,8 +21,14 @@ namespace OnlineElection.Controllers
 
         public JsonResult Createpoll(Poll poll)
         {
-            bool status;
 
+            Poll _poll = new Poll();
+            _poll.candidates = poll.candidates;
+
+
+            bool status;
+            if (!ModelState.IsValid) return Json(false, JsonRequestBehavior.AllowGet);
+            status = Poll.createPoll(_poll);
             return Json(status, JsonRequestBehavior.AllowGet);
         }
     }
