@@ -171,6 +171,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountController1.cs" />
+    <Compile Include="Controllers\Admin\HomeController.cs" />
+    <Compile Include="Controllers\Admin\UserController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -263,18 +265,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
-    <Content Include="Views\Account1\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account1\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account1\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account1\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account1\ForgotPassword.cshtml" />
-    <Content Include="Views\Account1\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account1\Login.cshtml" />
-    <Content Include="Views\Account1\Register.cshtml" />
-    <Content Include="Views\Account1\ResetPassword.cshtml" />
-    <Content Include="Views\Account1\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account1\SendCode.cshtml" />
-    <Content Include="Views\Account1\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -287,13 +277,19 @@
     <Content Include="Views\Candidate\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
+    <Content Include="Views\AdminViews\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\build\" />
+    <Folder Include="Content\js\" />
+    <Folder Include="Content\vendors\" />
+    <Folder Include="Views\AdminViews\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
