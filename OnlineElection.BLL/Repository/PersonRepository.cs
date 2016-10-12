@@ -15,8 +15,6 @@ namespace OnlineElection.BLL.Repository
     {
         OnlineElectionEntities _dbContext = new OnlineElectionEntities();
 
-        public object Crypto { get; private set; }
-
         public bool registerPerson(person _objPerson)
         {
             _dbContext.people.Add(_objPerson);
@@ -61,6 +59,18 @@ namespace OnlineElection.BLL.Repository
             return null;
            
 
+        }
+
+        public bool IsSIDAvailable(string SID)
+        {
+
+            string _sid = (from u in _dbContext.people
+                          where u.SID == SID
+                          select u.SID).FirstOrDefault();
+
+            if (_sid != null) return true;
+
+            return false;
         }
     }
 }
