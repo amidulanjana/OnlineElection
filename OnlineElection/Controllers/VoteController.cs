@@ -7,7 +7,7 @@ using OnlineElection.BLL.Repository;
 
 namespace OnlineElection.Controllers
 {
-    
+
     public class VoteController : Controller
     {
         CandidateRepository _candidateRepository = new CandidateRepository();
@@ -15,29 +15,61 @@ namespace OnlineElection.Controllers
         // GET: Vote
         public ActionResult Index()
         {
-            //ViewData["Message"] = "Vote Name";
-            //ViewData["Description"] = "Vote Description";
 
-            ////retreve data from database
-            //var candidates = new List<string>
-            //{
-            //    "Candidate 1",
-            //    "Candidate 2",
-            //    "Candidate 3",
-            //    "Candidate 4",
-            //    "Candidate 5",
-            //    "Candidate 6",
-            //    "Candidate 7",
-            //    "Candidate 8"
-            //};
-            //ViewBag.Candidates = candidates;
 
-            ViewBag.candidateList = _candidateRepository.GetAllCandidates();
-            
+            //ViewBag.candidateList = _candidateRepository.GetAllCandidates();
+
             return View();
         }
 
-        
+        //Sasindu 
+        // GET: Vote
+
+        //please get vote id as a parameter
+        //public ActionResult VotingPage(string poll_id)
+        public ActionResult VotingPage()
+        {
+            ViewData["Message"] = "Vote Name";
+            ViewData["Description"] = "Vote Description";
+            string poll_id = "d9e2a9c5-e2ca-41b9-a811-adab5647a76f";
+
+            Session["pollID"] = poll_id;
+
+            ViewBag.candidateList = _candidateRepository.GetPollSpecificCandidates(poll_id);
+
+            return View();
+        }
+
+
+        //Sasindu
+        // POST: Vote/VoteSubmit
+        [HttpPost]
+        public ActionResult VoteSubmit()
+        {
+            try
+            {
+                //get the person ID of logged in student
+                string loggedid = "D358BC1A-F92E-4C5B-8F16-EE0C15086BE0";
+
+                //get the poll iD
+                //string PollID = "d9e2a9c5-e2ca-41b9-a811-adab5647a76f";
+                string PollID = (string)Session["pollID"];
+                //get the candidate ID
+                string candidateId = Request.Form["selctedCandidate"];
+                bool result = _candidateRepository.VoteStubmit(loggedid, PollID, candidateId);
+
+
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
         // GET: Vote/Details/5
         public ActionResult Details(int id)
         {
@@ -79,7 +111,7 @@ namespace OnlineElection.Controllers
             try
             {
                 // TODO: Add update logic here
-               // var query=from m in d
+                // var query=from m in d
                 return RedirectToAction("Index");
             }
             catch
@@ -110,7 +142,7 @@ namespace OnlineElection.Controllers
             }
         }
 
-        
-     
+
+
     }
 }
