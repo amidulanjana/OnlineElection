@@ -69,47 +69,43 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.student.semester)
                                 </td>
-                                <td>                                   
+                                <td>
                                     @item.AdminApproved
                                 </td>
                                 <td>
                                     @if (@item.AdminApproved == false)
                                     {
-                                        <span data-placement="top" data-toggle="tooltip" title="Approve"><button type="button" class="btn btn-success btn-xs" data-title="Approve" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-ok"></span></button></span>
+                                        <span data-placement="top" data-toggle="tooltip" title="Approve"><a href="@item.Person_ID" type="submit" id="approve" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span></a></span>
                                     }
                                     else
                                     {
-                                        <span data-placement="top" data-toggle="tooltip" title="Ignore"><button type="button" class="btn btn-warning btn-xs" data-title="Approve" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-warning-sign"></span></button></span>
+                                        <span data-placement="top" data-toggle="tooltip" title="Ignore"><a href="@item.Person_ID" type="submit" id="ignore" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></a></span>
                                     }
-                                    
-                                    <span data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></span>
+
+                                    <span data-placement="top" data-toggle="tooltip" title="Delete"><a href="@item.Person_ID" type="submit" id="delete" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></a></span>
                                 </td>
                             </tr>
                         }
-                        @*<button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="bs-example-modal-sm"><span class="glyphicon glyphicon-ok"></span></button>*@
+
                     </tbody>
                 </table>
-                
+
                 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
-
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
                             </div>
                             <div class="modal-body">
-                                <h4>Text in a modal</h4>
-                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
 
+                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,8 +131,36 @@
     <script src="~/Content/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
 
     <script>
-
+        //dataTable
         $('#datatable-checkbox').DataTable();
+
+        //Approve
+        $('#approve').on('click', function (e) {
+            //alert("ok");
+            e.preventDefault();
+            var hrefID = $(this).attr('href');
+            var user = {
+
+                Person_ID: hrefID,
+                AdminApproved: true
+            }
+            alert(hrefID);
+
+            $.ajax({
+                type: 'POST',
+                url: 'AdminApproveOrIgnore',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+
+                },
+                error: function (exception) { alert('Exeption:' + exception); }
+            });
+            e.preventDefault();
+        });
+
 
     </script>
 }

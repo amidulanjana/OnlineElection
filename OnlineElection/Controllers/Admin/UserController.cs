@@ -59,5 +59,20 @@ namespace AdminPanel.Controllers
             return Json(status, JsonRequestBehavior.AllowGet);
 
         }
+
+        //adminApproveOrIgnore
+        [HttpPost]
+        public JsonResult AdminApproveOrIgnore(person user)
+        {
+            _person = new person();
+            _person.Person_ID = user.Person_ID;
+            _person.AdminApproved = user.AdminApproved;
+
+            bool status = repository.AdminApproveOrIgnore(_person);
+
+            if (status) return Json(true,JsonRequestBehavior.AllowGet);
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
     }
 }

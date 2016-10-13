@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineElection.DAL;
-
-
-
-
+using System.Data.Entity;
 
 namespace OnlineElection.BLL.Repository
 {
@@ -36,8 +33,8 @@ namespace OnlineElection.BLL.Repository
             //_user.password
 
             var querySID = (from u in _dbContext.people
-                         where u.SID == User.SID
-                         select u.SID);
+                            where u.SID == User.SID
+                            select u.SID);
 
 
             if (querySID != null)
@@ -57,7 +54,7 @@ namespace OnlineElection.BLL.Repository
             }
 
             return null;
-           
+
 
         }
 
@@ -65,8 +62,8 @@ namespace OnlineElection.BLL.Repository
         {
 
             string _sid = (from u in _dbContext.people
-                          where u.SID == SID
-                          select u.SID).FirstOrDefault();
+                           where u.SID == SID
+                           select u.SID).FirstOrDefault();
 
             if (_sid != null) return true;
 
@@ -76,6 +73,22 @@ namespace OnlineElection.BLL.Repository
         public List<person> GetAll()
         {
             return _dbContext.people.ToList();
+        }
+
+        public bool AdminApproveOrIgnore(person user)
+        {
+            person ToUpdatePerson = (from p in _dbContext.people
+                                     where p.Person_ID == user.Person_ID
+                                     select p).SingleOrDefault();
+            ToUpdatePerson.AdminApproved = true;
+            _dbContext.SaveChanges();
+
+            if (_dbContext.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
