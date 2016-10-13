@@ -42,7 +42,9 @@
                             <th>SID</th>
                             <th>First Name</th>
                             <th>Email</th>
+                            <th>Year</th>
                             <th>Semester</th>
+                            <th>Approve</th>
                             <th>Respond</th>
                         </tr>
                     </thead>
@@ -57,24 +59,61 @@
                                     @Html.DisplayFor(modelItem => item.SID)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.FirstName)
-                                </td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
                                 <td>
                                     @Html.DisplayFor(modelItem => item.email)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.student.semester)
+                                    @Html.DisplayFor(modelItem => item.student.Year)
                                 </td>
                                 <td>
-                                    <span data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-ok"></span></button></span>
+                                    @Html.DisplayFor(modelItem => item.student.semester)
+                                </td>
+                                <td>                                   
+                                    @item.AdminApproved
+                                </td>
+                                <td>
+                                    @if (@item.AdminApproved == false)
+                                    {
+                                        <span data-placement="top" data-toggle="tooltip" title="Approve"><button type="button" class="btn btn-success btn-xs" data-title="Approve" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-ok"></span></button></span>
+                                    }
+                                    else
+                                    {
+                                        <span data-placement="top" data-toggle="tooltip" title="Ignore"><button type="button" class="btn btn-warning btn-xs" data-title="Approve" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-warning-sign"></span></button></span>
+                                    }
+                                    
                                     <span data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button></span>
                                 </td>
                             </tr>
                         }
-
-
+                        @*<button class="btn btn-success btn-xs" data-title="Edit" data-toggle="modal" data-target="bs-example-modal-sm"><span class="glyphicon glyphicon-ok"></span></button>*@
                     </tbody>
                 </table>
+                
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Text in a modal</h4>
+                                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
