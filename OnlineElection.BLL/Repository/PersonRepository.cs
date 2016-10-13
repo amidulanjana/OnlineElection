@@ -72,5 +72,10 @@ namespace OnlineElection.BLL.Repository
 
             return false;
         }
+
+        public List<person> GetAll()
+        {
+            return _dbContext.people.ToList();
+        }
     }
 }

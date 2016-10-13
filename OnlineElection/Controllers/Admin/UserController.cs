@@ -12,6 +12,7 @@ namespace AdminPanel.Controllers
     public class UserController : Controller
     {
         PersonRepository repository = new PersonRepository();
+        person _person;
         // GET: User
         //public ActionResult Index()
         //{
@@ -20,21 +21,19 @@ namespace AdminPanel.Controllers
 
         public ActionResult AddUser()
         {
-            person person = new person();
+            
             return View("~/ViewsAdmin/User/AddUser.cshtml");
         }
 
         public ActionResult ViewUsers()
         {
-            return View("~/ViewsAdmin/User/ViewUsers.cshtml");
+            return View("~/ViewsAdmin/User/ViewUsers.cshtml",repository.GetAll());
         }
 
         [HttpPost]
         public JsonResult IsSIDAvaliable(string SID)
         {
-            //person _person = new person();
-            //string SID = user.SID;
-
+           
             bool isAvailable = repository.IsSIDAvailable(SID);
 
             if (isAvailable) return Json(new { valid = false }, JsonRequestBehavior.AllowGet);
@@ -46,7 +45,7 @@ namespace AdminPanel.Controllers
         [HttpPost]
         public JsonResult RegisterUser(person person)
         {
-            person _person = new person();
+            _person = new person();
             _person.SID = person.SID;
             _person.FirstName = person.FirstName;
             _person.password = Crypto.HashPassword(person.password);
