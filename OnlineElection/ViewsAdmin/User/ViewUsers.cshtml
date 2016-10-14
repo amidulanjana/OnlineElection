@@ -69,20 +69,26 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.student.semester)
                                 </td>
-                                <td>
+                                <td id="@item.Person_ID">
                                     @item.AdminApproved
                                 </td>
-                                <td>
+                                <td class="@item.Person_ID">
                                     @if (@item.AdminApproved == false)
                                     {
-                                        <span data-placement="top" data-toggle="tooltip" title="Approve"><a href="@item.Person_ID" type="submit" id="approve" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span></a></span>
+                                        <span data-placement="top" data-toggle="tooltip" title="Approve">
+                                            <button onclick="approve(this)" data-assigned-id="@item.Person_ID" type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
+                                        </span>
                                     }
                                     else
                                     {
-                                        <span data-placement="top" data-toggle="tooltip" title="Ignore"><a href="@item.Person_ID" type="submit" id="ignore" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></a></span>
+                                        <span data-placement="top" data-toggle="tooltip" title="Ignore">
+                                            <button type="submit" id="ignore" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></button>
+                                        </span>
                                     }
 
-                                    <span data-placement="top" data-toggle="tooltip" title="Delete"><a href="@item.Person_ID" type="submit" id="delete" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></a></span>
+                                    <span data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button type="submit" id="delete" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </span>
                                 </td>
                             </tr>
                         }
@@ -134,17 +140,16 @@
         //dataTable
         $('#datatable-checkbox').DataTable();
 
-        //Approve
-        $('#approve').on('click', function (e) {
-            //alert("ok");
-            e.preventDefault();
-            var hrefID = $(this).attr('href');
+        //Approve        
+        function approve(elem) {
+            
+            var id = $(elem).data('assigned-id');
             var user = {
 
-                Person_ID: hrefID,
+                Person_ID: id,
                 AdminApproved: true
             }
-            alert(hrefID);
+            //alert(hrefID);
 
             $.ajax({
                 type: 'POST',
@@ -154,12 +159,22 @@
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
+                    $('#' + id).html("True");
+                    $('.' + id).html(
+                        '<span data-placement="top" data-toggle="tooltip" title="Ignore">' +
+                            '<button type="submit" data-assigned-id="'+id+'" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></button>' +
+                        '</span>' +
+                        '<span data-placement="top" data-toggle="tooltip" title="Delete">' +
+                            '<button type="submit" data-assigned-id="'+id+'"  class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></button>' +
+                        '</span>'
+
+                        );
 
                 },
                 error: function (exception) { alert('Exeption:' + exception); }
             });
-            e.preventDefault();
-        });
+           
+        }
 
 
     </script>
