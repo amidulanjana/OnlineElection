@@ -11,7 +11,7 @@
 
 
 <body style="background-color:cornflowerblue">
-
+    
     <!--creation of the create Poll Form-->
     <div class="card horizontal" style="margin-left:15%;margin-right:15%;">
         <div class="card-stacked">
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                 <div class="card-action">
-                    <a href="#">Create Poll</a>
+                    <a href="#"><input type="submit" class="btn-success" value="createPoll" onclick="poll()"></a>
                     <a class="divider"></a>
                     <a href="#">Cancel</a>
                 </div>
@@ -231,6 +231,10 @@
         image: '', //optional
         id: 1, //optional
     };
+    function poll()
+    {
+        alert("success");
+    }
 </script>
 
 
