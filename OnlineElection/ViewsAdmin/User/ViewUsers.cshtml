@@ -1,6 +1,4 @@
-﻿@model IEnumerable<OnlineElection.DAL.person>
-
-@{
+﻿@{
     ViewBag.Title = "ViewUsers";
     Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
 }
@@ -85,10 +83,7 @@
 
         $(document).ready(function () {
 
-            //dataTable
-            $('#datatable-checkbox').DataTable();
-
-            getAllUsers();
+            getAllUsers();            
 
         });
 
@@ -188,6 +183,8 @@
                 dataType: 'html',
                 success: function (data) {
                     $('#myPartialContainer').html(data);
+                    //dataTable
+                    $('#datatable-checkbox').DataTable();
                 }
             });
 

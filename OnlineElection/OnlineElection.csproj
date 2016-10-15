@@ -172,6 +172,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountController1.cs" />
     <Compile Include="Controllers\Admin\HomeController.cs" />
+    <Compile Include="Controllers\Admin\PollsController.cs" />
     <Compile Include="Controllers\Admin\UserController.cs" />
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -283,13 +284,14 @@
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="ViewsAdmin\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="ViewsAdmin\User\AddUser.cshtml" />
     <Content Include="ViewsAdmin\User\ViewUsers.cshtml" />
     <Content Include="ViewsAdmin\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="ViewsAdmin\User\_TableViewUsers.cshtml" />
+    <Content Include="ViewsAdmin\Polls\CreatePoll.cshtml" />
+    <Content Include="ViewsAdmin\Polls\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

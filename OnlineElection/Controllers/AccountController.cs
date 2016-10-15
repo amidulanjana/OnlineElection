@@ -54,6 +54,7 @@ namespace OnlineElection.Controllers
         {
             bool verify = false;
             bool _adminApprove = false;
+            
 
             if (!ModelState.IsValid) return Json(false, JsonRequestBehavior.AllowGet);
             person _person = repository.LoggedUser(LoggedUser);
@@ -61,29 +62,31 @@ namespace OnlineElection.Controllers
             if (_person != null)
             {
                 verify = Crypto.VerifyHashedPassword(_person.password, LoggedUser.password);
+
+
+                if (_person.AdminApproved != false)
+                {
+                    _adminApprove = true;
+                }
+
+                if (verify == true && _adminApprove == true)
+                {
+
+                    Session["userID"] = _person.Person_ID.ToString();
+                    Session["SID"] = _person.SID.ToString();
+
+                }
+                var data = new
+                {
+                    passwordVerify = verify,
+                    adminApprove = _adminApprove
+
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
 
-            if (_person.AdminApproved != false)
-            {
-                _adminApprove = true;
-            }
-
-            if (verify == true && _adminApprove == true)
-            {
-              
-                Session["userID"] = _person.Person_ID.ToString();
-                Session["SID"] = _person.SID.ToString();
-                
-            }
-
-            var data = new
-            {
-                passwordVerify = verify,
-                adminApprove = _adminApprove
-
-            };
-
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(new { userFound=false }, JsonRequestBehavior.AllowGet);
 
         }
 
