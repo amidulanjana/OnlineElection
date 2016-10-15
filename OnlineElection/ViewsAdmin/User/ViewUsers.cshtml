@@ -35,67 +35,12 @@
                 <p class="text-muted font-13 m-b-30">
                     Admin can Delete or Accept User request
                 </p>
-                <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="check-all" class="flat"></th>
-                            <th>SID</th>
-                            <th>First Name</th>
-                            <th>Email</th>
-                            <th>Year</th>
-                            <th>Semester</th>
-                            <th>Approve</th>
-                            <th>Respond</th>
-                        </tr>
-                    </thead>
+                <div id="myPartialContainer">
 
+                    @* Load _TableViewUsers partial view using ajax *@
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td><input type="checkbox" class="flat" name="table_records"></td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FullName)
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.student.Year)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.student.semester)
-                                </td>
-                                <td id="@item.Person_ID">
-                                    @item.AdminApproved
-                                </td>
-                                <td class="@item.Person_ID">
-                                    @if (@item.AdminApproved == false)
-                                    {
-                                        <span data-placement="top" data-toggle="tooltip" title="Approve">
-                                            <button onclick="approve(this)" data-assigned-id="@item.Person_ID" type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span data-placement="top" data-toggle="tooltip" title="Ignore">
-                                            <button type="submit" id="ignore" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></button>
-                                        </span>
-                                    }
-
-                                    <span data-placement="top" data-toggle="tooltip" title="Delete">
-                                        <button type="submit" id="delete" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></button>
-                                    </span>
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-
+                </div>
+                
                 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -137,19 +82,27 @@
     <script src="~/Content/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
 
     <script>
-        //dataTable
-        $('#datatable-checkbox').DataTable();
 
-        //Approve        
+        $(document).ready(function () {
+
+            //dataTable
+            $('#datatable-checkbox').DataTable();
+
+            getAllUsers();
+
+        });
+
+        
+        //Admin Approve
+        //this method call in onclick method
         function approve(elem) {
-            
+
             var id = $(elem).data('assigned-id');
             var user = {
 
                 Person_ID: id,
                 AdminApproved: true
             }
-            //alert(hrefID);
 
             $.ajax({
                 type: 'POST',
@@ -159,22 +112,76 @@
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
-                    $('#' + id).html("True");
-                    $('.' + id).html(
-                        '<span data-placement="top" data-toggle="tooltip" title="Ignore">' +
-                            '<button type="submit" data-assigned-id="'+id+'" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-warning-sign"></span></button>' +
-                        '</span>' +
-                        '<span data-placement="top" data-toggle="tooltip" title="Delete">' +
-                            '<button type="submit" data-assigned-id="'+id+'"  class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-trash"></span></button>' +
-                        '</span>'
-
-                        );
-
+                    data ? getAllUsers() : alert("Theres some problem in server");
                 },
-                error: function (exception) { alert('Exeption:' + exception); }
+                error: function (exception) { console.log('Exeption:' + exception); }
             });
-           
+        }       
+
+        //Admin Ignore
+        //this method call in onclick method
+        function ignore(elem) {
+
+            var id = $(elem).data('assigned-id');
+            var user = {
+
+                Person_ID: id,
+                AdminApproved: false
+            }
+            
+            $.ajax({
+                type: 'POST',
+                url: 'AdminApproveOrIgnore',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    data ? getAllUsers() : alert("Theres some problem in server");                    
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
         }
+
+        //Delete User
+        //this method call in onclick method
+        function DeleteUser(elem) {
+            var id = $(elem).data('assigned-id');
+
+            $.ajax({
+                type: 'POST',
+                url: 'DeleteUser',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    data ? getAllUsers() : alert("Theres some problem in server");
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
+
+        }
+
+
+
+        //Dispaly all the users details in tabel
+        //This method call in ready function
+        function getAllUsers() {
+
+            $.ajax({
+                url: 'GetAllUsers',
+                type: 'post',
+                dataType: 'html',
+                success: function (data) {
+                    $('#myPartialContainer').html(data);
+                }
+            });
+
+        }
+
 
 
     </script>

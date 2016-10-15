@@ -27,8 +27,15 @@ namespace AdminPanel.Controllers
 
         public ActionResult ViewUsers()
         {
-            return View("~/ViewsAdmin/User/ViewUsers.cshtml",repository.GetAll());
+            return View("~/ViewsAdmin/User/ViewUsers.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult GetAllUsers()
+        {
+            return PartialView("~/ViewsAdmin/User/_TableViewUsers.cshtml", repository.GetAll());
+        }
+
 
         [HttpPost]
         public JsonResult IsSIDAvaliable(string SID)
@@ -69,6 +76,16 @@ namespace AdminPanel.Controllers
             _person.AdminApproved = user.AdminApproved;
 
             bool status = repository.AdminApproveOrIgnore(_person);
+
+            if (status) return Json(true,JsonRequestBehavior.AllowGet);
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteUser(Guid id)
+        {
+            bool status = repository.DeleteUser(id);
 
             if (status) return Json(true,JsonRequestBehavior.AllowGet);
 
