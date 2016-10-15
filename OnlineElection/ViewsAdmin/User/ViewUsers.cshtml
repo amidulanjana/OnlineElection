@@ -54,7 +54,7 @@
 
                             </div>
                             <div class="modal-footer ">
-                                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                <button type="button" onclick="DeleteUser(this)" id="deleteButton" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
                             </div>
                         </div>
@@ -144,20 +144,31 @@
 
         }
 
+
+        function assignIDModel(elem) {
+            var ID = $(elem).data('assigned-id');
+            $('#deleteButton').data('assigned-id', ID);
+            console.log(ID);
+        }
+
+
         //Delete User
         //this method call in onclick method
         function DeleteUser(elem) {
             var id = $(elem).data('assigned-id');
+            
 
             $.ajax({
-                type: 'POST',
+                
                 url: 'DeleteUser',
                 contentType: 'application/json',
-                data: JSON.stringify(user),
+                data: { id: id },
+                type: 'GET',
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
-                    data ? getAllUsers() : alert("Theres some problem in server");
+                    data ? (getAllUsers(), $('.bs-example-modal-sm').modal('toggle')) : alert("Theres some problem in server");
+                    
                 },
                 error: function (exception) { console.log('Exeption:' + exception); }
             });

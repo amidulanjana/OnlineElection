@@ -81,7 +81,6 @@ namespace OnlineElection.BLL.Repository
                                      where p.Person_ID == user.Person_ID
                                      select p).SingleOrDefault();
             ToUpdatePerson.AdminApproved = user.AdminApproved;
-            _dbContext.SaveChanges();
 
             if (_dbContext.SaveChanges() > 0)
             {
@@ -93,9 +92,11 @@ namespace OnlineElection.BLL.Repository
 
         public bool DeleteUser(Guid ID)
         {
-            _dbContext.people.Remove(new person { Person_ID=ID});
-            _dbContext.SaveChanges();
-
+            person ToDeletePerson = (from p in _dbContext.people
+                                     where p.Person_ID == ID
+                                     select p).SingleOrDefault();
+            _dbContext.people.Remove(ToDeletePerson);
+         
             if (_dbContext.SaveChanges() > 0)
             {
                 return true;

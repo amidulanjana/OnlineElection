@@ -82,10 +82,12 @@ namespace AdminPanel.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult DeleteUser(Guid id)
+        [HttpGet]
+        public JsonResult DeleteUser(string id)
         {
-            bool status = repository.DeleteUser(id);
+            Guid userID = Guid.Parse(id);
+
+            bool status = repository.DeleteUser(userID);
 
             if (status) return Json(true,JsonRequestBehavior.AllowGet);
 
