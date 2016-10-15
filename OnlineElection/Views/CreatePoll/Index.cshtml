@@ -13,10 +13,11 @@
 <body style="background-color:cornflowerblue">
     
     <!--creation of the create Poll Form-->
-    <div class="card horizontal" style="margin-left:15%;margin-right:15%;">
-        <div class="card-stacked">
-            <div class="card-content">
-                <span class="card-title">create poll</span>
+    <form method="post" id="form1" >
+        <div class="card horizontal" style="margin-left:15%;margin-right:15%;">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <span class="card-title">create poll</span>
                     <div class="row">
                         <div class="input-field col s3">
                             <label>Poll Type</label>
@@ -29,20 +30,7 @@
                                     <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
                                     <label for="report_topics_409928004">Batch Rep</label>
                                 </div>
-                                <!-- etc. -->
-
                             </div>
-                             @*<a class="btn dropdown-button" href="#" data-activates="dropdown" style="background-color:aliceblue;color:black;">Poll Type<i class="mdi-navigation-arrow-drop-down right"></i></a>
-                            <ul id='dropdown' class='dropdown-content'>
-                                <li>
-                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
-                                    <label for="report_topics_409928004">Engagement</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
-                                    <label for="report_topics_669658064">Appraisal</label>
-                                </li>
-                            </ul>*@                           
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +39,7 @@
                         </div>
                         <div class="input-field col s8">
                             <i class="material-icons prefix">mode_edit</i>
-                            <input id="Name" name="Name"   type="text" class="materialize-textarea">
+                            <input id="Name" name="Name" type="text" class="materialize-textarea" required="" aria-required="true">
                             <label for="address">Name</label>
                         </div>
                     </div>
@@ -61,12 +49,12 @@
                         </div>
                         <div class="input-field col s8">
                             <i class="material-icons prefix">label</i>
-                            <input id="max_candidates" name="max_candidates"  type="number" class="materialize-textarea">
+                            <input id="max_candidates" name="max_candidates" type="number" class="materialize-textarea">
                             <label for="address">No Of Candidates</label>
                         </div>
                     </div>
-                <label for="Name">Name of Candidates</label>
-                <div class="chips chips-placeholder"></div>
+                    <label for="Name">Name of Candidates</label>
+                    <div class="chips chips-placeholder"></div>
                     <div class="row">
                         <div class="col s12 m4">
                             <div class="card" style="background-color:aquamarine;">
@@ -84,13 +72,13 @@
                                                     <label for="report_topics_669658064">1st Year</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658066]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658066]" id="report_topics_669658064" value="2" />
                                                     <label for="report_topics_669658064">2nd Year</label>
                                                 </li>
-                                            </ul>                    
+                                            </ul>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="input-field col s3">
                                             <label>Batch</label>
@@ -99,15 +87,15 @@
                                             <a class="btn dropdown-button" href="#" data-activates="dropdown4" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                             <ul id='dropdown4' class='dropdown-content'>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="3" />
                                                     <label for="report_topics_409928004">batch1</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="4" />
                                                     <label for="report_topics_669658064">batch2</label>
                                                 </li>
-                                            </ul>          
-                                         
+                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -124,14 +112,14 @@
                                         <div class="input-field col s8">
                                             <ul id='dropdown5' class='dropdown-content'>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="5" />
                                                     <label for="report_topics_409928004">year1</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="6" />
                                                     <label for="report_topics_669658064">year2</label>
                                                 </li>
-                                            </ul>          
+                                            </ul>
                                             <a class="btn dropdown-button" href="#" data-activates="dropdown5" style="background-color:aliceblue;color:black;">Year<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                         </div>
                                     </div>
@@ -142,14 +130,14 @@
                                         <div class="input-field col s8">
                                             <ul id='dropdown6' class='dropdown-content'>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="7" />
                                                     <label for="report_topics_409928004">batch 1</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="8" />
                                                     <label for="report_topics_669658064">batch2</label>
                                                 </li>
-                                            </ul>          
+                                            </ul>
                                             <a class="btn dropdown-button" href="#" data-activates="dropdown6" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                         </div>
                                     </div>
@@ -167,14 +155,14 @@
                                         <div class="input-field col s8">
                                             <ul id='dropdown7' class='dropdown-content'>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="9" />
                                                     <label for="report_topics_409928004">year 1</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="10" />
                                                     <label for="report_topics_669658064">year 2</label>
                                                 </li>
-                                            </ul>          
+                                            </ul>
                                             <a class="btn dropdown-button" href="#" data-activates="dropdown7" style="background-color:aliceblue;color:black;">Year<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                         </div>
                                     </div>
@@ -186,14 +174,14 @@
                                         <div class="input-field col s8">
                                             <ul id='dropdown8' class='dropdown-content'>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="1" />
+                                                    <input type="checkbox" name="report[topics][409928004]" id="report_topics_409928004" value="11" />
                                                     <label for="report_topics_409928004">batch 1</label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="1" />
+                                                    <input type="checkbox" name="report[topics][669658064]" id="report_topics_669658064" value="12" />
                                                     <label for="report_topics_669658064">batch 2</label>
                                                 </li>
-                                            </ul>          
+                                            </ul>
                                             <a class="btn dropdown-button" href="#" data-activates="dropdown8" style="background-color:aliceblue;color:black;">Batch<i class="mdi-navigation-arrow-drop-down right"></i></a>
                                         </div>
                                     </div>
@@ -211,14 +199,20 @@
 
                         </div>
                     </div>
-                <div class="card-action">
-                    <a href="#"><input type="submit" class="btn-success" value="createPoll" onclick="poll()"></a>
-                    <a class="divider"></a>
-                    <a href="#">Cancel</a>
+                    <div class="card-action">
+                        <div class="input-field col s6 m6 l6" style="margin-top:20px">
+                            <a href="" onclick="poll()">CreatePoll</a>
+                        </div>
+                       
+                        <div class="input-field col s6 m6 l6" style="margin-top:20px">
+                            <a href="">Cancel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+    
 </body>
 
 <script>
@@ -233,7 +227,13 @@
     };
     function poll()
     {
-        alert("success");
+        //alert("success")
+        
+        if(name.length==0)
+        {
+            alert("error")
+         }
+        
     }
 </script>
 
