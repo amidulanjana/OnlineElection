@@ -4,15 +4,13 @@
 }
 
 
-@{
-    ViewBag.Title = "AddUser";
-    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
-}
 
 @section Styles {
     <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
     <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
+
 }
+
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -48,7 +46,7 @@
                     </button>
                     <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
                 </div>
-                <form id="AddUserForm" method="post" action="target.php" class="form-horizontal">                  
+                <form id="AddUserForm" method="post" action="" class="form-horizontal">
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Poll Type</label>
@@ -57,7 +55,22 @@
                                 <option>Batch Rep</option>
                                 <option>SIS President</option>
                                 <option></option>
-                               
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Multiple</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="select2_multiple form-control" multiple="multiple" id="candidates">
+                                @*<option>Choose option</option>
+                                    <option>Option one</option>
+                                    <option>Option two</option>
+                                    <option>Option three</option>
+                                    <option>Option four</option>
+                                    <option>Option five</option>
+                                    <option>Option six</option>*@
                             </select>
                         </div>
                     </div>
@@ -83,10 +96,17 @@
                         </div>
                     </div>
 
+
+
+
+
+
+
+
                     <div class="form-group" id="year" style="display:none">
                         <label class="col-lg-3 control-label">Year</label>
                         <div class="col-lg-5">
-                            <input type="text" class="form-control" name="year"  />
+                            <input type="text" class="form-control" name="year" />
                         </div>
                     </div>
 
@@ -104,9 +124,35 @@
 @section Scripts
 {
     <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
+    <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
+
+
     <script>
 
+        function getCandidates() {
+            $.ajax({
+                url: 'GetCandidates',
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    console.log(data);
+                    $('#candidates').html(data);
+                }
+            });
+        }
+
         $(document).ready(function () {
+
+
+
+            $(".select2_group").select2({});
+            $(".select2_multiple").select2({
+                allowClear: true
+            });
+
+
+            getCandidates();
+
 
             $('#category').on('change', function () {
                 var myValue = $(this).val();

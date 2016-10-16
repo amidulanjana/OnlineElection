@@ -292,6 +292,7 @@
     <Content Include="ViewsAdmin\User\_TableViewUsers.cshtml" />
     <Content Include="ViewsAdmin\Polls\CreatePoll.cshtml" />
     <Content Include="ViewsAdmin\Polls\Index.cshtml" />
+    <Content Include="ViewsAdmin\Polls\_GetCandidates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
