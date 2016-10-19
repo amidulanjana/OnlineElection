@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <label for="Name">Name of Candidates</label>
-                    <div class="chips chips-placeholder"></div>
+                    <div class="chips chips-placeholder" ></div>
                     <div class="row">
                         <div class="col s12 m4">
                             <div class="card" style="background-color:aquamarine;">
@@ -179,6 +179,24 @@
 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="input-field col s2">
+                            <label>StartTime</label>
+                        </div>
+                        <div class="input-field col s3">
+                            @*<i class="material-icons prefix">today</i>*@
+                            <input id="startTime" type="time" class="glyphicon-time">
+
+                        </div>
+                        <div class="input-field col s2">
+                            <label>EndTime</label>
+                        </div>
+                        <div class="input-field col s3">
+                            @*<i class="material-icons prefix">today</i>*@
+                            <input id="endTime" type="time" class="glyphicon-time" >
+
+                        </div>
+                    </div>
                     <div class="card-action">
                         <div class="input-field col s6 m6 l6" style="margin-top:20px">
                             <a href="" onclick="poll()">CreatePoll</a>
@@ -223,29 +241,29 @@
 
     function poll()
     {
-        //alert("reached")
+       
       
         //    var selectedValues = [];
         //    $("#pollType :selected").each(function () {
         //        selectedValues.push($(this).text());
         //    });
-        //    alert(selectedValues);
-        //    return false;
+        
        
-        if (document.getElementById('polldate').value == "")
-        {
-            alert("please add date")
-        }
-        else
-        {
-            alert("success")
+        //if (document.getElementById('polldate').value == "")
+        //{
+        //    alert("please add date")
+        //    console.error("please select a date")
+        //}
+        //else
+        //{
             
-        }
+            
+        //}
 
 
             $.ajax({
                 type: 'POST',
-                url: 'Index',
+                url: 'Createpoll',
                 contentType: 'application/json',
                 data: JSON.stringify(user),
                 dataType: 'Json',
@@ -258,8 +276,6 @@
                     alert("success")
 
                 }
-
-
             });
  
    

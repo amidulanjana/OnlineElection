@@ -23,7 +23,6 @@ namespace OnlineElection.Controllers
         {
 
             Poll _poll = new Poll();
-            _poll.ID = poll.ID;
             _poll.Name = poll.Name;
             _poll.Type = poll.Type;
             _poll.max_candidates = poll.max_candidates;
@@ -35,5 +34,7 @@ namespace OnlineElection.Controllers
             status = Poll.createPoll(_poll);
             return Json(status, JsonRequestBehavior.AllowGet);
         }
+
+        
     }
 }
