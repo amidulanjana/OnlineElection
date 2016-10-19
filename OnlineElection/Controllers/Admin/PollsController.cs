@@ -1,4 +1,5 @@
 ﻿using OnlineElection.BLL.Repository;
+using OnlineElection.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace OnlineElection.Controllers.Admin
         public ActionResult GetCandidates()
         {
             return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", repository.GetAll());
+        }
+
+        public JsonResult CreatePoll(PollModel polls)
+        {
+            
         }
     }
 }
