@@ -24,9 +24,7 @@
                         </div>
                         <div class="input-field col s8" id="pollType" >                       
                             <select name="poll1"  multiple>
-                                <option value="" disabled selected>pollType</option>
                                 <option value="1">BatchRep</option>
-                                <option value="2">EventTopBoard</option>
                             </select>
                             <label>Select To Type</label>
 
@@ -63,7 +61,7 @@
                                         <div class="input-field col s3">
                                             <label>Year</label>
                                         </div>
-                                        <div class="input-field col s8">
+                                        <div class="input-field col s8" id="ITyear">
                                             <select name="ITyear" multiple>
                                                 <option value="" disabled selected>Select Year</option>
                                                 <option value="1">1st year</option>
@@ -155,7 +153,7 @@
                                             <label>Batch</label>
                                         </div>
                                         <div class="input-field col s8">
-                                            <select name="BMBatch" multiple>
+                                            <select name="ENGBatch" multiple>
                                                 <option value="" disabled selected>Select Batch</option>
                                                 <option value="1">batch 1</option>
                                                 <option value="2">batch 2</option>
@@ -243,29 +241,51 @@
     {
        
       
-        //    var selectedValues = [];
-        //    $("#pollType :selected").each(function () {
-        //        selectedValues.push($(this).text());
-        //    });
-        
-       
-        //if (document.getElementById('polldate').value == "")
-        //{
-        //    alert("please add date")
-        //    console.error("please select a date")
-        //}
-        //else
-        //{
-            
-            
-        //}
+        var PollType = [];
+            $("#pollType :selected").each(function () {
+                PollType.push($(this).text());
+            });
+
+            var Name = document.getElementById('Name').value;
+            var max_candidates = document.getElementById('max_candidates').value;
+            var cmyear = [];
+            $("#ITyear :selected").each(function () {
+                cmyear.push($(this).text());
+            });
+            var cmbatch = [];
+            $("#ITBatch :selected").each(function () {
+                cmbatch.push($(this).text());
+            });
+            var bmyear = [];
+            $("#BMyear :selected").each(function () {
+                bmyear.push($(this).text());
+            });
+            var bmbatch = [];
+            $("#BMBatch :selected").each(function () {
+                bmbatch.push($(this).text());
+            });
+            var enyear = [];
+            $("#ENGyear :selected").each(function () {
+                enyear.push($(this).text());
+            });
+            var enbatch = [];
+            $("#ENGBatch :selected").each(function () {
+                enbatch.push($(this).text());
+            });
+            var polldate = document.getElementById('polldate').value
+            var startTime = document.getElementById('startTime').value
+            var endTime = document.getElementById('endTime').value
+
+           
+            alert(PollType)
+            alert(cmyear)
 
 
             $.ajax({
                 type: 'POST',
                 url: 'Createpoll',
                 contentType: 'application/json',
-                data: JSON.stringify(user),
+                data: {},
                 dataType: 'Json',
                 async: true,
                 error: function () {

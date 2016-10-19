@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="151a7adb9a814f61970f3045929a206d" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="151a7adb9a814f61970f3045929a206d" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="OnlineElectionDbModel.Degree" Width="1.5" PointX="7.125" PointY="8.625" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Department" Width="1.5" PointX="4.125" PointY="6.75" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Faculty" Width="1.5" PointX="1" PointY="7.125" />
