@@ -158,6 +158,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_batch_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="batch" Type="Self.batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Fac_ID" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="fac_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="staff_fk1">
           <End Role="person" Type="Self.person" Multiplicity="1" />
           <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
@@ -246,6 +260,10 @@
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Department" EntitySet="Department" />
           </AssociationSet>
+          <AssociationSet Name="FK_batch_Faculty" Association="Self.FK_batch_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="batch" EntitySet="batch" />
+          </AssociationSet>
           <AssociationSet Name="staff_fk1" Association="Self.staff_fk1">
             <End Role="person" EntitySet="person" />
             <End Role="staff" EntitySet="staff" />
@@ -319,6 +337,10 @@
             <End Role="person" EntitySet="people" />
             <End Role="votes_person" EntitySet="votes_person" />
           </AssociationSet>
+          <AssociationSet Name="FK_batch_Faculty" Association="OnlineElectionDbModel.FK_batch_Faculty">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="batch" EntitySet="batches" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Degree">
           <Key>
@@ -350,6 +372,7 @@
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Dean" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Departments" Relationship="OnlineElectionDbModel.fk2_Department" FromRole="Faculty" ToRole="Department" />
+          <NavigationProperty Name="batches" Relationship="OnlineElectionDbModel.FK_batch_Faculty" FromRole="Faculty" ToRole="batch" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -415,6 +438,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="fac_ID" Type="Guid" />
+          <NavigationProperty Name="Faculty" Relationship="OnlineElectionDbModel.FK_batch_Faculty" FromRole="batch" ToRole="Faculty" />
         </EntityType>
         <EntityType Name="poll_access">
           <Key>
@@ -548,6 +572,20 @@
             </Principal>
             <Dependent Role="votes_person">
               <PropertyRef Name="Person_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_batch_Faculty">
+          <End Type="OnlineElectionDbModel.Faculty" Role="Faculty" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OnlineElectionDbModel.batch" Role="batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Fac_ID" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="fac_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

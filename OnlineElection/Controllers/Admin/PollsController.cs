@@ -27,9 +27,13 @@ namespace OnlineElection.Controllers.Admin
             return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", repository.GetAll());
         }
 
+
+        [HttpPost]
         public JsonResult CreatePoll(PollModel polls)
         {
-            
+
+
+            return Json(null,null);
         }
     }
 }
