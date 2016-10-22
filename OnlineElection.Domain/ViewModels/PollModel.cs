@@ -14,6 +14,7 @@ namespace OnlineElection.Domain
         public string[] Faculty { get; set; }
         public string[] Year { get; set; }
         public string[] batch { get; set; }
-        public string[] candidate { get; set; }
+        public Guid[] candidateID { get; set; }
+
     }
 }

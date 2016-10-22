@@ -10,7 +10,8 @@ namespace OnlineElection.Controllers.Admin
 {
     public class PollsController : Controller
     {
-        PersonRepository repository = new PersonRepository();
+        PersonRepository personRepository = new PersonRepository();
+        PollRepository pollRepository = new PollRepository();
         // GET: Polls
         public ActionResult Index()
         {
@@ -24,7 +25,7 @@ namespace OnlineElection.Controllers.Admin
 
         public ActionResult GetCandidates()
         {
-            return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", repository.GetAll());
+            return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", personRepository.GetAll());
         }
 
 
@@ -32,7 +33,7 @@ namespace OnlineElection.Controllers.Admin
         public JsonResult CreatePoll(PollModel polls)
         {
 
-
+            pollRepository.InsertPolls(polls);
             return Json(null,null);
         }
     }

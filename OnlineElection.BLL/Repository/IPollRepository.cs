@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineElection.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace OnlineElection.BLL.Repository
 {
     public interface IPollRepository
     {
-        void InsertCandidate();
+        bool InsertPolls(PollModel polls);
+        
     }
 }

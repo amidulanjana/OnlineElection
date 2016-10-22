@@ -69,10 +69,9 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="poll_date" Type="datetime" />
-          <Property Name="starttime" Type="datetime" />
-          <Property Name="endtime" Type="datetime" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="startDate" Type="datetime" />
+          <Property Name="endDate" Type="datetime" />
           <Property Name="Name" Type="varchar" MaxLength="25" />
           <Property Name="Type" Type="varchar" MaxLength="10" />
           <Property Name="max_candidates" Type="int" />
@@ -311,15 +310,6 @@
           <EntitySet Name="poll_access" EntityType="OnlineElectionDbModel.poll_access" />
           <EntitySet Name="votes_person" EntityType="OnlineElectionDbModel.votes_person" />
           <EntitySet Name="candidates" EntityType="OnlineElectionDbModel.candidate" />
-          <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
-          <AssociationSet Name="candidate_fk3" Association="OnlineElectionDbModel.candidate_fk3">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="candidate" EntitySet="candidates" />
-          </AssociationSet>
-          <AssociationSet Name="votes_personfk3" Association="OnlineElectionDbModel.votes_personfk3">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="votes_person" EntitySet="votes_person" />
-          </AssociationSet>
           <EntitySet Name="people" EntityType="OnlineElectionDbModel.person" />
           <AssociationSet Name="candidate_fk2" Association="OnlineElectionDbModel.candidate_fk2">
             <End Role="person" EntitySet="people" />
@@ -340,6 +330,15 @@
           <AssociationSet Name="FK_batch_Faculty" Association="OnlineElectionDbModel.FK_batch_Faculty">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="batch" EntitySet="batches" />
+          </AssociationSet>
+          <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
+          <AssociationSet Name="candidate_fk3" Association="OnlineElectionDbModel.candidate_fk3">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="candidate" EntitySet="candidates" />
+          </AssociationSet>
+          <AssociationSet Name="votes_personfk3" Association="OnlineElectionDbModel.votes_personfk3">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="votes_person" EntitySet="votes_person" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Degree">
@@ -455,8 +454,8 @@
           <Property Name="Person_ID" Type="Guid" Nullable="false" />
           <Property Name="Poll_ID" Type="Guid" Nullable="false" />
           <Property Name="vote_date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="votes_person" ToRole="Poll" />
           <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.votes_personfk2" FromRole="votes_person" ToRole="person" />
+          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="votes_person" ToRole="Poll" />
         </EntityType>
         <EntityType Name="candidate">
           <Key>
@@ -466,48 +465,9 @@
           <Property Name="Person_ID" Type="Guid" Nullable="false" />
           <Property Name="Poll_ID" Type="Guid" Nullable="false" />
           <Property Name="vote_count" Type="Int32" />
-          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="candidate" ToRole="Poll" />
           <NavigationProperty Name="person" Relationship="OnlineElectionDbModel.candidate_fk2" FromRole="candidate" ToRole="person" />
+          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="candidate" ToRole="Poll" />
         </EntityType>
-        <EntityType Name="Poll">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-          <Property Name="poll_date" Type="DateTime" Precision="3" />
-          <Property Name="starttime" Type="DateTime" Precision="3" />
-          <Property Name="endtime" Type="DateTime" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="max_candidates" Type="Int32" />
-          <Property Name="No_of_Votes" Type="Int32" />
-          <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="Poll" ToRole="candidate" />
-          <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="Poll" ToRole="votes_person" />
-        </EntityType>
-        <Association Name="candidate_fk3">
-          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.candidate" Role="candidate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Poll">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="candidate">
-              <PropertyRef Name="Poll_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="votes_personfk3">
-          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.votes_person" Role="votes_person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Poll">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="votes_person">
-              <PropertyRef Name="Poll_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="person">
           <Key>
             <PropertyRef Name="Person_ID" />
@@ -586,6 +546,44 @@
             </Principal>
             <Dependent Role="batch">
               <PropertyRef Name="fac_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Poll">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="max_candidates" Type="Int32" />
+          <Property Name="No_of_Votes" Type="Int32" />
+          <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="Poll" ToRole="candidate" />
+          <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="Poll" ToRole="votes_person" />
+        </EntityType>
+        <Association Name="candidate_fk3">
+          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.candidate" Role="candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poll">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="candidate">
+              <PropertyRef Name="Poll_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="votes_personfk3">
+          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.votes_person" Role="votes_person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poll">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="votes_person">
+              <PropertyRef Name="Poll_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -678,20 +676,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Polls">
-            <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
-              <MappingFragment StoreEntitySet="Poll">
-                <ScalarProperty Name="No_of_Votes" ColumnName="No_of_Votes" />
-                <ScalarProperty Name="max_candidates" ColumnName="max_candidates" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="endtime" ColumnName="endtime" />
-                <ScalarProperty Name="starttime" ColumnName="starttime" />
-                <ScalarProperty Name="poll_date" ColumnName="poll_date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="people">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
               <MappingFragment StoreEntitySet="person">
@@ -705,6 +689,19 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Person_ID" ColumnName="Person_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polls">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
+              <MappingFragment StoreEntitySet="Poll">
+                <ScalarProperty Name="No_of_Votes" ColumnName="No_of_Votes" />
+                <ScalarProperty Name="max_candidates" ColumnName="max_candidates" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

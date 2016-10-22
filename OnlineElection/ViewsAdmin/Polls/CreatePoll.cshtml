@@ -206,7 +206,7 @@
                         validators: {
                             notEmpty: {
                                 message: 'The SID is required and can\'t be empty'
-                            },                         
+                            },
                         }
                     },
 
@@ -231,7 +231,7 @@
                         validators: {
                             notEmpty: {
                                 message: 'The candidates is required and can\'t be empty'
-                            }                          
+                            }
                         }
                     },
 
@@ -239,7 +239,7 @@
                         validators: {
                             notEmpty: {
                                 message: 'The Faculty is required and can\'t be empty'
-                            }                           
+                            }
                         }
                     }
 
@@ -253,8 +253,12 @@
                 var Faculty= $("[name='Faculty']").val();
                 var Year= $("[name='Year']").val();
                 var batch = $("[name='batch']").val();
-                var candidate = $("[name='candidates']").val();
-             
+                var candidate = $("[name='candidates']").val();            
+                var obj = $("#candidates").select2("data")
+                var candidateID=new Array();
+                for (var i = 0; i < obj.length; i++) {
+                    candidateID[i] = obj[i].id;
+                }
 
                 var poll = {
 
@@ -264,10 +268,10 @@
                     Faculty: Faculty,
                     Year: Year,
                     batch: batch,
-                    candidate: candidate
+                    candidateID: candidateID
                 }
 
-                console.log(candidate, pollType, name, daterange, Faculty, Year, batch);
+                //console.log(candidate, pollType, name, daterange, Faculty, Year, batch, candidateID);
 
                 $.ajax({
                     type: 'POST',
@@ -288,17 +292,16 @@
             });
         });
 
-
+        
 
         $(function () {
             $('input[name="daterange"]').daterangepicker({
                 timePicker: true,
                 timePickerIncrement: 30,
-                startDate: '17/10/2016',
-                //endDate:
+                startDate: '@DateTime.Now.ToString("MMM dd yyyy h:MM tt")',
                 opens: 'left',
                 locale: {
-                    format: 'DD/MM/YYYY h:mm A'
+                    format: 'MMM DD YYYY h:MM A'
                 }
             });
         });
@@ -352,7 +355,7 @@
             });
         }
 
-       
+
 
 
     </script>

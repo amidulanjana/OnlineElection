@@ -22,9 +22,8 @@ namespace OnlineElection.DAL
         }
     
         public System.Guid ID { get; set; }
-        public Nullable<System.DateTime> poll_date { get; set; }
-        public Nullable<System.DateTime> starttime { get; set; }
-        public Nullable<System.DateTime> endtime { get; set; }
+        public Nullable<System.DateTime> startDate { get; set; }
+        public Nullable<System.DateTime> endDate { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public Nullable<int> max_candidates { get; set; }
