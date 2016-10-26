@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BatchDetailsViewModel.cs" />
     <Compile Include="ViewModels\CandidateDetailedViewModel.cs" />
     <Compile Include="ViewModels\CandidateViewModel.cs" />
+    <Compile Include="ViewModels\MessegeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

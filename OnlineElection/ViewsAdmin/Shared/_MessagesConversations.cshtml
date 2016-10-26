@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+
+@{ 
+    var user = "21781DD9-4A1C-4DFB-933F-21633B94B61B";
+}
+<link href="~/Content/messageConversation.css" rel="stylesheet">
+
+<ol class="chat" style="width:100%">
+
+    @foreach (var item in Model)
+    {
+        if (item.to == user)
+        {
+            <li class="self">
+                <a class="content ConversationView">
+                    <div class="avatar"><img src="~/Content/Images/user.png" draggable="false" /></div>
+                    <div class="msg">
+                        <p>@item.UserName</p>
+                        <p>@item.body</p>
+                        <time>@item.MessageDateString</time>
+                    </div>
+                    <input type="text" class="M_ID" hidden="hidden" value="@item.MessageID">
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="other">
+                <a class="content ConversationView">
+                    <div class="avatar"><img src="~/Content/Images/user.png" draggable="false" /></div>
+                    <div class="msg">
+                        <p>@item.UserName</p>
+                        <p>@item.body</p>
+                        <time>@item.MessageDateString</time>
+                    </div>
+                    <input type="text" class="M_ID" hidden="hidden" value="@item.MessageID">
+                </a>
+            </li>
+        }
+
+        
+
+    }
+</ol>

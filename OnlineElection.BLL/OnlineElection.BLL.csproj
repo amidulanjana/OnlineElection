@@ -41,6 +41,7 @@
       <HintPath>..\..\New folder (2)\OnlineElection\OnlineElection\bin\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,10 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BatchRepository.cs" />
     <Compile Include="Repository\CandidateRepository.cs" />
     <Compile Include="Repository\DegreeRepository.cs" />
     <Compile Include="Repository\DepartmentRepository.cs" />
     <Compile Include="Repository\FacultyRepository.cs" />
+    <Compile Include="Repository\IBatchRepository.cs" />
     <Compile Include="Repository\ICandidateRepository.cs" />
     <Compile Include="Repository\IDegreeRepository.cs" />
     <Compile Include="Repository\IDepartmentRepository.cs" />

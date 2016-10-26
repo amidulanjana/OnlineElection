@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+
+
+@{
+    var xyz = 1;
+}
+
+
+@foreach (var item in Model)
+{
+
+    if (xyz < 6)
+    {
+        <li>
+            <a>
+                <span class="image"><img src="~/Content/Images/@item.UserImage" alt="Profile Image" /></span>
+                <span>
+                    <span>@item.UserName</span>
+                    <span class="time">@item.MessageDateString</span>
+                </span>
+                <span class="message">
+                    <b>
+                        @item.subject
+                    </b>
+                </span>
+                <span class="message">
+                    @item.body
+                </span>
+            </a>
+        </li>
+    }
+
+
+
+    xyz++;
+
+}

@@ -26,7 +26,7 @@
     <!-- Custom Theme Style -->
     <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body class="nav-md">
+<body class="nav-sm" id="body">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
@@ -222,68 +222,20 @@
                                 </ul>
                             </li>
 
-                            <li role="presentation" class="dropdown">
+                            <li role="presentation" id="MessegeList" class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
+                                    <span class="badge bg-green" id="Msgcount">@ViewBag.unreadCount</span>
                                 </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                                                <span>John Smith</span>
-                                                <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                                                Film festivals used to be do-or-die moments for movie makers. They were where...
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
+                                <ul id="messagesTable" class="dropdown-menu list-unstyled msg_list" role="menu">
+
+
+                                    @*Used to load Messeges*@
+               
+
+
+                                    
+                                    
                                 </ul>
                             </li>
                         </ul>
@@ -345,6 +297,8 @@
 
     <!-- jQuery -->
     <script src="~/Content/vendors/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    
     <!-- Bootstrap -->
     <script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -388,7 +342,8 @@
     <!-- Custom Theme Scripts -->
     <script src="~/Content/build/js/custom.min.js"></script>
 
-    @RenderSection("Scripts", false/*required*/)
+
+    @RenderSection("Scripts", required: false)
 
     <!-- Flot -->
     @*<script>
@@ -644,6 +599,21 @@
           gauge.setTextField(document.getElementById("gauge-text"));
         </script>*@
     <!-- /gauge.js -->
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#MessegeList').click(function (e) {
+            $('#Msgcount').hide(1000);
+        });
+});
+</script>
+
+
+
 </body>
 </html>
 </body>
