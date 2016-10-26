@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="OnlineElectionDbModel.Department" Width="1.5" PointX="4.125" PointY="6.75" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Faculty" Width="1.5" PointX="1" PointY="7.125" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.staff" Width="1.5" PointX="0.5" PointY="4.75" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.student" Width="1.5" PointX="4.75" PointY="5.375" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.student" Width="1.5" PointX="6.125" PointY="4.625" />
         <AssociationConnector Association="OnlineElectionDbModel.fk1_Degree" />
         <AssociationConnector Association="OnlineElectionDbModel.fk2_student" />
         <AssociationConnector Association="OnlineElectionDbModel.fk2_Department" />
@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="OnlineElectionDbModel.poll_access" Width="1.5" PointX="4" PointY="10" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.votes_person" Width="1.5" PointX="10.75" PointY="3.625" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.candidate" Width="1.5" PointX="3.5" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.person" Width="1.5" PointX="1.375" PointY="2.875" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.person" Width="1.5" PointX="0.875" PointY="0.5" />
         <AssociationConnector Association="OnlineElectionDbModel.candidate_fk2" />
         <AssociationConnector Association="OnlineElectionDbModel.staff_fk1" />
         <AssociationConnector Association="OnlineElectionDbModel.stu_fk1" />
