@@ -17,6 +17,12 @@ namespace OnlineElection.Controllers
             return View();
         }
 
+
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
         [HttpPost]
 
         public JsonResult Createpoll(Poll poll)
