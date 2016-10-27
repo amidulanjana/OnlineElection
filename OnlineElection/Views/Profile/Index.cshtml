@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Profile data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+    @ViewBag.person.FirstName
+    </div>
+
+    <div>
+        @ViewBag.person.LastName
+    </div>
+    <div>
+        @ViewBag.person.Address
+    </div>
+    <div>
+        @ViewBag.person.Phone
+    </div>
+    <div>
+        @ViewBag.person.email
+    </div>
+    <div>
+        @ViewBag.person.password   
+    </div>
+
+
+
+</body>
+</html>

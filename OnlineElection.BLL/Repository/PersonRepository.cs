@@ -104,5 +104,41 @@ namespace OnlineElection.BLL.Repository
 
             return false;
         }
+
+        public person GetPeronById(Guid ID)
+        {
+            person temp = null;
+            temp = (from p in _dbContext.people
+                    where p.Person_ID == ID
+                    select p).SingleOrDefault();
+
+            return temp;
+        }
+
+        /***
+         * 
+         * Author: Janith
+         *  
+         * 
+        */
+
+        public person Entry(Guid ID, person person)
+        {
+            person temp = null;
+            temp = (from p in _dbContext.people
+                    where p.Person_ID == ID
+                    select p).SingleOrDefault();
+            temp.Person_ID = person.Person_ID;
+            temp.FirstName = person.FirstName;
+            temp.LastName = person.LastName;
+            temp.password = person.LastName;
+            temp.Phone = person.Phone;
+            temp.email = person.email;
+
+            _dbContext.SaveChanges();
+            
+            return temp;
+        }
+        
     }
 }
