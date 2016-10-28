@@ -30,10 +30,11 @@ namespace AdminPanel.Controllers
             return View("~/ViewsAdmin/User/ViewUsers.cshtml");
         }
 
-        [HttpPost]
+       
         public ActionResult GetAllUsers()
         {
             return PartialView("~/ViewsAdmin/User/_TableViewUsers.cshtml", repository.GetAll());
+            //return View("~/ViewsAdmin/User/_TableViewUsers.cshtml", repository.GetAll());
         }
 
 
