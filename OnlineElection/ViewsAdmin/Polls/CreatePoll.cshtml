@@ -1,4 +1,7 @@
-﻿@{
+﻿@using OnlineElection.DAL
+@model IEnumerable<OnlineElection.DAL.Faculty>
+
+@{
     ViewBag.Title = "Create Poll";
     Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
 }
@@ -8,6 +11,7 @@
 @section Styles {
     <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
     <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
+<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
 }
 
@@ -16,7 +20,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Register User</h2>
+                <h2>Create Poll</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -52,7 +56,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Poll Type</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="pollType">
+                            <select class="form-control" name="pollType" id="category">
                                 <option>Batch Rep</option>
                                 <option>SIS President</option>
                                 <option></option>
@@ -93,15 +97,17 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Eligible Voters</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="candidates form-control " multiple="multiple" name="Faculty" style="width: 100%">
-                                <option>Computer</option>
+                            <select class="candidates form-control " multiple="multiple" name="Faculty" style="width: 100%" id="faculty">
+                                @*<option>Computer</option>
                                 <option>Business</option>
-                                <option>Engineering</option>
+                                <option>Engineering</option>*@
+
+                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml",Model)
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
                             <select class="candidates form-control " multiple="multiple" name="Year" style="width: 100%">
                                 <option>Year 1</option>
@@ -119,9 +125,11 @@
                                <option>Batch 2</option>
                             </select>
                         </div>
+                    </div>*@
+
+                    <div id="batches">
+                        
                     </div>
-
-
 
                     <div class="form-group" id="year" style="display:none">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Da</label>
@@ -145,17 +153,18 @@
 {
     <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
     <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
-
+<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function () {
 
+
+            //select2 functions
             $(".candidates").select2({
                 allowClear: true,
 
             });
-
 
             $("#Faculty").select2({
                 allowClear: true,
@@ -172,8 +181,8 @@
                 placeholder: "Batch",
             });
 
-            //console.log(new Date($.now()));
 
+            //call the getCandidates() Ajax function in the dropdown
             getCandidates();
 
 
@@ -191,7 +200,54 @@
 
             })
 
+            $('#faculty').on('change', function () {
+                console.log($(this).val());
+                getBatches($(this).val())
 
+
+            })
+
+
+            function getBatches(id) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'GetBatches',
+                    contentType: 'application/json',
+                    data: JSON.stringify(id),
+                    dataType: 'Json',
+                    async: true,
+                    success: function (data) {
+                        //if (data == true) {
+                        //    $("#AddPollForm").bootstrapValidator('resetForm', true);
+                        //}
+                        console.log(data);
+                        var batches = [];
+                        for (var i = 0; i < data.length; i++) {
+
+                            batches.push(
+                                ' <div class="checkbox">' +
+                                            '<label>' +
+                                                '<input type="checkbox" class="flat" checked="checked">' + data[i].name +
+                                            '</label>' +
+                                        '</div>'
+                            )
+                            
+                            console.log(data[i].name);
+
+                        }
+                        $('#batches').html(batches.join(" "))
+                                        
+
+                    }
+
+                });
+            }
+
+
+
+
+            //validation All fileds
             $('#AddPollForm').bootstrapValidator({
 
                 message: 'This value is not valid',
@@ -306,43 +362,10 @@
             });
         });
 
-        function getCurrentDate() {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1; //January is 0!
-
-            var yyyy = today.getFullYear();
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-            var hours = today.getHours();
-            var minutes = today.getMinutes();
-            var ampm = hours >= 12 ? 'pm' : 'am';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            var NowTime = hours + ':' + minutes + ' ' + ampm;
-
-            var todayDate = dd + '/' + mm + '/' + yyyy;
-
-            //console.log(todayDate)
-            //console.log(NowTime)
-
-            return (todayDate + " " + NowTime);
-        }
-
-        function parseDate(str) {
-            var s = str.split(" "),
-                d = s[0].split("-"),
-                t = s[1].replace(/:/g, "");
-            return d[2] + d[1] + d[0] + t;
-        }
 
 
-
+        //Ajax function
+        //Get all the Candidates
         function getCandidates() {
             $.ajax({
                 url: 'GetCandidates',
@@ -354,8 +377,6 @@
                 }
             });
         }
-
-
 
 
     </script>

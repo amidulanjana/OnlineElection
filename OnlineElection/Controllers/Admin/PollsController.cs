@@ -10,8 +10,10 @@ namespace OnlineElection.Controllers.Admin
 {
     public class PollsController : Controller
     {
-        PersonRepository personRepository = new PersonRepository();
-        PollRepository pollRepository = new PollRepository();
+        PersonRepository personRepository;
+        PollRepository pollRepository;
+        FacultyRepository facultyRepository;
+
         // GET: Polls
         public ActionResult Index()
         {
@@ -20,21 +22,39 @@ namespace OnlineElection.Controllers.Admin
 
         public ActionResult CreatePoll()
         {
-            return View("~/ViewsAdmin/Polls/CreatePoll.cshtml");
+            facultyRepository = new FacultyRepository();
+            return View("~/ViewsAdmin/Polls/CreatePoll.cshtml", facultyRepository.GetAllFaculty());
         }
 
         public ActionResult GetCandidates()
         {
+            personRepository = new PersonRepository();
             return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", personRepository.GetAll());
         }
-
 
         [HttpPost]
         public JsonResult CreatePoll(PollModel polls)
         {
-
+            pollRepository = new PollRepository();
             pollRepository.InsertPolls(polls);
             return Json(null,null);
         }
+
+
+        /**
+          * @desc Give all the Batch details for the relevent Faculty/Faculties
+          * @param Faculty ID/IDs
+          * @return Json - Batch Details or success/Failure
+        */
+
+        public JsonResult GetBatches(Guid[] ids)
+        {
+
+            facultyRepository = new FacultyRepository();
+            var batches=facultyRepository.GetBatches(ids);
+
+            return Json(batches,JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
