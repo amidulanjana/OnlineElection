@@ -17,7 +17,6 @@ namespace OnlineElection.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Faculty()
         {
-            this.Departments = new HashSet<Department>();
             this.batches = new HashSet<batch>();
         }
     
@@ -25,8 +24,6 @@ namespace OnlineElection.DAL
         public string Name { get; set; }
         public string Dean { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<batch> batches { get; set; }
     }

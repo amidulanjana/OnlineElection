@@ -172,7 +172,7 @@
                 placeholder: "Batch",
             });
 
-            console.log(new Date($.now()));
+            //console.log(new Date($.now()));
 
             getCandidates();
 
@@ -298,10 +298,10 @@
             $('input[name="daterange"]').daterangepicker({
                 timePicker: true,
                 timePickerIncrement: 30,
-                startDate: '@DateTime.Now.ToString("MMM dd yyyy h:MM tt")',
-                opens: 'left',
+                //startDate: '@DateTime.Now.ToString("MMM dd yyyy h:MM tt")',
+                opens: 'right',
                 locale: {
-                    format: 'MMM DD YYYY h:MM A'
+                    format: 'MM/DD/YYYY h:mm A'
                 }
             });
         });

@@ -42,6 +42,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OnlineElection.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\OnlineElection.DAL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -59,12 +63,6 @@
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="candidate.cs">
-      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Degree.cs">
-      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Department.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Faculty.cs">
@@ -89,6 +87,9 @@
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Poll.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PollEligibleUser.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="poll_access.cs">

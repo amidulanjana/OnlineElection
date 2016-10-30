@@ -20,6 +20,7 @@ namespace OnlineElection.BLL.Repository
         {
             DateTimeFormatInfo usDtfi = new CultureInfo("en-US", false).DateTimeFormat;
             polls = new Poll();
+            
             candidates = new candidate();
 
             string dateRange = _polls.dateRange;

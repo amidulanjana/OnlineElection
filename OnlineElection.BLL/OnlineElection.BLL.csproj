@@ -34,11 +34,13 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OnlineElection.Domain\bin\Debug\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\OnlineElection.Domain\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="OnlineElection.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.DAL.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,10 +71,6 @@
     <Compile Include="Repository\StudentRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlineElection.DAL\OnlineElection.DAL.csproj">
-      <Project>{b7b5f02a-3288-41d9-87e2-512cd76cd218}</Project>
-      <Name>OnlineElection.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OnlineElection.Domain\OnlineElection.Domain.csproj">
       <Project>{3d1822de-f20d-48a9-985b-c7c1544c5da0}</Project>
       <Name>OnlineElection.Domain</Name>

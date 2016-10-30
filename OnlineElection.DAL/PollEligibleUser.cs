@@ -12,13 +12,12 @@ namespace OnlineElection.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class student
+    public partial class PollEligibleUser
     {
-        public System.Guid Person_ID { get; set; }
-        public Nullable<int> Year { get; set; }
-        public Nullable<System.Guid> Degree_ID { get; set; }
-        public string semester { get; set; }
+        public System.Guid PollID { get; set; }
+        public System.Guid FacultyID { get; set; }
+        public System.Guid BatchID { get; set; }
     
-        public virtual person person { get; set; }
+        public virtual Poll Poll { get; set; }
     }
 }
