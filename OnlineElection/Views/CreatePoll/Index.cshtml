@@ -240,7 +240,7 @@
     function poll()
     {
        
-      
+      alert("successfully added")
         var PollType = [];
             $("#pollType :selected").each(function () {
                 PollType.push($(this).text());
@@ -285,7 +285,7 @@
                 type: 'POST',
                 url: 'Createpoll',
                 contentType: 'application/json',
-                data: {},
+                data: { PollType: PollType, Name: Name },
                 dataType: 'Json',
                 async: true,
                 error: function () {
