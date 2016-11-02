@@ -10,5 +10,6 @@ namespace OnlineElection.BLL.Repository
     public interface IPersonRepository
     {
         bool registerPerson(person _objPerson);
+        List<person> GetAll();
     }
 }

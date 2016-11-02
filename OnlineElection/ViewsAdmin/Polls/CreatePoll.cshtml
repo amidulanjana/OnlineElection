@@ -1,0 +1,385 @@
+﻿@using OnlineElection.DAL
+@model IEnumerable<OnlineElection.DAL.Faculty>
+
+@{
+    ViewBag.Title = "Create Poll";
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@section Styles {
+    <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
+    <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
+<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Create Poll</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                </div>
+
+                <form id="AddPollForm" method="post" action="" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Poll Type</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="pollType" id="category">
+                                <option>Batch Rep</option>
+                                <option>SIS President</option>
+                                <option></option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Poll Name</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="name" />
+                        </div>
+                    </div>
+
+                    @* Timer DateRangePicker *@
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date and Time</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" name="daterange" id="reservation" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Candidates</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="candidates form-control " multiple="multiple" id="candidates" name="candidates" style="width: 100%">
+                                @* Load <option></option> value from ajax call
+                                    function -> getCandidates()
+                                *@
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Eligible Voters</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="candidates form-control " multiple="multiple" name="Faculty" style="width: 100%" id="faculty">
+                                @*<option>Computer</option>
+                                <option>Business</option>
+                                <option>Engineering</option>*@
+
+                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml",Model)
+                            </select>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
+                            <select class="candidates form-control " multiple="multiple" name="Year" style="width: 100%">
+                                <option>Year 1</option>
+                                <option>Year 2</option>
+                                <option>Year 3</option>
+                                <option>Year 4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
+                            <select class="candidates form-control " multiple="multiple" name="batch" style="width: 100%">
+                               <option>Batch 1</option>
+                               <option>Batch 2</option>
+                            </select>
+                        </div>
+                    </div>*@
+
+                    <div id="batches">
+                        
+                    </div>
+
+                    <div class="form-group" id="year" style="display:none">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Da</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="year" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
+<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            //select2 functions
+            $(".candidates").select2({
+                allowClear: true,
+
+            });
+
+            $("#Faculty").select2({
+                allowClear: true,
+                placeholder: "Faculty",
+            });
+
+            $("#Year").select2({
+                allowClear: true,
+                placeholder: "Year",
+            });
+
+            $("#batch").select2({
+                allowClear: true,
+                placeholder: "Batch",
+            });
+
+
+            //call the getCandidates() Ajax function in the dropdown
+            getCandidates();
+
+
+            $('#category').on('change', function () {
+                var myValue = $(this).val();
+
+                console.log(myValue);
+                if (myValue === 'SIS President') {
+                    $("#year").show(200, 'swing');
+                }
+
+                if (myValue === 'Batch Rep') {
+                    $("#year").hide(300, 'swing');
+                }
+
+            })
+
+            $('#faculty').on('change', function () {
+                console.log($(this).val());
+                getBatches($(this).val())
+
+
+            })
+
+
+            function getBatches(id) {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'GetBatches',
+                    contentType: 'application/json',
+                    data: JSON.stringify(id),
+                    dataType: 'Json',
+                    async: true,
+                    success: function (data) {
+                        //if (data == true) {
+                        //    $("#AddPollForm").bootstrapValidator('resetForm', true);
+                        //}
+                        console.log(data);
+                        var batches = [];
+                        for (var i = 0; i < data.length; i++) {
+
+                            batches.push(
+                                ' <div class="checkbox">' +
+                                            '<label>' +
+                                                '<input type="checkbox" class="flat" checked="checked">' + data[i].name +
+                                            '</label>' +
+                                        '</div>'
+                            )
+                            
+                            console.log(data[i].name);
+
+                        }
+                        $('#batches').html(batches.join(" "))
+                                        
+
+                    }
+
+                });
+            }
+
+
+
+
+            //validation All fileds
+            $('#AddPollForm').bootstrapValidator({
+
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh gly-spin'
+                },
+                fields: {
+                    pollType: {
+                        message: 'The poll Type is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The SID is required and can\'t be empty'
+                            },
+                        }
+                    },
+
+                    name: {
+                        message: "The name is not valid",
+                        validators: {
+                            notEmpty: {
+                                message: 'The name is required and can\'t be empty'
+                            }
+                        }
+                    },
+                    daterange: {
+                        message: "The Date is not valid",
+                        validators: {
+                            notEmpty: {
+                                message: 'The Date is required and can\'t be empty'
+                            }
+                        }
+                    },
+
+                    candidates: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The candidates is required and can\'t be empty'
+                            }
+                        }
+                    },
+
+                    Faculty: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The Faculty is required and can\'t be empty'
+                            }
+                        }
+                    }
+
+                }
+            }).on('success.form.bv', function (e) {
+                e.preventDefault();
+
+                var pollType = $("[name='pollType']").val();
+                var name = $("[name='name']").val();
+                var daterange = $("[name='daterange']").val();
+                var Faculty= $("[name='Faculty']").val();
+                var Year= $("[name='Year']").val();
+                var batch = $("[name='batch']").val();
+                var candidate = $("[name='candidates']").val();            
+                var obj = $("#candidates").select2("data")
+                var candidateID=new Array();
+                for (var i = 0; i < obj.length; i++) {
+                    candidateID[i] = obj[i].id;
+                }
+
+                var poll = {
+
+                    pollType: pollType,
+                    name: name,
+                    daterange: daterange,
+                    Faculty: Faculty,
+                    Year: Year,
+                    batch: batch,
+                    candidateID: candidateID
+                }
+
+                //console.log(candidate, pollType, name, daterange, Faculty, Year, batch, candidateID);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'CreatePoll',
+                    contentType: 'application/json',
+                    data: JSON.stringify(poll),
+                    dataType: 'Json',
+                    async: true,
+                    success: function (data) {
+                        if (data == true) {
+                            $("#AddPollForm").bootstrapValidator('resetForm', true);
+                        }
+                    }
+
+                });
+
+                $('#btn').prop('disabled', false);
+            });
+        });
+
+        
+
+        $(function () {
+            $('input[name="daterange"]').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                //startDate: '@DateTime.Now.ToString("MMM dd yyyy h:MM tt")',
+                opens: 'right',
+                locale: {
+                    format: 'MM/DD/YYYY h:mm A'
+                }
+            });
+        });
+
+
+
+        //Ajax function
+        //Get all the Candidates
+        function getCandidates() {
+            $.ajax({
+                url: 'GetCandidates',
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    //console.log(data);
+                    $('#candidates').html(data);
+                }
+            });
+        }
+
+
+    </script>
+}
+
+

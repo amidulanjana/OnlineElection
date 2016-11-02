@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
+    <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Register User</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+             
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                </div>
+                <form id="AddUserForm" method="post" action="target.php" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">SID</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="SID" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" name="name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" class="form-control" name="password" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Retype password</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" class="form-control" name="confirmPassword" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#AddUserForm').bootstrapValidator({
+
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh gly-spin'
+                },
+                fields: {
+                    SID: {
+                        message: 'The username is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'The SID is required and can\'t be empty'
+                            },
+                         
+                            regexp: {
+                                regexp: /^[a-zA-Z]{2}[0-9]{8}$/,
+                                message: 'Not a valid SLIIT ID'
+                            },
+
+                            remote: {
+                                message: 'This SID is already registered',
+                                url: 'IsSIDAvaliable',
+                                data: {
+                                    type: 'SID'
+                                },
+                                type: 'POST',
+                                delay: 1000
+                            }
+                        }
+                    },
+                    
+                    name: {
+                        message: "The name is not valid",
+                        validators: {
+                            regexp: {
+                                regexp: /[-a-zA-Z]+$/,
+                                message: 'The username can only consist of alphabetical, number, dot and underscore'
+                            }
+                        }
+                    },
+
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The password is required and can\'t be empty'
+                            },
+                            identical: {
+                                field: 'confirmPassword',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The confirm password is required and can\'t be empty'
+                            },
+                            identical: {
+                                field: 'password',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    }
+                    
+                }
+            }).on('success.form.bv', function (e)
+            {
+                e.preventDefault();
+                
+                var SID = $("[name='SID']").val();
+                var name = $("[name='name']").val();
+                var password = $("[name='password']").val();
+
+                var user = {
+
+                    SID: SID,
+                    FirstName: name,
+                    password: password
+
+                }
+
+                // console.log(SID + " " + email + " " + password);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'RegisterUser',
+                    contentType: 'application/json',
+                    data: JSON.stringify(user),
+                    dataType: 'Json',
+                    async: true,
+                    success: function (data) {
+                        if (data == true) {
+                            //document.getElementById("AddUserForm").reset();
+                            $("#AddUserForm").bootstrapValidator('resetForm', true);
+                        }
+                    }
+
+                });
+
+                $('#btn').prop('disabled', false);
+            });
+        });
+
+
+    </script>
+}

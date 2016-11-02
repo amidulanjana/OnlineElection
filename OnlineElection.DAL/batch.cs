@@ -18,5 +18,7 @@ namespace OnlineElection.DAL
         public string Name { get; set; }
         public string Year { get; set; }
         public Nullable<System.Guid> fac_ID { get; set; }
+    
+        public virtual Faculty Faculty { get; set; }
     }
 }

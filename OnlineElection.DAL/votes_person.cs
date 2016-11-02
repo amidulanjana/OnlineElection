@@ -18,7 +18,7 @@ namespace OnlineElection.DAL
         public System.Guid Poll_ID { get; set; }
         public Nullable<System.DateTime> vote_date { get; set; }
     
-        public virtual Poll Poll { get; set; }
         public virtual person person { get; set; }
+        public virtual Poll Poll { get; set; }
     }
 }

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<OnlineElection.DAL.person>
+
+
+    @foreach (var item in Model)
+    {
+        <option value="@item.Person_ID">@item.SID</option>
+    }
+
+

@@ -14,9 +14,17 @@ namespace OnlineElection
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "AdminPanel",
+                "admin/{controller}/{action}/{id}",
+                new { controller="Home", action = "Index", id = UrlParameter.Optional },
+                new[] { "OnlineElection.Controllers.Admin" }
+            );
+
+            routes.MapRoute(
+                name:"Default",
+                url:"{controller}/{action}/{id}",
+                defaults:new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces:new[] { "OnlineElection.Controllers" }
             );
         }
     }
