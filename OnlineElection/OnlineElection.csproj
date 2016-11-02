@@ -402,9 +402,14 @@
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\CreatePoll\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="ViewsAdmin\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Admin\" />
+    <Folder Include="ViewsAdmin\Home\" />
+    <Folder Include="ViewsAdmin\Polls\" />
+    <Folder Include="ViewsAdmin\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
