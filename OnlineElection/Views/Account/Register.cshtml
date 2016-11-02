@@ -72,92 +72,94 @@
 
     </div>
 </div>
+@section Scripts
+{
+    <script>
 
-<script>
+        $(document).ready(function () {
 
-    $(document).ready(function () {
+            $.validator.setDefaults({
+                errorClass: 'invalid',
+                validClass: "valid",
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .attr('data-error', error.text());
+                },
+                submitHandler: function () {
 
-        $.validator.setDefaults({
-            errorClass: 'invalid',
-            validClass: "valid",
-            errorPlacement: function (error, element) {
-                $(element)
-                    .closest("form")
-                    .find("label[for='" + element.attr("id") + "']")
-                    .attr('data-error', error.text());
-            },
-            submitHandler: function () {
+                    event.preventDefault();
+                    var SID = $("[name='SID']").val();
+                    var email = $("[name='email']").val();
+                    var password = $("[name='password']").val();
 
-                event.preventDefault();
-                var SID = $("[name='SID']").val();
-                var email = $("[name='email']").val();
-                var password = $("[name='password']").val();
+                    var user = {
 
-                var user = {
+                        SID: SID,
+                        email: email,
+                        password: password
 
-                    SID: SID,
-                    email: email,
-                    password: password
-
-                }
-
-               // console.log(SID + " " + email + " " + password);
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'Register',
-                    contentType: 'application/json',
-                    data: JSON.stringify(user),
-                    dataType: 'Json',
-                    async: true,
-                    success: function (data) {
-                        if (data == true) {
-                            Materialize.toast('You will recieve an email by confirming </br> your request. Thank you !', 4000, 'blue')
-                        }
                     }
 
-                });
+                   // console.log(SID + " " + email + " " + password);
 
-            }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Register',
+                        contentType: 'application/json',
+                        data: JSON.stringify(user),
+                        dataType: 'Json',
+                        async: true,
+                        success: function (data) {
+                            if (data == true) {
+                                Materialize.toast('You will recieve an email by confirming </br> your request. Thank you !', 4000, 'blue')
+                            }
+                        }
+
+                    });
+
+                }
+
+            });
+
+            $.validator.addMethod("regx", function (value, element, regexpr) {
+                return regexpr.test(value);
+            }, "must contain more than 8 characters & at least 1 Alphabet and 1 Number");
+
+            $("#form").validate({
+                rules: {
+                    SID: {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+
+                    email: {
+                        required: true,
+                        email: true
+                    },
+
+
+                    password: {
+                        required: true,
+                        regx: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+                    },
+                    confirmPassword: {
+                        equalTo: "#password"
+                    }
+                },
+
+                messages: {
+                    SID: {
+                        minlength: "Enter valid SLIIT ID",
+                        maxlength: "Enter valid SLIIT ID"
+                    }
+                }
+            });
 
         });
 
-        $.validator.addMethod("regx", function (value, element, regexpr) {
-            return regexpr.test(value);
-        }, "must contain more than 8 characters & at least 1 Alphabet and 1 Number");
 
-        $("#form").validate({
-            rules: {
-                SID: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-
-                email: {
-                    required: true,
-                    email: true
-                },
-
-
-                password: {
-                    required: true,
-                    regx: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-                },
-                confirmPassword: {
-                    equalTo: "#password"
-                }
-            },
-
-            messages: {
-                SID: {
-                    minlength: "Enter valid SLIIT ID",
-                    maxlength: "Enter valid SLIIT ID"
-                }
-            }
-        });
-
-    });
-
-
-</script>
+    </script>
+}

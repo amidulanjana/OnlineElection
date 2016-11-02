@@ -19,7 +19,6 @@ namespace OnlineElection.DAL
         public Nullable<System.Guid> Degree_ID { get; set; }
         public string semester { get; set; }
     
-        public virtual Degree Degree { get; set; }
         public virtual person person { get; set; }
     }
 }
