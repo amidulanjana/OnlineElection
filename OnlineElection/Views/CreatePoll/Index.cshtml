@@ -1,0 +1,334 @@
+﻿ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+
+<link rel="stylesheet" href="~/Content/material.css">
+<link rel="stylesheet" href="scripts/materialize/materialize.min.css">
+<script type="text/javascript" src="scripts/jquery-2.1.1.min.js"></script>
+<script src="scripts/materialize/materialize.min.js"></script>
+
+
+
+<body style="background-color:cornflowerblue">
+    
+    <!--creation of the create Poll Form-->
+    <form method="POST" id="form1" >
+        <div class="card horizontal" style="margin-left:15%;margin-right:15%;">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <span class="card-title">create poll</span>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Poll Type</label>
+                        </div>
+                        <div class="input-field col s8" id="pollType" >                       
+                            <select name="poll1"  multiple>
+                                <option value="1">BatchRep</option>
+                            </select>
+                            <label>Select To Type</label>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Poll Name</label>
+                        </div>
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="Name" name="Name" type="text" class="materialize-textarea" length="15" aria-required="true" maxlength="15">
+                            <label for="address">Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>No of candidates</label>
+                        </div>
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">label</i>
+                            <input id="max_candidates" name="max_candidates" type="number" class="materialize-textarea">
+                            <label for="address">No Of Candidates</label>
+                        </div>
+                    </div>
+                    <label for="Name">Name of Candidates</label>
+                    <div class="chips chips-placeholder" ></div>
+                    <div class="row">
+                        <div class="col s12 m4">
+                            <div class="card" style="background-color:aquamarine;">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Computing</span>
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Year</label>
+                                        </div>
+                                        <div class="input-field col s8" id="ITyear">
+                                            <select name="ITyear" multiple>
+                                                <option value="" disabled selected>Select Year</option>
+                                                <option value="1">1st year</option>
+                                                <option value="2">2nd year</option>
+                                                <option value="3">3rd year</option>
+                                                <option value="4">4th year</option>
+                                            </select>
+                                            <label>Select Year</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Batch</label>
+                                        </div>
+                                        <div class="input-field col s8">                                    
+                                            <select name="ITBatch" multiple>
+                                                <option value="" disabled selected>Select Batch</option>
+                                                <option value="1">batch 1</option>
+                                                <option value="2">batch 2</option>
+                                                <option value="3">batch 3</option>
+                                                <option value="4">batch 4</option>
+                                            </select>
+                                            <label>Select Batch</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="card" style="background-color:aquamarine;">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Business</span>
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Year</label>
+                                        </div>
+                                        <div class="input-field col s8">
+                                            <select name="BMyear" multiple>
+                                                <option value="" disabled selected>Select Year</option>
+                                                <option value="1">1st year</option>
+                                                <option value="2">2nd year</option>
+                                                <option value="3">3rd year</option>
+                                                <option value="4">4th year</option>
+                                            </select>
+                                            <label>Select Year</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Batch</label>
+                                        </div>
+                                        <div class="input-field col s8">
+                                            <select name="BMBatch" multiple>
+                                                <option value="" disabled selected>Select Batch</option>
+                                                <option value="1">batch 1</option>
+                                                <option value="2">batch 2</option>
+                                                <option value="3">batch 3</option>
+                                                <option value="4">batch 4</option>
+                                            </select>
+                                            <label>Select Batch</label>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="card" style="background-color:aquamarine;">
+                                <div class="card-content white-text">
+                                    <span class="card-title">Engineering</span>
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Year</label>
+                                        </div>
+                                        <div class="input-field col s8">
+                                            <select name="ENGyear" multiple>
+                                                <option value="" disabled selected>Select Year</option>
+                                                <option value="1">1st year</option>
+                                                <option value="2">2nd year</option>
+                                                <option value="3">3rd year</option>
+                                                <option value="4">4th year</option>
+                                            </select>
+                                            <label>Select Year</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s3">
+                                            <label>Batch</label>
+                                        </div>
+                                        <div class="input-field col s8">
+                                            <select name="ENGBatch" multiple>
+                                                <option value="" disabled selected>Select Batch</option>
+                                                <option value="1">batch 1</option>
+                                                <option value="2">batch 2</option>
+                                                <option value="3">batch 3</option>
+                                                <option value="4">batch 4</option>
+                                            </select>
+                                            <label>Select Batch</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <label>Poll Date</label>
+                        </div>
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">today</i>
+                            <input id="polldate" type="date" class="datepicker">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s2">
+                            <label>StartTime</label>
+                        </div>
+                        <div class="input-field col s3">
+                            @*<i class="material-icons prefix">today</i>*@
+                            <input id="startTime" type="time" class="glyphicon-time">
+
+                        </div>
+                        <div class="input-field col s2">
+                            <label>EndTime</label>
+                        </div>
+                        <div class="input-field col s3">
+                            @*<i class="material-icons prefix">today</i>*@
+                            <input id="endTime" type="time" class="glyphicon-time" >
+
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <div class="input-field col s6 m6 l6" style="margin-top:20px">
+                            <a href="" onclick="poll()">CreatePoll</a>
+                        </div>
+                       
+                        <div class="input-field col s6 m6 l6" style="margin-top:20px">
+                            <a href="">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</body>
+
+<script>
+    $('.chips-placeholder').material_chip({
+        placeholder: 'Enter a tag',
+        secondaryPlaceholder: '+Tag',
+    });
+    var chip = {
+        tag: 'chip content',
+        image: '', //optional
+        id: 1, //optional
+    };
+
+    $(document).ready(function () {
+        $('input#input_text, textarea#textarea1').characterCounter();
+    });
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
+    
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+
+
+    function poll()
+    {
+       
+      alert("successfully added")
+        var PollType = [];
+            $("#pollType :selected").each(function () {
+                PollType.push($(this).text());
+            });
+
+            var Name = document.getElementById('Name').value;
+            var max_candidates = document.getElementById('max_candidates').value;
+            var cmyear = [];
+            $("#ITyear :selected").each(function () {
+                cmyear.push($(this).text());
+            });
+            var cmbatch = [];
+            $("#ITBatch :selected").each(function () {
+                cmbatch.push($(this).text());
+            });
+            var bmyear = [];
+            $("#BMyear :selected").each(function () {
+                bmyear.push($(this).text());
+            });
+            var bmbatch = [];
+            $("#BMBatch :selected").each(function () {
+                bmbatch.push($(this).text());
+            });
+            var enyear = [];
+            $("#ENGyear :selected").each(function () {
+                enyear.push($(this).text());
+            });
+            var enbatch = [];
+            $("#ENGBatch :selected").each(function () {
+                enbatch.push($(this).text());
+            });
+            var polldate = document.getElementById('polldate').value
+            var startTime = document.getElementById('startTime').value
+            var endTime = document.getElementById('endTime').value
+
+           
+            //alert(PollType)
+            //alert(cmyear)
+
+
+            $.ajax({
+                type: 'POST',
+                url: 'Createpoll',
+                contentType: 'application/json',
+                data: { PollType: PollType, Name: Name },
+                dataType: 'Json',
+                async: true,
+                error: function () {
+                    alert("error")
+                },
+                success: function (data) {
+
+                    alert("success")
+
+                }
+            });
+ 
+   
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
