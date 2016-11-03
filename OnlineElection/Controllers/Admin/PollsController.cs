@@ -62,5 +62,26 @@ namespace OnlineElection.Controllers.Admin
             return Json(batches,JsonRequestBehavior.AllowGet);
         }
 
+
+        /**
+          * @desc Return ViewPolls page
+          * @param No param
+          * @return View - ViewPolls page
+        */
+        public ActionResult ViewPolls()
+        {
+            return View("~/ViewsAdmin/Polls/ViewPolls.cshtml");
+        }
+
+        /**
+          * @desc Return _TableViewPolls partial view page.This is called by an AJAX function
+          * @param No param
+          * @return PartialView - _TableViewPolls page
+        */
+        public ActionResult GetAllPolls()
+        {
+            return PartialView("~/ViewsAdmin/User/_TableViewUsers.cshtml", repository.GetAll());
+        }
+
     }
 }
