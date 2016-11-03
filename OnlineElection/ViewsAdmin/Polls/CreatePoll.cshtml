@@ -11,8 +11,9 @@
 @section Styles {
     <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
     <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
-    <link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
+    @*<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">*@
+    <!-- Bootstrap DateTimePicker-->
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet">
 }
 
 
@@ -73,10 +74,31 @@
                     </div>
 
                     @* Timer DateRangePicker *@
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date and Time</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input type="text" name="daterange" id="reservation" class="form-control" />
+                        </div>
+                    </div>*@
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date And Time</label>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="startDate" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="endDate" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -91,9 +113,6 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Eligible Voters</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -104,28 +123,16 @@
                             </select>
                         </div>
                     </div>
-
+                 
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
-                            <div id="batches">
-                                <div class='checkbox'>
-                                  
-
-                                        @* Load <option></option> value from ajax call
-                                            function -> getBatches()
-                                        *@
-                                   
-                                </div>
+                            <div class='checkbox' id="batches">
+                                @* Load <option></option> value from ajax call
+                                    function -> getBatches()
+                                *@
                             </div>
                         </div>
                     </div>
-
-                    @*<div class="checkbox">
-                            <label>
-                                <input type="checkbox" class="flat" checked="checked">
-                            </label>
-                        </div>*@
-
 
                     <div class="form-group" id="year" style="display:none">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Da</label>
@@ -139,7 +146,8 @@
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
                         </div>
                     </div>
-                </form>
+                </form>               
+
             </div>
         </div>
     </div>
@@ -149,7 +157,35 @@
 {
     <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
     <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
-    <script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+    @*<script src="~/Content/vendors/iCheck/icheck.min.js"></script>*@
+    <!-- Bootstrap DateTimePicker-->
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#startDate').datetimepicker({
+                minDate: new Date(),
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+            $('#endDate').datetimepicker({
+                useCurrent: false, //Important! 
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+            $("#startDate").on("dp.change", function (e) {
+
+                $('#endDate').data("DateTimePicker").minDate(e.date);
+            });
+            $("#endDate").on("dp.change", function (e) {
+                $('#startDate').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
 
     <script type="text/javascript">
 
@@ -239,11 +275,11 @@
                             for (var i = 0; i < data.length; i++) {
 
                                 batches.push(
-                                   
+
                                                 "<label class='checkbox-inline'>" +
-                                                    "<input type='checkbox' class='flat' checked='checked'>" + FacultyName + " " +data[i].name +
-                                                "</label>" 
-                                           
+                                                    "<input type='checkbox' >" + data[i].FacultyName + " " + data[i].name +
+                                                "</label>"
+
                                 )
 
                                 console.log(data[i].name);
@@ -367,7 +403,7 @@
 
 
 
-        $(function () {
+        @*$(function () {
             $('input[name="daterange"]').daterangepicker({
                 timePicker: true,
                 timePickerIncrement: 30,
@@ -377,7 +413,7 @@
                     format: 'MM/DD/YYYY h:mm A'
                 }
             });
-        });
+        });*@
 
 
 
