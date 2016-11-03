@@ -44,7 +44,8 @@ namespace OnlineElection.BLL.Repository
                            {
                                BatchID = b.batch_ID,
                                facultyD = b.fac_ID,
-                               name = b.Name
+                               name = b.Name,
+                               FacultyName=b.Faculty.Name
                            }).ToList();
 
             return batches;

@@ -11,7 +11,7 @@
 @section Styles {
     <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
     <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
-<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
 }
 
@@ -98,48 +98,34 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Eligible Voters</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="candidates form-control " multiple="multiple" name="Faculty" style="width: 100%" id="faculty">
-                                @*<option>Computer</option>
-                                <option>Business</option>
-                                <option>Engineering</option>*@
+                                @* faculty are getting from the partial View*@
 
-                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml",Model)
-                            </select>
-                        </div>
-                    </div>
-
-                    @*<div class="form-group">
-                        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
-                            <select class="candidates form-control " multiple="multiple" name="Year" style="width: 100%">
-                                <option>Year 1</option>
-                                <option>Year 2</option>
-                                <option>Year 3</option>
-                                <option>Year 4</option>
+                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml", Model)
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
-                            <select class="candidates form-control " multiple="multiple" name="batch" style="width: 100%">
-                               <option>Batch 1</option>
-                               <option>Batch 2</option>
-                            </select>
+                            <div id="batches">
+                                <div class='checkbox'>
+                                  
+
+                                        @* Load <option></option> value from ajax call
+                                            function -> getBatches()
+                                        *@
+                                   
+                                </div>
+                            </div>
                         </div>
-                    </div>*@
-
-                    <div id="batches">
-                        
                     </div>
 
-                    <div class="checkbox">
-                        
-                        <label>
-                            
-                            <input type="checkbox" class="flat" checked="checked">
-                            
-                        </label>
-                        
-                    </div>
+                    @*<div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="flat" checked="checked">
+                            </label>
+                        </div>*@
+
 
                     <div class="form-group" id="year" style="display:none">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Da</label>
@@ -163,7 +149,7 @@
 {
     <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
     <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
-<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+    <script src="~/Content/vendors/iCheck/icheck.min.js"></script>
 
     <script type="text/javascript">
 
@@ -253,11 +239,11 @@
                             for (var i = 0; i < data.length; i++) {
 
                                 batches.push(
-                                    "<div class='checkbox'>" +
-                                                "<label>" +
-                                                    "<input type='checkbox' class='flat' checked='checked'>" + data[i].name +
-                                                "</label>" +
-                                            "</div>"
+                                   
+                                                "<label class='checkbox-inline'>" +
+                                                    "<input type='checkbox' class='flat' checked='checked'>" + FacultyName + " " +data[i].name +
+                                                "</label>" 
+                                           
                                 )
 
                                 console.log(data[i].name);
@@ -337,12 +323,12 @@
                 var pollType = $("[name='pollType']").val();
                 var name = $("[name='name']").val();
                 var daterange = $("[name='daterange']").val();
-                var Faculty= $("[name='Faculty']").val();
-                var Year= $("[name='Year']").val();
+                var Faculty = $("[name='Faculty']").val();
+                var Year = $("[name='Year']").val();
                 var batch = $("[name='batch']").val();
-                var candidate = $("[name='candidates']").val();            
+                var candidate = $("[name='candidates']").val();
                 var obj = $("#candidates").select2("data")
-                var candidateID=new Array();
+                var candidateID = new Array();
                 for (var i = 0; i < obj.length; i++) {
                     candidateID[i] = obj[i].id;
                 }
@@ -379,7 +365,7 @@
             });
         });
 
-        
+
 
         $(function () {
             $('input[name="daterange"]').daterangepicker({
