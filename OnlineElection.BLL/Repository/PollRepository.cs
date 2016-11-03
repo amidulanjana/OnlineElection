@@ -26,9 +26,7 @@ namespace OnlineElection.BLL.Repository
         {
             DateTimeFormatInfo usDtfi = new CultureInfo("en-US", false).DateTimeFormat;
             polls = new Poll();
-            
-            //candidates = new candidate();
-            
+                        
             DateTime startDate = Convert.ToDateTime(_polls.startDate, usDtfi);
             DateTime endDate = Convert.ToDateTime(_polls.endDate, usDtfi);
 
@@ -65,6 +63,16 @@ namespace OnlineElection.BLL.Repository
             }
 
             return false;
+        }
+
+        /**
+         * @desc Return all the details of polls to the polls Controller
+         * @param - no param
+         * @return List - polls details
+       */
+        public List<Poll> GetAllPolls()
+        {
+            return _dbContext.Polls.ToList();
         }
     }
 }

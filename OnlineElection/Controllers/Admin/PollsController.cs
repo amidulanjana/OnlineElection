@@ -80,7 +80,8 @@ namespace OnlineElection.Controllers.Admin
         */
         public ActionResult GetAllPolls()
         {
-            return PartialView("~/ViewsAdmin/User/_TableViewUsers.cshtml", repository.GetAll());
+            pollRepository = new PollRepository();
+            return PartialView("~/ViewsAdmin/Polls/_TableViewPolls.cshtml", pollRepository.GetAllPolls());
         }
 
     }

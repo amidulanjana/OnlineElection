@@ -57,6 +57,7 @@
           <Property Name="Type" Type="varchar" MaxLength="10" />
           <Property Name="max_candidates" Type="int" />
           <Property Name="No_of_Votes" Type="int" />
+          <Property Name="adminApproved" Type="bit" />
         </EntityType>
         <EntityType Name="poll_access">
           <Key>
@@ -416,6 +417,7 @@
           <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="Poll" ToRole="candidate" />
           <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="Poll" ToRole="votes_person" />
           <NavigationProperty Name="PollEligibleUsers" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="Poll" ToRole="PollEligibleUser" />
+          <Property Name="adminApproved" Type="Boolean" />
         </EntityType>
         <Association Name="candidate_fk3">
           <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
@@ -562,6 +564,7 @@
           <EntitySetMapping Name="Polls">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
               <MappingFragment StoreEntitySet="Poll">
+                <ScalarProperty Name="adminApproved" ColumnName="adminApproved" />
                 <ScalarProperty Name="No_of_Votes" ColumnName="No_of_Votes" />
                 <ScalarProperty Name="max_candidates" ColumnName="max_candidates" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

@@ -29,33 +29,19 @@ namespace OnlineElection.BLL.Repository
         public person LoggedUser(person User)
         {
 
-            //person _user = new person();
-            //_user.SID = User.SID;
-            //_user.password
-
             var querySID = (from u in _dbContext.people
                             where u.SID == User.SID
                             select u.SID);
 
 
             if (querySID != null)
-            {
-                //return (from u in _dbContext.people
-                //                where u.SID == User.SID
-                //                select u).ToList();
-
-                //return _dbContext.people.Find(User.password);
-
+            {             
                 return (from u in _dbContext.people
                         where u.SID == User.SID
                         select u).FirstOrDefault();
-
-                //return queryPass;
-
             }
 
             return null;
-
 
         }
 
@@ -71,6 +57,11 @@ namespace OnlineElection.BLL.Repository
             return false;
         }
 
+        /**
+         * @desc Return all the details of people to the User Controller
+         * @param - no param
+         * @return List - people details
+       */
         public List<person> GetAll()
         {
             return _dbContext.people.ToList();

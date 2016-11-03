@@ -315,6 +315,7 @@
     <Content Include="ViewsAdmin\Polls\_GetCandidates.cshtml" />
     <Content Include="ViewsAdmin\Polls\_GetFaculties.cshtml" />
     <Content Include="ViewsAdmin\Polls\ViewPolls.cshtml" />
+    <Content Include="ViewsAdmin\Polls\_TableViewPolls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

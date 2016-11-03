@@ -31,7 +31,9 @@ namespace OnlineElection.DAL
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<bool> AdminApproved { get; set; }
-    
+        public string FullName { get { return FirstName + "" + LastName; } }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
         public virtual staff staff { get; set; }
