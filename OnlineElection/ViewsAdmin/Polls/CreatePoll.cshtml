@@ -131,6 +131,16 @@
                         
                     </div>
 
+                    <div class="checkbox">
+                        
+                        <label>
+                            
+                            <input type="checkbox" class="flat" checked="checked">
+                            
+                        </label>
+                        
+                    </div>
+
                     <div class="form-group" id="year" style="display:none">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Da</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -159,10 +169,26 @@
 
         $(document).ready(function () {
 
+            //images are passed for the selec2 input box
+            //call this function in templateResult
+            function getCandidateImage(selection) {
+                if (!selection.id) { return selection.text; }
+                var thumb = $(selection.element).data('thumb');
+                if (!thumb) {
+                    return selection.text;
+                } else {
+                    var $selection = $(
+                  '<img src="' + thumb + '" alt=""><span class="img-changer-text">' + $(selection.element).text() + '</span>'
+                );
+                    return $selection;
+                }
+            }
 
             //select2 functions
             $(".candidates").select2({
                 allowClear: true,
+                templateResult: getCandidateImage,
+                templateSelection: getCandidateImage
 
             });
 
@@ -210,38 +236,43 @@
 
             function getBatches(id) {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'GetBatches',
-                    contentType: 'application/json',
-                    data: JSON.stringify(id),
-                    dataType: 'Json',
-                    async: true,
-                    success: function (data) {
-                        //if (data == true) {
-                        //    $("#AddPollForm").bootstrapValidator('resetForm', true);
-                        //}
-                        console.log(data);
-                        var batches = [];
-                        for (var i = 0; i < data.length; i++) {
+                if (id != null) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'GetBatches',
+                        contentType: 'application/json',
+                        data: JSON.stringify(id),
+                        dataType: 'Json',
+                        async: true,
+                        success: function (data) {
+                            //if (data == true) {
+                            //    $("#AddPollForm").bootstrapValidator('resetForm', true);
+                            //}
+                            console.log(data);
+                            var batches = [];
+                            for (var i = 0; i < data.length; i++) {
 
-                            batches.push(
-                                ' <div class="checkbox">' +
-                                            '<label>' +
-                                                '<input type="checkbox" class="flat" checked="checked">' + data[i].name +
-                                            '</label>' +
-                                        '</div>'
-                            )
-                            
-                            console.log(data[i].name);
+                                batches.push(
+                                    "<div class='checkbox'>" +
+                                                "<label>" +
+                                                    "<input type='checkbox' class='flat' checked='checked'>" + data[i].name +
+                                                "</label>" +
+                                            "</div>"
+                                )
+
+                                console.log(data[i].name);
+
+                            }
+                            $('#batches').html(batches.join(" "))
+
 
                         }
-                        $('#batches').html(batches.join(" "))
-                                        
 
-                    }
-
-                });
+                    });
+                }
+                else {
+                    $('#batches').html(" ");
+                }
             }
 
 

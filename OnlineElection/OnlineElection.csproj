@@ -301,7 +301,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\build\" />
+    <Folder Include="Content\build\css\" />
+    <Folder Include="Content\build\js\" />
     <Folder Include="Content\js\" />
     <Folder Include="Content\vendors\bootstrapValidator\language\" />
   </ItemGroup>
