@@ -16,6 +16,12 @@ namespace OnlineElection.BLL.Repository
         candidate candidates;
         PollEligibleUser EligibleUser;
 
+
+        /**
+          * @desc Insert polls details into poll,candidate,PollEligibleUser database tables
+          * @param poll model from controller
+          * @return Json - success/Failure
+        */
         public bool InsertPolls(PollModel _polls)
         {
             DateTimeFormatInfo usDtfi = new CultureInfo("en-US", false).DateTimeFormat;
@@ -52,7 +58,12 @@ namespace OnlineElection.BLL.Repository
             }
 
             _dbContext.Polls.Add(polls);
-            _dbContext.SaveChanges();
+
+            if (_dbContext.SaveChanges()>0 )
+            {
+                return true;
+            }
+
             return false;
         }
     }

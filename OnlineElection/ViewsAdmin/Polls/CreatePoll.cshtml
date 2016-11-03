@@ -83,10 +83,10 @@
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date And Time</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date</label>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="startDate" />
+                                <input type="text" class="form-control" id="startDate" placeholder="Start Date"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="endDate" />
+                                <input type="text" class="form-control" id="endDate" placeholder="End Date" />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -223,23 +223,14 @@
             $(".candidates").select2({
                 allowClear: true,
                 templateResult: getCandidateImage,
-                templateSelection: getCandidateImage
+                templateSelection: getCandidateImage,
+                placeholder: "Candidates",
 
             });
 
-            $("#Faculty").select2({
+            $("#faculty").select2({
                 allowClear: true,
                 placeholder: "Faculty",
-            });
-
-            $("#Year").select2({
-                allowClear: true,
-                placeholder: "Year",
-            });
-
-            $("#batch").select2({
-                allowClear: true,
-                placeholder: "Batch",
             });
 
 
@@ -394,14 +385,13 @@
                     pollType: pollType,
                     name: name,
                     startDate: startDate,
-                    endDate:endDate,
+                    endDate: endDate,
                     Faculty: Faculty,
                     Year: Year,
                     batch: batches,
                     candidateID: candidateID
                 }
 
-                //console.log(candidate, pollType, name, daterange, Faculty, Year, batch, candidateID);
 
                 $.ajax({
                     type: 'POST',
@@ -412,7 +402,11 @@
                     async: true,
                     success: function (data) {
                         if (data == true) {
-                            $("#AddPollForm").bootstrapValidator('resetForm', true);
+                            $('#candidates').val('').trigger('change');
+                            $('#faculty').val('').trigger('change');
+                            $("#AddPollForm").bootstrapValidator('resetForm', true);                          
+                            $('#AddPollForm')[0].reset();
+                            
                         }
                     }
 

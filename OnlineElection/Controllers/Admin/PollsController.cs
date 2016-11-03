@@ -32,12 +32,19 @@ namespace OnlineElection.Controllers.Admin
             return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", personRepository.GetAll());
         }
 
+        /**
+          * @desc Insert the Poll details admin have created
+          * @param PollModel object
+          * @return Json - success/Failure
+        */
         [HttpPost]
         public JsonResult CreatePoll(PollModel polls)
         {
+            bool status;
             pollRepository = new PollRepository();
-            pollRepository.InsertPolls(polls);
-            return Json(null,null);
+            status=pollRepository.InsertPolls(polls);
+
+            return Json(status,JsonRequestBehavior.AllowGet);
         }
 
 
@@ -46,7 +53,6 @@ namespace OnlineElection.Controllers.Admin
           * @param Faculty ID/IDs
           * @return Json - Batch Details or success/Failure
         */
-
         public JsonResult GetBatches(Guid[] ids)
         {
 
