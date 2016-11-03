@@ -14,19 +14,17 @@ namespace OnlineElection.BLL.Repository
         OnlineElectionEntities _dbContext = new OnlineElectionEntities();
         Poll polls;
         candidate candidates;
-
+        PollEligibleUser EligibleUser;
 
         public bool InsertPolls(PollModel _polls)
         {
             DateTimeFormatInfo usDtfi = new CultureInfo("en-US", false).DateTimeFormat;
             polls = new Poll();
             
-            candidates = new candidate();
-
-            string dateRange = _polls.dateRange;
-            string[] tokens = dateRange.Split('-');
-            DateTime startDate = Convert.ToDateTime(tokens[0], usDtfi);
-            DateTime endDate = Convert.ToDateTime(tokens[1], usDtfi);
+            //candidates = new candidate();
+            
+            DateTime startDate = Convert.ToDateTime(_polls.startDate, usDtfi);
+            DateTime endDate = Convert.ToDateTime(_polls.endDate, usDtfi);
 
 
             polls.Name = _polls.name;
@@ -43,6 +41,14 @@ namespace OnlineElection.BLL.Repository
                 candidates.Poll = polls;
                 polls.candidates.Add(candidates);
                
+            }
+
+            foreach (var batchID in _polls.batch)
+            {
+                EligibleUser = new PollEligibleUser();
+                EligibleUser.BatchID = batchID;
+                EligibleUser.Poll = polls;
+                polls.PollEligibleUsers.Add(EligibleUser);
             }
 
             _dbContext.Polls.Add(polls);

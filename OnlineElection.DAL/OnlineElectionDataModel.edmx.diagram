@@ -7,7 +7,7 @@
       <Diagram DiagramId="151a7adb9a814f61970f3045929a206d" Name="Diagram1">
         <EntityTypeShape EntityType="OnlineElectionDbModel.staff" Width="1.5" PointX="0.5" PointY="4.75" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.student" Width="1.5" PointX="4.5" PointY="4.375" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.poll_access" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.poll_access" Width="1.5" PointX="9.875" PointY="6.875" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.votes_person" Width="1.5" PointX="10.75" PointY="3.625" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.candidate" Width="1.5" PointX="3.5" PointY="0.5" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.person" Width="1.5" PointX="0.875" PointY="0.5" />
@@ -15,14 +15,14 @@
         <AssociationConnector Association="OnlineElectionDbModel.staff_fk1" />
         <AssociationConnector Association="OnlineElectionDbModel.stu_fk1" />
         <AssociationConnector Association="OnlineElectionDbModel.votes_personfk2" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.PollEligibleUser" Width="1.5" PointX="10.625" PointY="0.625" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Poll" Width="1.5" PointX="6.5" PointY="0.5" />
         <AssociationConnector Association="OnlineElectionDbModel.candidate_fk3" />
-        <AssociationConnector Association="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" />
         <AssociationConnector Association="OnlineElectionDbModel.votes_personfk3" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.batch" Width="1.5" PointX="4.125" PointY="7.25" />
-        <EntityTypeShape EntityType="OnlineElectionDbModel.Faculty" Width="1.5" PointX="1" PointY="7.125" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.batch" Width="1.5" PointX="4" PointY="7.125" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.Faculty" Width="1.5" PointX="1.625" PointY="7" />
         <AssociationConnector Association="OnlineElectionDbModel.FK_batch_Faculty" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.PollEligibleUser" Width="1.5" PointX="8.75" PointY="1.125" />
+        <AssociationConnector Association="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

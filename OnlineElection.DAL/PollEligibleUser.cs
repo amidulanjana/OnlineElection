@@ -15,7 +15,6 @@ namespace OnlineElection.DAL
     public partial class PollEligibleUser
     {
         public System.Guid PollID { get; set; }
-        public System.Guid FacultyID { get; set; }
         public System.Guid BatchID { get; set; }
     
         public virtual Poll Poll { get; set; }

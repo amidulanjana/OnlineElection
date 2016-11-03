@@ -75,11 +75,11 @@
 
                     @* Timer DateRangePicker *@
                     @*<div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date and Time</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" name="daterange" id="reservation" class="form-control" />
-                        </div>
-                    </div>*@
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date and Time</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" name="daterange" id="reservation" class="form-control" />
+                            </div>
+                        </div>*@
 
 
                     <div class="form-group">
@@ -123,7 +123,7 @@
                             </select>
                         </div>
                     </div>
-                 
+
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
                             <div class='checkbox' id="batches">
@@ -146,7 +146,7 @@
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
                         </div>
                     </div>
-                </form>               
+                </form>
 
             </div>
         </div>
@@ -171,7 +171,7 @@
                 }
             });
             $('#endDate').datetimepicker({
-                useCurrent: false, //Important! 
+                useCurrent: false, //Important!
                 widgetPositioning: {
                     horizontal: 'auto',
                     vertical: 'bottom'
@@ -189,6 +189,16 @@
 
     <script type="text/javascript">
 
+        function getChekedBatches() {
+            var allVals = [];
+            $('#batches :checked').each(function () {
+                allVals.push($(this).val());
+            });
+            //$('#t').val(allVals);
+            return allVals;
+        }
+
+
         $(document).ready(function () {
 
             //images are passed for the selec2 input box
@@ -205,6 +215,9 @@
                     return $selection;
                 }
             }
+
+            //checkkBox click event
+
 
             //select2 functions
             $(".candidates").select2({
@@ -277,7 +290,7 @@
                                 batches.push(
 
                                                 "<label class='checkbox-inline'>" +
-                                                    "<input type='checkbox' >" + data[i].FacultyName + " " + data[i].name +
+                                                    "<input type='checkbox' value='" + data[i].BatchID + "' >" + data[i].FacultyName + " " + data[i].name +
                                                 "</label>"
 
                                 )
@@ -296,7 +309,6 @@
                     $('#batches').html(" ");
                 }
             }
-
 
 
 
@@ -358,25 +370,34 @@
 
                 var pollType = $("[name='pollType']").val();
                 var name = $("[name='name']").val();
-                var daterange = $("[name='daterange']").val();
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
                 var Faculty = $("[name='Faculty']").val();
                 var Year = $("[name='Year']").val();
-                var batch = $("[name='batch']").val();
-                var candidate = $("[name='candidates']").val();
-                var obj = $("#candidates").select2("data")
+                //var batch = $("[name='batch']").val();
+                //var candidate = $("[name='candidates']").val();
+
+                var batches = [];
+                $('#batches input:checked').each(function () {
+                    batches.push(this.value);
+                });
+
+
+                var candidate = $("#candidates").select2("data")
                 var candidateID = new Array();
-                for (var i = 0; i < obj.length; i++) {
-                    candidateID[i] = obj[i].id;
+                for (var i = 0; i < candidate.length; i++) {
+                    candidateID[i] = candidate[i].id;
                 }
 
                 var poll = {
 
                     pollType: pollType,
                     name: name,
-                    daterange: daterange,
+                    startDate: startDate,
+                    endDate:endDate,
                     Faculty: Faculty,
                     Year: Year,
-                    batch: batch,
+                    batch: batches,
                     candidateID: candidateID
                 }
 

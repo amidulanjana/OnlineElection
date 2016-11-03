@@ -18,8 +18,8 @@ namespace OnlineElection.DAL
         public Poll()
         {
             this.candidates = new HashSet<candidate>();
-            this.PollEligibleUsers = new HashSet<PollEligibleUser>();
             this.votes_person = new HashSet<votes_person>();
+            this.PollEligibleUsers = new HashSet<PollEligibleUser>();
         }
     
         public System.Guid ID { get; set; }
@@ -33,8 +33,8 @@ namespace OnlineElection.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PollEligibleUser> PollEligibleUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<votes_person> votes_person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PollEligibleUser> PollEligibleUsers { get; set; }
     }
 }

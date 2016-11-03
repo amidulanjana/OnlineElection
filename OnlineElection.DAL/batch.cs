@@ -17,7 +17,7 @@ namespace OnlineElection.DAL
         public System.Guid batch_ID { get; set; }
         public string Name { get; set; }
         public string Year { get; set; }
-        public Nullable<System.Guid> fac_ID { get; set; }
+        public System.Guid fac_ID { get; set; }
     
         public virtual Faculty Faculty { get; set; }
     }

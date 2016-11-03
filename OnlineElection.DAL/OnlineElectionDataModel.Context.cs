@@ -31,9 +31,9 @@ namespace OnlineElection.DAL
         public virtual DbSet<votes_person> votes_person { get; set; }
         public virtual DbSet<candidate> candidates { get; set; }
         public virtual DbSet<person> people { get; set; }
-        public virtual DbSet<PollEligibleUser> PollEligibleUsers { get; set; }
         public virtual DbSet<Poll> Polls { get; set; }
         public virtual DbSet<batch> batches { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
+        public virtual DbSet<PollEligibleUser> PollEligibleUsers { get; set; }
     }
 }

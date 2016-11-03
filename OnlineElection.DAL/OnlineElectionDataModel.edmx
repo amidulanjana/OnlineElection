@@ -12,7 +12,7 @@
           <Property Name="batch_ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Year" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="fac_ID" Type="uniqueidentifier" />
+          <Property Name="fac_ID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="candidate">
           <Key>
@@ -50,7 +50,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="startDate" Type="datetime" />
           <Property Name="endDate" Type="datetime" />
           <Property Name="Name" Type="varchar" MaxLength="25" />
@@ -68,11 +68,9 @@
         <EntityType Name="PollEligibleUsers">
           <Key>
             <PropertyRef Name="PollID" />
-            <PropertyRef Name="FacultyID" />
             <PropertyRef Name="BatchID" />
           </Key>
           <Property Name="PollID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FacultyID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="BatchID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="staff">
@@ -127,7 +125,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_batch_Faculty">
-          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
           <End Role="batch" Type="Self.batch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Faculty">
@@ -269,15 +267,10 @@
             <End Role="person" EntitySet="people" />
             <End Role="votes_person" EntitySet="votes_person" />
           </AssociationSet>
-          <EntitySet Name="PollEligibleUsers" EntityType="OnlineElectionDbModel.PollEligibleUser" />
           <EntitySet Name="Polls" EntityType="OnlineElectionDbModel.Poll" />
           <AssociationSet Name="candidate_fk3" Association="OnlineElectionDbModel.candidate_fk3">
             <End Role="Poll" EntitySet="Polls" />
             <End Role="candidate" EntitySet="candidates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PollEligibleUsers_Poll" Association="OnlineElectionDbModel.FK_PollEligibleUsers_Poll">
-            <End Role="Poll" EntitySet="Polls" />
-            <End Role="PollEligibleUser" EntitySet="PollEligibleUsers" />
           </AssociationSet>
           <AssociationSet Name="votes_personfk3" Association="OnlineElectionDbModel.votes_personfk3">
             <End Role="Poll" EntitySet="Polls" />
@@ -288,6 +281,11 @@
           <AssociationSet Name="FK_batch_Faculty" Association="OnlineElectionDbModel.FK_batch_Faculty">
             <End Role="Faculty" EntitySet="Faculties" />
             <End Role="batch" EntitySet="batches" />
+          </AssociationSet>
+          <EntitySet Name="PollEligibleUsers" EntityType="OnlineElectionDbModel.PollEligibleUser" />
+          <AssociationSet Name="FK_PollEligibleUsers_Poll" Association="OnlineElectionDbModel.FK_PollEligibleUsers_Poll">
+            <End Role="Poll" EntitySet="Polls" />
+            <End Role="PollEligibleUser" EntitySet="PollEligibleUsers" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="staff">
@@ -404,22 +402,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="PollEligibleUser">
-          <Key>
-            <PropertyRef Name="PollID" />
-            <PropertyRef Name="FacultyID" />
-            <PropertyRef Name="BatchID" />
-          </Key>
-          <Property Name="PollID" Type="Guid" Nullable="false" />
-          <Property Name="FacultyID" Type="Guid" Nullable="false" />
-          <Property Name="BatchID" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="PollEligibleUser" ToRole="Poll" />
-        </EntityType>
         <EntityType Name="Poll">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="startDate" Type="DateTime" Precision="3" />
           <Property Name="endDate" Type="DateTime" Precision="3" />
           <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
@@ -427,8 +414,8 @@
           <Property Name="max_candidates" Type="Int32" />
           <Property Name="No_of_Votes" Type="Int32" />
           <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="Poll" ToRole="candidate" />
-          <NavigationProperty Name="PollEligibleUsers" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="Poll" ToRole="PollEligibleUser" />
           <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="Poll" ToRole="votes_person" />
+          <NavigationProperty Name="PollEligibleUsers" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="Poll" ToRole="PollEligibleUser" />
         </EntityType>
         <Association Name="candidate_fk3">
           <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
@@ -439,18 +426,6 @@
             </Principal>
             <Dependent Role="candidate">
               <PropertyRef Name="Poll_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PollEligibleUsers_Poll">
-          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
-          <End Type="OnlineElectionDbModel.PollEligibleUser" Role="PollEligibleUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Poll">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PollEligibleUser">
-              <PropertyRef Name="PollID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -473,7 +448,7 @@
           <Property Name="batch_ID" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="fac_ID" Type="Guid" />
+          <Property Name="fac_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Faculty" Relationship="OnlineElectionDbModel.FK_batch_Faculty" FromRole="batch" ToRole="Faculty" />
         </EntityType>
         <EntityType Name="Faculty">
@@ -486,7 +461,7 @@
           <NavigationProperty Name="batches" Relationship="OnlineElectionDbModel.FK_batch_Faculty" FromRole="Faculty" ToRole="batch" />
         </EntityType>
         <Association Name="FK_batch_Faculty">
-          <End Type="OnlineElectionDbModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="OnlineElectionDbModel.Faculty" Role="Faculty" Multiplicity="1" />
           <End Type="OnlineElectionDbModel.batch" Role="batch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Faculty">
@@ -494,6 +469,27 @@
             </Principal>
             <Dependent Role="batch">
               <PropertyRef Name="fac_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PollEligibleUser">
+          <Key>
+            <PropertyRef Name="PollID" />
+            <PropertyRef Name="BatchID" />
+          </Key>
+          <Property Name="PollID" Type="Guid" Nullable="false" />
+          <Property Name="BatchID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Poll" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="PollEligibleUser" ToRole="Poll" />
+        </EntityType>
+        <Association Name="FK_PollEligibleUsers_Poll">
+          <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
+          <End Type="OnlineElectionDbModel.PollEligibleUser" Role="PollEligibleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poll">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PollEligibleUser">
+              <PropertyRef Name="PollID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -563,15 +559,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PollEligibleUsers">
-            <EntityTypeMapping TypeName="OnlineElectionDbModel.PollEligibleUser">
-              <MappingFragment StoreEntitySet="PollEligibleUsers">
-                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
-                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
-                <ScalarProperty Name="PollID" ColumnName="PollID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Polls">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
               <MappingFragment StoreEntitySet="Poll">
@@ -601,6 +588,14 @@
                 <ScalarProperty Name="Dean" ColumnName="Dean" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Fac_ID" ColumnName="Fac_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PollEligibleUsers">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.PollEligibleUser">
+              <MappingFragment StoreEntitySet="PollEligibleUsers">
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="PollID" ColumnName="PollID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
