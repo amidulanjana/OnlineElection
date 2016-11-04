@@ -7,7 +7,7 @@
             <th>Type</th>
             <th>Date</th>
             <th>Candidates</th>
-            <th>Eligible Votes</th>
+            <th>Eligible Voters</th>
             <th>Approve</th>
             <th>Respond</th>
         </tr>
@@ -28,10 +28,10 @@
                     @Html.DisplayFor(modelItem => item.DateReange)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.candidat)*@
+                    <a data-toggle="modal" data-target=".bs-ViewCandidate-modal-sm" href="" onclick="getPollID(this)" data-assigned-id="@item.ID">View Candidates</a>
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.student.semester)*@
+                    <a data-toggle="modal" data-target=".bs-example1-modal-sm" href=""  onclick="test(this)" data-assigned-id="@item.ID"> View Eligible Voters</a>
                 </td>
                 <td id="@item.ID">
                     

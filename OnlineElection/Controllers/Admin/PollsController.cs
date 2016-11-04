@@ -42,9 +42,9 @@ namespace OnlineElection.Controllers.Admin
         {
             bool status;
             pollRepository = new PollRepository();
-            status=pollRepository.InsertPolls(polls);
+            status = pollRepository.InsertPolls(polls);
 
-            return Json(status,JsonRequestBehavior.AllowGet);
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -57,9 +57,9 @@ namespace OnlineElection.Controllers.Admin
         {
 
             facultyRepository = new FacultyRepository();
-            var batches=facultyRepository.GetBatches(ids);
+            var batches = facultyRepository.GetBatches(ids);
 
-            return Json(batches,JsonRequestBehavior.AllowGet);
+            return Json(batches, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -82,6 +82,15 @@ namespace OnlineElection.Controllers.Admin
         {
             pollRepository = new PollRepository();
             return PartialView("~/ViewsAdmin/Polls/_TableViewPolls.cshtml", pollRepository.GetAllPolls());
+        }
+
+
+        [HttpGet]
+        public JsonResult GetAssignedCandidates(Guid pollID)
+        {
+            pollRepository = new PollRepository();
+            var assignedCandidates=pollRepository.GetAssignedCandidates(pollID);
+            return Json(assignedCandidates,JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -30,7 +30,6 @@ namespace OnlineElection.DAL
         public Nullable<int> max_candidates { get; set; }
         public Nullable<int> No_of_Votes { get; set; }
         public Nullable<bool> adminApproved { get; set; }
-
         public string DateReange { get { return startDate + " - " + endDate; } }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

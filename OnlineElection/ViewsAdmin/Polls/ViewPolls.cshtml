@@ -4,6 +4,15 @@
     Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
 }
 
+@section Styles {
+    <style>
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+}
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -36,10 +45,48 @@
                 </p>
                 <div id="myPartialContainer">
 
-                    @* Load _TableViewUsers partial view using ajax *@
+                    @* Load _TableViewPolls partial view using ajax *@
 
                 </div>
 
+                @* View Candidate Model *@
+                <div class="modal fade bs-ViewCandidate-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Assigned Candidates</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <ul class="list-unstyled msg_list">
+                                    <li>
+                                        <a>
+                                            <span class="image">
+                                                <img src="~/Content/Images/user.png" alt="img" />
+                                            </span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">X </span>
+                                            </span>
+                                            <table>
+                                                <tr>
+                                                    <td><strong>SID : </strong>IT14053610 </td>
+                                                    <td><strong>Faculty : </strong>Computing</td>
+                                                    <td><strong>Batch : </strong>Batch 1</td>
+                                                </tr>
+                                            </table>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* View Candidate model End *@
+
+                @* Delete Model *@
                 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -59,6 +106,7 @@
                         </div>
                     </div>
                 </div>
+                @* Delete model *@
 
             </div>
         </div>
@@ -88,6 +136,33 @@
 
         });
 
+        //to get candidates for a relevent poll id
+        function getAssignedCandidates(pollID) {
+
+            $.ajax({
+                type: 'GET',
+                url: 'GetAssignedCandidates',
+                contentType: 'application/json',
+                data: { pollID: pollID },
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
+        }
+
+        //to get poll id
+        //this method call in onclick method
+        function getPollID(elem) {
+            console.log("test" + $(elem).data('assigned-id'));
+            var id = $(elem).data('assigned-id');
+            getAssignedCandidates(id);
+
+
+        }
 
         //Admin Approve
         //this method call in onclick method

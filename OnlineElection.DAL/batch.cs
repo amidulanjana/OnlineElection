@@ -14,11 +14,19 @@ namespace OnlineElection.DAL
     
     public partial class batch
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public batch()
+        {
+            this.people = new HashSet<person>();
+        }
+    
         public System.Guid batch_ID { get; set; }
         public string Name { get; set; }
         public string Year { get; set; }
         public System.Guid fac_ID { get; set; }
     
         public virtual Faculty Faculty { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<person> people { get; set; }
     }
 }

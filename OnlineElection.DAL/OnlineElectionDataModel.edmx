@@ -45,6 +45,7 @@
           <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="password" Type="varchar(max)" Nullable="false" />
           <Property Name="AdminApproved" Type="bit" />
+          <Property Name="batchID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -137,6 +138,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_person_batch">
+          <End Role="batch" Type="Self.batch" Multiplicity="0..1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch">
+              <PropertyRef Name="batch_ID" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="batchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PollEligibleUsers_Poll">
           <End Role="Poll" Type="Self.Poll" Multiplicity="1" />
           <End Role="PollEligibleUsers" Type="Self.PollEligibleUsers" Multiplicity="*" />
@@ -220,6 +233,10 @@
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="batch" EntitySet="batch" />
           </AssociationSet>
+          <AssociationSet Name="FK_person_batch" Association="Self.FK_person_batch">
+            <End Role="batch" EntitySet="batch" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
           <AssociationSet Name="FK_PollEligibleUsers_Poll" Association="Self.FK_PollEligibleUsers_Poll">
             <End Role="Poll" EntitySet="Poll" />
             <End Role="PollEligibleUsers" EntitySet="PollEligibleUsers" />
@@ -288,6 +305,10 @@
             <End Role="Poll" EntitySet="Polls" />
             <End Role="PollEligibleUser" EntitySet="PollEligibleUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_person_batch" Association="OnlineElectionDbModel.FK_person_batch">
+            <End Role="batch" EntitySet="batches" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="staff">
           <Key>
@@ -354,6 +375,8 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="AdminApproved" Type="Boolean" />
+          <Property Name="batchID" Type="Guid" />
+          <NavigationProperty Name="batch" Relationship="OnlineElectionDbModel.FK_person_batch" FromRole="person" ToRole="batch" />
         </EntityType>
         <Association Name="candidate_fk2">
           <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
@@ -452,6 +475,7 @@
           <Property Name="Year" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="fac_ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Faculty" Relationship="OnlineElectionDbModel.FK_batch_Faculty" FromRole="batch" ToRole="Faculty" />
+          <NavigationProperty Name="people" Relationship="OnlineElectionDbModel.FK_person_batch" FromRole="batch" ToRole="person" />
         </EntityType>
         <EntityType Name="Faculty">
           <Key>
@@ -492,6 +516,18 @@
             </Principal>
             <Dependent Role="PollEligibleUser">
               <PropertyRef Name="PollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_batch">
+          <End Type="OnlineElectionDbModel.batch" Role="batch" Multiplicity="0..1" />
+          <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="batch">
+              <PropertyRef Name="batch_ID" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="batchID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -548,6 +584,7 @@
           <EntitySetMapping Name="people">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
               <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="batchID" ColumnName="batchID" />
                 <ScalarProperty Name="AdminApproved" ColumnName="AdminApproved" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />

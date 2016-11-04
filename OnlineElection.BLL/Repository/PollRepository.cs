@@ -1,5 +1,6 @@
 ﻿using OnlineElection.DAL;
 using OnlineElection.Domain;
+using OnlineElection.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,7 +20,7 @@ namespace OnlineElection.BLL.Repository
 
         /**
           * @desc Insert polls details into poll,candidate,PollEligibleUser database tables
-          * @param poll model from controller
+          * @param - poll model object from controller
           * @return Json - success/Failure
         */
         public bool InsertPolls(PollModel _polls)
@@ -73,6 +74,27 @@ namespace OnlineElection.BLL.Repository
         public List<Poll> GetAllPolls()
         {
             return _dbContext.Polls.ToList();
+        }
+
+        /**
+        * @desc Return all the details of Assigned candidates to the polls Controller
+        * @param - (GUID) poll ID
+        * @return List - AssignedCandidateDomain object
+      */
+        public List<AssignedCandidateDomain> GetAssignedCandidates(Guid pollID)
+        {
+            var AssignedCandidates = (from c in _dbContext.candidates
+                                      where c.Poll_ID == pollID
+                                      select new AssignedCandidateDomain
+                                      {
+                                          CandidateID=c.Person_ID,
+                                          CandidateName = c.person.FirstName,
+                                          SID = c.person.SID,
+                                          Batch = c.person.batch.Name,
+                                          Faculty = c.person.batch.Faculty.Name
+                                      }).ToList();
+
+            return AssignedCandidates;
         }
     }
 }
