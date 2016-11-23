@@ -38,8 +38,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OnlineElection.Domain\bin\Debug\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="OnlineElection">
-      <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.dll</HintPath>
+    <Reference Include="OnlineElection.BLL">
+      <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.BLL.dll</HintPath>
     </Reference>
     <Reference Include="OnlineElection.DAL">
       <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.DAL.dll</HintPath>
