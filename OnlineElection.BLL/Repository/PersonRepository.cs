@@ -105,11 +105,11 @@ namespace OnlineElection.BLL.Repository
             return false;
         }
 
-        public person GetPeronById(Guid ID)
+        public person GetPeronById(string ID)
         {
             person temp = null;
             temp = (from p in _dbContext.people
-                    where p.Person_ID == ID
+                    where p.SID == ID
                     select p).SingleOrDefault();
 
             return temp;
@@ -117,18 +117,18 @@ namespace OnlineElection.BLL.Repository
 
         /***
          * 
-         * Author: Janith
+         * Author: Janith Kularathne
          *  
          * 
         */
 
-        public person Entry(Guid ID, person person)
+        public person Entry(string ID, person person)
         {
+            //Guid ID,
             person temp = null;
             temp = (from p in _dbContext.people
-                    where p.Person_ID == ID
+                    where p.SID == ID
                     select p).SingleOrDefault();
-            temp.Person_ID = person.Person_ID;
             temp.FirstName = person.FirstName;
             temp.LastName = person.LastName;
             temp.password = person.LastName;

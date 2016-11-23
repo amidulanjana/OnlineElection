@@ -21,6 +21,7 @@ namespace OnlineElection.DAL
             this.votes_person = new HashSet<votes_person>();
         }
     
+        
         public System.Guid Person_ID { get; set; }
         public Nullable<int> Phone { get; set; }
         public string Address { get; set; }

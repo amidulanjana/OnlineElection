@@ -296,6 +296,7 @@
     <Content Include="ViewsAdmin\Polls\CreatePoll.cshtml" />
     <Content Include="ViewsAdmin\Polls\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

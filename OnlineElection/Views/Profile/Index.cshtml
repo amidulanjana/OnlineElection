@@ -1,36 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Profile data";
+﻿@model OnlineElection.DAL.person
+
+@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    @ViewBag.person.FirstName
-    </div>
-
-    <div>
-        @ViewBag.person.LastName
-    </div>
-    <div>
-        @ViewBag.person.Address
-    </div>
-    <div>
-        @ViewBag.person.Phone
-    </div>
-    <div>
-        @ViewBag.person.email
-    </div>
-    <div>
-        @ViewBag.person.password   
-    </div>
+<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+<script type="text/javascript" scr="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
 
+<div>
+    <h4>Profile</h4>
+    <hr />
+    <dl class="dl-horizontal" style="width:40%; margin-left:10%">
+        <dt>
+            @Html.DisplayNameFor(model => model.SID)
+        </dt>
 
-</body>
-</html>
+        <dd>
+            @Html.EditorFor(model => model.SID, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @readonly = "" } })
+        </dd>
+
+
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SID })
+</p>

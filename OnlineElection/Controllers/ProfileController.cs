@@ -13,38 +13,45 @@ namespace OnlineElection.Controllers
     public class ProfileController : Controller
     {
         PersonRepository repo = new PersonRepository();
-        Guid sessionId;
+        //Guid sessionId;
+        person person1;
         // GET: Profile
         public ActionResult Index()
         {
-            Session["userID"] = "1A1FB01A-E3AC-4AE3-BD7C-5691CDA38AE3";
-            sessionId = new Guid(Session["userID"].ToString());
+            Session["userID"] = "IT14111884";
+            string sessionValue = Session["userID"].ToString();
             if (Session["userID"].ToString() == null) return View("Login");
 
-            person person = repo.GetPeronById(sessionId);
-            ViewBag.person = person;
-            return View();
+            person1 = repo.GetPeronById(sessionValue);
+            var model = person1;
+            return View(model);
         }
 
 
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            sessionId = new Guid(Session["userID"].ToString());
-            person person = repo.GetPeronById(sessionId);
-            ViewBag.person = person;
-            return View();
+            //sessionId = new Guid(Session["userID"].ToString());
+            //person person = repo.GetPeronById(sessionId);
+            //ViewBag.person = person;
+            //string sessionValue = Session["userID"].ToString();
+            person1 = repo.GetPeronById(id);
+
+            var model = person1;
+            return View(model);
         }
 
        [HttpPost]
-        public ActionResult Edit([Bind(Include= "FirstName,LastName,Address,Phone,email,password")]person person)
+        public ActionResult Edit(person person1)
         {
+            //[Bind(Include = "FirstName,LastName,Address,Phone,email,password")]
             if (ModelState.IsValid)
             {
-                repo.Entry(person.Person_ID, person);
+                string sessionValue = Session["userID"].ToString();
+                repo.Entry(sessionValue, person1); /*new Guid(Session["userID"].ToString()),*/
                 return RedirectToAction("Index");
             }
 
-            return View(person);   
+            return View(person1);   
         }
 
     }
