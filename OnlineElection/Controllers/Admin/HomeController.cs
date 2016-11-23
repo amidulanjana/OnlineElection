@@ -32,14 +32,6 @@ namespace OnlineElection.Controllers.Admin
             return PartialView("~/ViewsAdmin/Shared/_MessagesListNotifications.cshtml", _messageRepository.GetAllMessagesNew(user));
         }
 
-        public ActionResult PollResults()
-        {
-            ViewBag.CompletedPollsList = _pollRepository.GetCompletedPolls();
-            ViewBag.NotStartedPollsList = _pollRepository.GetNotStartedPolls();
-            ViewBag.RunningPollsList = _pollRepository.GetRunningPolls();
-
-            return View("~/ViewsAdmin/Home/PollResults.cshtml");
-        }
 
     }
 }

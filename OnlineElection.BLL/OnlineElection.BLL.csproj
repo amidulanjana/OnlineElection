@@ -40,10 +40,12 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\OnlineElection.DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="OnlineElection.DAL">
+    <Reference Include="OnlineElection.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.DAL.dll</HintPath>
     </Reference>
-    <Reference Include="OnlineElection.Domain">
+    <Reference Include="OnlineElection.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\OnlineElection.Domain\bin\Debug\OnlineElection.Domain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
