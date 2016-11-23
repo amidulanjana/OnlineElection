@@ -72,6 +72,12 @@
     <Compile Include="Faculty.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Messege.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MessegeConv.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="OnlineElectionDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,6 +100,9 @@
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PollEligibleUser.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PollResult_Result.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="poll_access.cs">

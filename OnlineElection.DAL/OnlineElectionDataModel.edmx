@@ -31,6 +31,31 @@
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="Dean" Type="varchar" MaxLength="15" />
         </EntityType>
+        <EntityType Name="Messege">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="from" Type="uniqueidentifier" />
+          <Property Name="to" Type="uniqueidentifier" />
+          <Property Name="subject" Type="varchar" MaxLength="100" />
+          <Property Name="body" Type="varchar" MaxLength="1000" />
+          <Property Name="read" Type="int" />
+        </EntityType>
+        <EntityType Name="MessegeConv">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="from" Type="uniqueidentifier" />
+          <Property Name="to" Type="uniqueidentifier" />
+          <Property Name="subject" Type="varchar" MaxLength="100" />
+          <Property Name="body" Type="varchar" MaxLength="1000" />
+          <Property Name="read" Type="int" />
+        </EntityType>
         <EntityType Name="person">
           <Key>
             <PropertyRef Name="Person_ID" />
@@ -46,6 +71,7 @@
           <Property Name="password" Type="varchar(max)" Nullable="false" />
           <Property Name="AdminApproved" Type="bit" />
           <Property Name="batchID" Type="uniqueidentifier" />
+          <Property Name="RegDate" Type="date" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -54,8 +80,8 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="startDate" Type="datetime" />
           <Property Name="endDate" Type="datetime" />
-          <Property Name="Name" Type="varchar" MaxLength="25" />
-          <Property Name="Type" Type="varchar" MaxLength="10" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="30" />
           <Property Name="max_candidates" Type="int" />
           <Property Name="No_of_Votes" Type="int" />
           <Property Name="adminApproved" Type="bit" />
@@ -210,10 +236,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="PollResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UpdateYear_Semester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OnlineElectionDbModelStoreContainer">
           <EntitySet Name="batch" EntityType="Self.batch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="candidate" EntityType="Self.candidate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messege" EntityType="Self.Messege" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MessegeConv" EntityType="Self.MessegeConv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Poll" EntityType="Self.Poll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="poll_access" EntityType="Self.poll_access" Schema="dbo" store:Type="Tables" />
@@ -309,6 +339,10 @@
             <End Role="batch" EntitySet="batches" />
             <End Role="person" EntitySet="people" />
           </AssociationSet>
+          <EntitySet Name="Messeges" EntityType="OnlineElectionDbModel.Messege" />
+          <EntitySet Name="MessegeConvs" EntityType="OnlineElectionDbModel.MessegeConv" />
+          <FunctionImport Name="PollResult" ReturnType="Collection(OnlineElectionDbModel.PollResult_Result)" />
+          <FunctionImport Name="UpdateYear_Semester" />
           </EntityContainer>
         <EntityType Name="staff">
           <Key>
@@ -377,6 +411,7 @@
           <Property Name="AdminApproved" Type="Boolean" />
           <Property Name="batchID" Type="Guid" />
           <NavigationProperty Name="batch" Relationship="OnlineElectionDbModel.FK_person_batch" FromRole="person" ToRole="batch" />
+          <Property Name="RegDate" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="candidate_fk2">
           <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
@@ -433,8 +468,8 @@
           <Property Name="ID" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="startDate" Type="DateTime" Precision="3" />
           <Property Name="endDate" Type="DateTime" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="max_candidates" Type="Int32" />
           <Property Name="No_of_Votes" Type="Int32" />
           <NavigationProperty Name="candidates" Relationship="OnlineElectionDbModel.candidate_fk3" FromRole="Poll" ToRole="candidate" />
@@ -531,6 +566,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Messege">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="from" Type="Guid" />
+          <Property Name="to" Type="Guid" />
+          <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="body" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="read" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MessegeConv">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="from" Type="Guid" />
+          <Property Name="to" Type="Guid" />
+          <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="body" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="read" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="PollResult_Result">
+          <Property Type="Int32" Name="vote_count" Nullable="true" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="25" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -584,6 +648,7 @@
           <EntitySetMapping Name="people">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
               <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
                 <ScalarProperty Name="batchID" ColumnName="batchID" />
                 <ScalarProperty Name="AdminApproved" ColumnName="AdminApproved" />
                 <ScalarProperty Name="password" ColumnName="password" />
@@ -639,6 +704,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Messeges">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.Messege">
+              <MappingFragment StoreEntitySet="Messege">
+                <ScalarProperty Name="read" ColumnName="read" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MessegeConvs">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.MessegeConv">
+              <MappingFragment StoreEntitySet="MessegeConv">
+                <ScalarProperty Name="read" ColumnName="read" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PollResult" FunctionName="OnlineElectionDbModel.Store.PollResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineElectionDbModel.PollResult_Result">
+                <ScalarProperty Name="vote_count" ColumnName="vote_count" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateYear_Semester" FunctionName="OnlineElectionDbModel.Store.UpdateYear_Semester" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

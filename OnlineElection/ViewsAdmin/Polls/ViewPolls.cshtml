@@ -59,7 +59,7 @@
                             </div>
                             <div class="modal-body">
 
-                                <ul class="list-unstyled msg_list">
+                                <ul class="list-unstyled msg_list" id="candidateDetails">
                                     <li>
                                         <a>
                                             <span class="image">
@@ -148,6 +148,32 @@
                 async: true,
                 success: function (data) {
                     console.log(data);
+                    var candidates = [];
+                    for (var i = 0; i < data.length; i++) {
+                        candidates.push(
+                            '<li>' +
+                                '<a>' +
+                                    '<span class="image">' +
+                                        '<img src=@Href("~/Content/Images/user.png") alt="img" />' +
+                                    '</span>' +
+                                    '<span>' +
+                                        '<span>' + data[i].CandidateName + '</span>' +
+                                        '<span class="time">X </span>' +
+                                    '</span>' +
+                                    '<table>' +
+                                        '<tr>' +
+                                            '<td><strong>SID : </strong>' + data[i].SID + '</td>' +
+                                            '<td><strong>Faculty : </strong>' + data[i].Faculty + '</td>' +
+                                            '<td><strong>Batch : </strong>' + data[i].Batch + '</td>' +
+                                        '</tr>' +
+                                    '</table>' +
+                                '</a>' +
+                            '</li>'
+                         )
+                    }
+
+                    $('#candidateDetails').html(candidates.join(" "))
+
                 },
                 error: function (exception) { console.log('Exeption:' + exception); }
             });

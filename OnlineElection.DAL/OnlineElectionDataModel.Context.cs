@@ -12,6 +12,8 @@ namespace OnlineElection.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class OnlineElectionEntities : DbContext
     {
@@ -35,5 +37,17 @@ namespace OnlineElection.DAL
         public virtual DbSet<batch> batches { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<PollEligibleUser> PollEligibleUsers { get; set; }
+        public virtual DbSet<Messege> Messeges { get; set; }
+        public virtual DbSet<MessegeConv> MessegeConvs { get; set; }
+    
+        public virtual ObjectResult<PollResult_Result> PollResult()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PollResult_Result>("PollResult");
+        }
+    
+        public virtual int UpdateYear_Semester()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateYear_Semester");
+        }
     }
 }

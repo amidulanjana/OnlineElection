@@ -85,6 +85,11 @@ namespace OnlineElection.Controllers.Admin
         }
 
 
+        /**
+          * @desc Return Assigned candidates to the ViewPolls page.This is called by an AJAX function
+          * @param - (GUID) poll ID
+          * @return Json - AssignedCanidateDomain object
+        */
         [HttpGet]
         public JsonResult GetAssignedCandidates(Guid pollID)
         {
