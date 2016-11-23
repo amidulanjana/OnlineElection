@@ -753,7 +753,7 @@
     {
         var tbl = $('#messagesTable');
         $.ajax({
-            url: 'home/GetMessages',
+            url: '/home/GetMessages',
             contentType: 'application/html ; charset:utf-8',
             type: 'GET',
             dataType: 'html'
@@ -770,7 +770,7 @@
     function getMessegeNotifications() {
         var tbl = $('#body');
         $.ajax({
-            url: 'home/GetNotifications',
+            url: '/home/GetNotifications',
             contentType: 'application/html ; charset:utf-8',
             type: 'GET',
             dataType: 'html'

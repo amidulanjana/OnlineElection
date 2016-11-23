@@ -189,7 +189,7 @@ namespace OnlineElection.BLL.Repository
                     DateTime date = DateTime.Now;
                     SqlCommand command;
                     
-                    SqlCommand newcmd = new SqlCommand("select * from Messege where [from] = '"+UserFrom+"' AND [to] = '"+item+"'", connection);
+                    SqlCommand newcmd = new SqlCommand("select * from Messege where ([from] = '"+UserFrom+"' AND [to] = '"+item+ "') or ([from] = '" + item + "' AND [to] = '" + UserFrom + "')", connection);
                     SqlDataReader rdr = newcmd.ExecuteReader();
                     if (rdr.HasRows)
                     {

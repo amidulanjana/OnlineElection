@@ -59,6 +59,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="OnlineElection.BLL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OnlineElection.BLL\bin\Debug\OnlineElection.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="OnlineElection.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OnlineElection.DAL\bin\Debug\OnlineElection.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="OnlineElection.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OnlineElection.Domain\bin\Debug\OnlineElection.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -318,6 +330,7 @@
     <Content Include="ViewsAdmin\Shared\_MessegeListForView.cshtml" />
     <Content Include="ViewsAdmin\Shared\_MessgingInterfaceMessegeList.cshtml" />
     <Content Include="ViewsAdmin\Shared\_MessagesConversations.cshtml" />
+    <Content Include="ViewsAdmin\Home\PollResults.cshtml" />
     <None Include="ViewsAdmin\Shared\_MessagesListNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -335,20 +348,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OnlineElection.BLL\OnlineElection.BLL.csproj">
-      <Project>{45774ebe-9c4e-4a70-8d25-a4f1ad5edb5e}</Project>
-      <Name>OnlineElection.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnlineElection.DAL\OnlineElection.DAL.csproj">
-      <Project>{b7b5f02a-3288-41d9-87e2-512cd76cd218}</Project>
-      <Name>OnlineElection.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnlineElection.Domain\OnlineElection.Domain.csproj">
-      <Project>{3d1822de-f20d-48a9-985b-c7c1544c5da0}</Project>
-      <Name>OnlineElection.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

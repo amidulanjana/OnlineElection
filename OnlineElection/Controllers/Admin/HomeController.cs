@@ -6,6 +6,8 @@ namespace OnlineElection.Controllers.Admin
     public class HomeController : Controller
     {
         MessegeRepository _messageRepository = new MessegeRepository();
+        PollRepository _pollRepository = new PollRepository();
+
         // GET: Home
         public ActionResult Index()
         {
@@ -29,6 +31,15 @@ namespace OnlineElection.Controllers.Admin
 
             return PartialView("~/ViewsAdmin/Shared/_MessagesListNotifications.cshtml", _messageRepository.GetAllMessagesNew(user));
         }
-        
+
+        public ActionResult PollResults()
+        {
+            ViewBag.CompletedPollsList = _pollRepository.GetCompletedPolls();
+            ViewBag.NotStartedPollsList = _pollRepository.GetNotStartedPolls();
+            ViewBag.RunningPollsList = _pollRepository.GetRunningPolls();
+
+            return View("~/ViewsAdmin/Home/PollResults.cshtml");
+        }
+
     }
 }

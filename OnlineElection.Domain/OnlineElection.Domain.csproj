@@ -55,6 +55,7 @@
     <Compile Include="ViewModels\CandidateDetailedViewModel.cs" />
     <Compile Include="ViewModels\CandidateViewModel.cs" />
     <Compile Include="ViewModels\MessegeViewModel.cs" />
+    <Compile Include="ViewModels\PollsDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
