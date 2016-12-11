@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Polls</span>
+
+                <div class="row">
+                    
+                    <div class="card card-candidate blue-grey darken-1">
+                        <div class="card-image">
+                            <img src="~/Content/icons/vote.svg" class="hoverZoomLink">
+                        </div>
+                        <div class="right-content ">
+
+                            <div class="card-content card-candidate-title white-text">
+                                <span class="card-title">Vote</span>
+                                <p>
+                                    I am a very simple card. I am good at containing small bits of information.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col s12 m6">
+                        <div class="card-panel">
+                            <div class="white-text">
+
+                                <div id="graph_donut" style="height: 250px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+
+
+
+.card-candidate {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 100px;
+  margin: 1rem;
+  position: relative;
+  width: 400px;
+}
+
+.card-candidate {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card-candidate:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card-image {
+  float: left;
+  width: 40%;
+  height: 200px;
+  position:relative;
+  left:13px;
+}
+.card-image img {
+  height: 50%;
+  
+}
+.right-content {
+  width: 60%;
+  float: left;
+}
+.card-candidate-title {
+  padding-left: 20px;
+}
+
+</style>
+
+@section Scripts
+{
+
+
+    <script src="~/Content/js/Morris/raphael.min.js"></script>
+    <script src="~/Content/js/Morris/morris.min.js"></script>
+
+    <script>
+        Morris.Donut({
+            element: 'graph_donut',
+            data: [
+              { label: 'Jam', value: 25 },
+              { label: 'Frosted', value: 40 },
+              { label: 'Custard', value: 25 },
+              { label: 'Sugar', value: 10 }
+            ],
+            colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+            formatter: function (y) {
+                return y + "%";
+            },
+            resize: true
+        });
+
+    </script>
+
+
+}
+
+
+
+
