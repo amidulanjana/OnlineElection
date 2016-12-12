@@ -9,87 +9,179 @@
 
 
 <div class="row">
-    <div class="col s12 m12 l12">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Polls</span>
+    @{ int i = 0; }
+    @foreach (var item in Model as List<OnlineElection.Domain.ViewModels.AllVotedPoll>)
+    {
+        <div class="col s12 m12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">@item._pollName</span>
 
-                <div class="row">
-                    
-                    <div class="card card-candidate blue-grey darken-1">
-                        <div class="card-image">
-                            <img src="~/Content/icons/vote.svg" class="hoverZoomLink">
+                    <div class="row">
+
+                        <div class="col s12 m6">
+                            <table>
+                                @foreach (var candidates in item._candidates)
+                                {
+                                    <tr>
+                                        @{
+                                            double percentage = (candidates.votesOfCandidate * 1.0 / candidates.noOfVotes * 1.0) * 100;
+                                        }
+                                        <td style="width:70px"><img style="vertical-align:middle" src="~/Content/Images/user.png" width="60" height="60" /></td>
+
+                                        <td style="width:250px;vertical-align:middle">
+                                            <div class="skillbar clearfix" data-percent="60%" value="@Html.Raw(percentage)%" style="">
+                                                <div class="skillbar-title" style="background: #88cd2a;"><span>@candidates.candidateName</span></div>
+                                                <div class="skillbar-bar" style="background: #88cd2a;"></div>
+
+                                                <div class="skill-bar-percent">@percentage%</div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                            }
+
+                            </table>
                         </div>
-                        <div class="right-content ">
 
-                            <div class="card-content card-candidate-title white-text">
-                                <span class="card-title">Vote</span>
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                </p>
+                        <div class="col s12 m6">
+                            <div class="card-panel">
+                                <div class="white-text">
+                                    @* Load pie graph *@
+                                    <div id="graph_donut_@i" style="height: 250px;">
+
+                                    </div>
+                                    @{ i++; }
+                                </div>
                             </div>
-
                         </div>
+
                     </div>
-
-                    <div class="col s12 m6">
-                        <div class="card-panel">
-                            <div class="white-text">
-
-                                <div id="graph_donut" style="height: 250px;"></div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
+
+                                        }
+
+
 </div>
 
 <style>
+    .skillbar {
+        font-family: sans-serif;
+        font-weight: normal;
+        font-size: 0.8em;
+        position: relative;
+        display: block;
+        margin-bottom: 15px;
+        width: 90%;
+        background: #eee;
+        height: 20px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -webkit-transition: 0.4s linear;
+        -moz-transition: 0.4s linear;
+        -o-transition: 0.4s linear;
+        transition: 0.4s linear;
+        -webkit-transition-property: width, background-color;
+        -moz-transition-property: width, background-color;
+        -o-transition-property: width, background-color;
+        transition-property: width, background-color;
+    }
+
+    .skillbar-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-weight: bold;
+        font-size: 13px;
+        color: #fff;
+        background: #6adcfa;
+        -webkit-border-top-left-radius: 3px;
+        -webkit-border-bottom-left-radius: 4px;
+        -moz-border-radius-topleft: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+
+        .skillbar-title span {
+            display: block;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+            height: 20px;
+            line-height: 20px;
+            -webkit-border-top-left-radius: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            -moz-border-radius-topleft: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+    .skillbar-bar {
+        height: 20px;
+        width: 0px;
+        background: #6adcfa;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+    }
+
+    .skill-bar-percent {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        font-size: 11px;
+        height: 20px;
+        line-height: 20px;
+        color: #444;
+        color: rgba(0, 0, 0, 0.4);
+    }
 
 
 
+    .card-candidate {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        height: 100px;
+        margin: 1rem;
+        position: relative;
+        width: 400px;
+    }
 
-.card-candidate {
-  background: #fff;
-  border-radius: 2px;
-  display: inline-block;
-  height: 100px;
-  margin: 1rem;
-  position: relative;
-  width: 400px;
-}
+    .card-candidate {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
 
-.card-candidate {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
+        .card-candidate:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
 
-.card-candidate:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
+    .card-image {
+        float: left;
+        width: 40%;
+        height: 200px;
+        position: relative;
+        left: 13px;
+    }
 
-.card-image {
-  float: left;
-  width: 40%;
-  height: 200px;
-  position:relative;
-  left:13px;
-}
-.card-image img {
-  height: 50%;
-  
-}
-.right-content {
-  width: 60%;
-  float: left;
-}
-.card-candidate-title {
-  padding-left: 20px;
-}
+        .card-image img {
+            height: 50%;
+        }
 
+    .right-content {
+        width: 60%;
+        float: left;
+    }
+
+    .card-candidate-title {
+        padding-left: 20px;
+    }
 </style>
 
 @section Scripts
@@ -99,22 +191,54 @@
     <script src="~/Content/js/Morris/raphael.min.js"></script>
     <script src="~/Content/js/Morris/morris.min.js"></script>
 
+
+
     <script>
+        $(document).ready(function(){
+
+            var test=jQuery('.skillbar').attr('data-percent');
+            console.log(test);
+
+            jQuery('.skillbar').each(function () {
+                jQuery(this).find('.skillbar-bar').animate({
+                    width: jQuery(this).attr('value')
+                }, 2000);
+            });
+
+        })
+
+        @{ int inc = 0;}
+        @foreach (var item in Model as List<OnlineElection.Domain.ViewModels.AllVotedPoll>)
+        {
+
+                    <text>
         Morris.Donut({
-            element: 'graph_donut',
+            element: 'graph_donut_@inc',
             data: [
-              { label: 'Jam', value: 25 },
-              { label: 'Frosted', value: 40 },
-              { label: 'Custard', value: 25 },
-              { label: 'Sugar', value: 10 }
+             @{ int total = 0;}
+             @foreach (var candidates in item._candidates)
+                             {
+                              <text>
+              { label: '@candidates.candidateName', value: @candidates.votesOfCandidate },
+              @{ total = total + candidates.votesOfCandidate; }
+              </text>
+                             }
             ],
+
             colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
             formatter: function (y) {
+
+                y=(y/(@total))*100;
+                y=parseFloat(Math.round(y * 100) / 100).toFixed(2);
+                console.log(y);
                 return y + "%";
             },
             resize: true
         });
+        </text>
 
+                inc++;
+            }
     </script>
 
 

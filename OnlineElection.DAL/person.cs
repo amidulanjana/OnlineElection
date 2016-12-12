@@ -33,7 +33,7 @@ namespace OnlineElection.DAL
         public Nullable<bool> AdminApproved { get; set; }
         public Nullable<System.Guid> batchID { get; set; }
         public Nullable<System.DateTime> RegDate { get; set; }
-        public string FullName { get { return FirstName + "" + LastName; } }
+        public string FullName { get { return FirstName + " " + LastName; } }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
