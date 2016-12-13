@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineElection.DAL;
+using OnlineElection.BLL;
 
 using System.Data.Entity;
 
@@ -15,11 +16,11 @@ namespace OnlineElection.BLL.Repository
 
         public bool registerPerson(person _objPerson)
         {
-            _dbContext.people.Add(_objPerson);
-            _dbContext.SaveChanges();
-            Guid id = _objPerson.Person_ID;
+            //_dbContext.people.Add(_objPerson);
+            //_dbContext.SaveChanges();
+            //Guid id = _objPerson.Person_ID;
 
-            if (id == null) return false;
+            //if (id == null) return false;
 
             return true;
 

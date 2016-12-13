@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/lobibox.min.js"></script>
+<link rel="stylesheet" href="~/Content/lobibox.min.css" />
+
+@foreach (var item in Model)
+{
+    <script type="text/javascript">
+    var IMG_PREFIX = 'Content/Images/';
+            Lobibox.notify('success', {
+                position: 'bottom right',
+                img: IMG_PREFIX + 'user.png',
+                title: 'Success title',
+                size: 'mini',
+                msg: 'Lorem ipsum dolor sit amet against apennine any created, spend loveliest, building stripes.'
+            });
+    </script>
+}
+
+

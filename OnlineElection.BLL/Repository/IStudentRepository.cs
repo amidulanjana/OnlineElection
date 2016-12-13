@@ -10,5 +10,8 @@ namespace OnlineElection.BLL.Repository
     {
         void InsertCandidate();
 
+        List<string> GetStudentListByFaculty(string fac);
+        List<string> GetStudentListByBatch(string batch);
+
     }
 }

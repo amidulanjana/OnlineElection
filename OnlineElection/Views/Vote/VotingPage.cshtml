@@ -1,0 +1,195 @@
+﻿@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Vote";
+}
+
+
+
+<div class="row">
+    <div class="col-sm-12" style="background-color:black; text-align:left;min-height:60px;">
+        <h3 style="color:#36b3e2;padding-left:60px;position:absolute">
+            @ViewData["Message"]
+        </h3>
+    </div>
+
+
+
+
+
+
+
+    @*Voting Div*@
+    @*<div class="col-sm-3" style="background-color:#fff;z-index:1;margin:0.5%">
+            <div class="col-sm-12" style="padding:10px;">
+                <h4><b>Candidates List</b></h4>
+            </div>
+            <form action="/Vote/VoteSubmit" method="post">
+                <table class="myTable">
+                    @foreach (var cand in ViewBag.candidateList as List<OnlineElection.Domain.ViewModels.CandidateDetailedViewModel>)
+                    {
+                        <tr>
+                            <td>
+                                @cand.FirstName
+                            </td>
+                            <td>
+                                <input type="radio" name="selctedCandidate" value="@cand.person_ID" />
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2" style="text-align:center">
+                            <button type="submit" class="btn-success">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>*@
+    @*End of Voting Div*@
+
+
+    @*Quiz Description View*@
+    <div class="col-sm-8" style="background-color:#fff;margin-top:6px;left:15%">
+        <h3> Poll Description </h3>
+
+        <p style="padding-left:30px">
+            @ViewData["Description"]
+        </p>
+    </div>
+    @*End of Quiz Description*@
+
+    @*Candidates Detail View*@
+    <div class="col-sm-8" style="background-color:#fff;margin-top:6px;left:15%">
+        <form action="/Vote/VoteSubmit" method="post">
+            <h4> Please Vote Here </h4>
+
+            @*Collapase Detail View*@
+            <div class="panel-group" id="accordion" style="padding-left:10%">
+
+                @{
+                    var xVal = 1;
+                    var imageModel = 10000;
+                }
+
+                @foreach (var can in ViewBag.candidateList as List<OnlineElection.Domain.ViewModels.CandidateDetailedViewModel>)
+                {
+
+
+                    @*1st Candidate*@
+                    <div class="panel panel-default" style="width:80%;margin-bottom:8px">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a data-toggle="modal" data-target="#@imageModel">
+                                    <img class="img-responsive img-circle" style="width:10%;" src="~/Content/Images/@can.ImageUrl">
+                                </a>
+
+                                @*image Zoom View*@
+                                <div class="modal fade" id="@imageModel" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                            </div>
+                                            <div class="modal-body" style="padding:50px">
+                                                <img class="img-responsive img-circle" style="height:500px" src="~/Content/Images/@can.ImageUrl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @*End Image Zoom View*@
+
+                                <a data-toggle="collapse" data-parent="#accordion" href="#@xVal">
+                                    <b>
+                                        @can.FirstName
+                                        @can.LastName
+                                    </b>
+                                    <i class="fa fa-info-circle fa-2x" aria-hidden="true" style="float:right"></i>
+                                </a>
+
+                                <input type="radio" name="selctedCandidate" value="@can.person_ID" style="float:right" />
+                            </h3>
+                        </div>
+                        <div id="@xVal" class="panel-collapse collapse" style="padding-left:5%">
+                            <div class="panel-body">
+                                <table class="table-responsive" id="tableNew" style="width:100%;">
+                                    <tr>
+                                        <td>
+                                            <b>Name:</b>
+                                        </td>
+                                        <td>
+                                            @can.FirstName
+                                            @can.LastName
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Year:</b>
+                                        </td>
+                                        <td>
+                                            @can.Year
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Semester:</b>
+                                        </td>
+                                        <td>
+                                            @can.Sem
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Telephone</b>
+                                        </td>
+                                        <td>
+                                            @can.Telephone
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Degree</b>
+                                        </td>
+                                        <td>
+                                            @can.degree
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    xVal++;
+                    imageModel++;
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            @*End Collapase Detail View*@
+            <div class="panel-group" id="accordion" style="padding-left:10%;padding-top:0.5%;padding-bottom:1%">
+                <button type="submit" class="btn-success" style="width:80%">Submit</button>
+            </div>
+        </form>
+    </div>
+    @*End of Candidates Detail View*@
+</div>
+
+
+
+

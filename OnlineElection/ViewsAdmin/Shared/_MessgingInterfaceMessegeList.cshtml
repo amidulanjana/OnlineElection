@@ -1,0 +1,81 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+<link href="~/Content/messegeView.css" rel="stylesheet" />
+
+<ul class="event-list">
+
+
+
+    @foreach (var item in Model)
+    {
+
+        <li>
+            <div class="row">
+                <a class="content ConversationView">
+                    <div class="col-md-3">
+                        <img alt="Independence Day" class="img-responsive img-rounded" width="50px" height="50px" src="~/Content/Images/@item.UserImage" />
+                    </div>
+                    <div class="info col-md-6">
+                        <h2 class="title">@item.UserName</h2>
+                        <p class="desc">@item.subject</p>
+                    </div>
+                    <div class="info col-md-3">
+                        <p class="desc">@item.MessageDateString</p>
+                    </div>
+                    <input type="text" class="M_ID" hidden="hidden" value="@item.MessageID">
+                </a>
+            </div>
+        </li>
+
+
+    }
+
+</ul>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ConversationView').click(function () {
+
+            var tbl = $('#fullConv');
+            var ID = $(this).find(".M_ID").val();
+            //alert(ID);
+
+            if ($(window).width() >= 768) {
+                $.ajax({
+                    url: 'GetMessConvView',
+                    contentType: 'application/html ; charset:utf-8',
+                    data: "id=" + ID,
+                    type: 'GET',
+                    dataType: 'html'
+                }).success(function (result) {
+                    tbl.empty().append(result);
+                }).error(function (xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });
+            }
+            else
+            {
+                $.ajax({
+                    url: 'GetMessConvView',
+                    contentType: 'application/html ; charset:utf-8',
+                    data: "id=" + ID,
+                    type: 'GET',
+                    dataType: 'html'
+                }).success(function (result) {
+                    tbl.empty().append(result);
+                    $('#ConversationView').show();
+                    $('#messListDown').hide();
+                }).error(function (xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });
+            }
+
+
+
+
+        });
+    });
+</script>
