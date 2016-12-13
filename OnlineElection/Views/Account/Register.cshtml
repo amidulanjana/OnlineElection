@@ -28,34 +28,28 @@
 
                             <div class="input-field col s12 ">
                                 <i class="material-icons prefix">subtitles</i>
-                                @*@Html.EditorFor(model => model.SID, new { htmlAttributes = new { @class = "validate" } })
-                                    @Html.LabelFor(model => model.SID)*@
-
                                 <input id="SID" name="SID" type="text" class="validate">
                                 <label for="Phone">Student ID</label>
                             </div>
 
                             <div class="input-field col s12">
-                                <i class="material-icons prefix">email</i>
-                                @*@Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "validate" } })
-                                    @Html.LabelFor(model => model.email)*@
-
+                                <i class="material-icons prefix">email</i>                              
                                 <input id="email" name="email" type="email" class="validate">
                                 <label for="email">Email</label>
                             </div>
+
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock_outline</i>
-                                @*@Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "password", @class = "validate" } })
-                                    @Html.LabelFor(model => model.password)*@
-
                                 <input id="password" name="password" type="password" class="validate">
                                 <label for="password">Password</label>
                             </div>
+
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock_outline</i>
                                 <input id="confirmPassword" name="confirmPassword" type="password" class="validate">
                                 <label for="confirmPassword">Confirm Password</label>
                             </div>
+
                             <div class="input-field col s12">
                                 <button class="btn waves-effect waves-light" id="submit" type="submit" name="action" style="width:100%">Submit</button>
                             </div>

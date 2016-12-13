@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -59,7 +59,7 @@
         </div>
     </a>
 
-    <a href="">
+    <a href="@Url.RouteUrl("Default",new { controller = "Statistic", action = "Index" })">
         <div class="card blue-grey darken-1">
             <div class="card-image">
                 <img src="~/Content/icons/statistics.svg" class="hoverZoomLink">
