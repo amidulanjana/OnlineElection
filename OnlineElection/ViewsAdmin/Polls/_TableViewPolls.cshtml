@@ -7,7 +7,7 @@
             <th>Type</th>
             <th>Date</th>
             <th>Candidates</th>
-            <th>Eligible Voters</th>
+            @*<th>Eligible Voters</th>*@
             <th>Approve</th>
             <th>Respond</th>
         </tr>
@@ -30,17 +30,17 @@
                 <td>
                     <a data-toggle="modal" data-target=".bs-ViewCandidate-modal-sm" href="" onclick="getPollID(this)" data-assigned-id="@item.ID">View Candidates</a>
                 </td>
-                <td>
+                @*<td>
                     <a data-toggle="modal" data-target=".bs-example1-modal-sm" href=""  onclick="test(this)" data-assigned-id="@item.ID"> View Eligible Voters</a>
-                </td>
+                </td>*@
                 <td id="@item.ID">
                     @item.adminApproved
                 </td>
                 <td class="@item.ID">
 
-                    <span data-placement="top" data-toggle="tooltip" title="Delete">
+                    @*<span data-placement="top" data-toggle="tooltip" title="Delete">
                         <button type="submit" onclick="assignIDModel(this)" data-assigned-id="@item.ID" class="btn btn-info btn-xs" data-title="Edit" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-edit"></span></button>
-                    </span>
+                    </span>*@
 
                     @if (@item.adminApproved == false)
                     {
