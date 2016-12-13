@@ -195,21 +195,21 @@
         function approve(elem) {
 
             var id = $(elem).data('assigned-id');
-            var user = {
+            var poll = {
 
-                Person_ID: id,
-                AdminApproved: true
+                ID: id,
+                adminApproved: true
             }
 
             $.ajax({
                 type: 'POST',
                 url: 'AdminApproveOrIgnore',
                 contentType: 'application/json',
-                data: JSON.stringify(user),
+                data: JSON.stringify(poll),
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
-                    data ? getAllUsers() : alert("Theres some problem in server");
+                    data ? getAllPolls() : alert("Theres some problem in server");
                 },
                 error: function (exception) { console.log('Exeption:' + exception); }
             });
@@ -220,21 +220,22 @@
         function ignore(elem) {
 
             var id = $(elem).data('assigned-id');
-            var user = {
+            console.log(id);
+            var poll = {
 
-                Person_ID: id,
-                AdminApproved: false
+                ID: id,
+                adminApproved: false
             }
 
             $.ajax({
                 type: 'POST',
                 url: 'AdminApproveOrIgnore',
                 contentType: 'application/json',
-                data: JSON.stringify(user),
+                data: JSON.stringify(poll),
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
-                    data ? getAllUsers() : alert("Theres some problem in server");
+                    data ? getAllPolls() : alert("Theres some problem in server");
                 },
                 error: function (exception) { console.log('Exeption:' + exception); }
             });
@@ -257,14 +258,14 @@
 
             $.ajax({
 
-                url: 'DeleteUser',
+                url: 'DeletePoll',
                 contentType: 'application/json',
                 data: { id: id },
                 type: 'GET',
                 dataType: 'Json',
                 async: true,
                 success: function (data) {
-                    data ? (getAllUsers(), $('.bs-example-modal-sm').modal('toggle')) : alert("Theres some problem in server");
+                    data ? (getAllPolls(), $('.bs-example-modal-sm').modal('toggle')) : alert("Theres some problem in server");
 
                 },
                 error: function (exception) { console.log('Exeption:' + exception); }

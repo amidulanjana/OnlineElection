@@ -16,7 +16,7 @@ namespace OnlineElection.BLL.Repository
         Poll polls;
         candidate candidates;
         PollEligibleUser EligibleUser;
-
+        
 
         /**
           * @desc Insert polls details into poll,candidate,PollEligibleUser database tables
@@ -36,7 +36,7 @@ namespace OnlineElection.BLL.Repository
             polls.startDate = startDate;
             polls.endDate = endDate;
             polls.Type = _polls.pollType;
-
+            polls.adminApproved = true;
 
             
             foreach (var candidatesID in _polls.candidateID)
@@ -115,6 +115,38 @@ namespace OnlineElection.BLL.Repository
                          ).ToList();
 
             return status;
+        }
+
+        public bool AdminApproveOrIgnore(Poll poll)
+        {
+            Poll ToUpdatePoll = (from p in _dbContext.Polls
+                                     where p.ID == poll.ID
+                                     select p).SingleOrDefault();
+
+            ToUpdatePoll.adminApproved = poll.adminApproved;
+
+            if (_dbContext.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DeletePoll(Guid ID)
+        {
+            Poll ToDeletePoll = (from p in _dbContext.Polls
+                                     where p.ID == ID
+                                     select p).SingleOrDefault();
+
+            _dbContext.Polls.Remove(ToDeletePoll);
+
+            if (_dbContext.SaveChanges() > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

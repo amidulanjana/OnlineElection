@@ -1,4 +1,5 @@
 ﻿using OnlineElection.BLL.Repository;
+using OnlineElection.DAL;
 using OnlineElection.Domain;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace OnlineElection.Controllers.Admin
         PersonRepository personRepository;
         PollRepository pollRepository;
         FacultyRepository facultyRepository;
+        Poll _poll;
 
         // GET: Polls
         public ActionResult Index()
@@ -96,6 +98,34 @@ namespace OnlineElection.Controllers.Admin
             pollRepository = new PollRepository();
             var assignedCandidates=pollRepository.GetAssignedCandidates(pollID);
             return Json(assignedCandidates,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AdminApproveOrIgnore(Poll poll)
+        {
+            _poll = new Poll();
+            pollRepository = new PollRepository();
+            _poll.ID = poll.ID;
+            _poll.adminApproved = poll.adminApproved;
+
+            bool status = pollRepository.AdminApproveOrIgnore(_poll);
+
+            if (status) return Json(true, JsonRequestBehavior.AllowGet);
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult DeletePoll(string id)
+        {
+            pollRepository = new PollRepository();
+            Guid pollID = Guid.Parse(id);
+
+            bool status = pollRepository.DeletePoll(pollID);
+
+            if (status) return Json(true, JsonRequestBehavior.AllowGet);
+
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
     }

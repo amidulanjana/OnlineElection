@@ -31,7 +31,8 @@ namespace OnlineElection.DAL
         public Nullable<int> No_of_Votes { get; set; }
         public Nullable<bool> adminApproved { get; set; }
         public string status { get; set; }
-    
+        public string DateReange { get { return startDate + " - " + endDate; } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

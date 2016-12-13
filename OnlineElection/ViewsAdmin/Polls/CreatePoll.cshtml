@@ -44,11 +44,16 @@
             </div>
             <div class="x_content">
 
-                <div class="alert alert-success alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="alert alert-success alert-dismissible fade in" role="alert" hidden>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <strong>New Poll</strong> is created and added to the System.
+                        </div>
+                    </div>
                 </div>
 
                 <form id="AddPollForm" method="post" action="" class="form-horizontal">
@@ -393,7 +398,7 @@
                             $('#faculty').val('').trigger('change');
                             $("#AddPollForm").bootstrapValidator('resetForm', true);                          
                             $('#AddPollForm')[0].reset();
-                            
+                            $(".alert").show(1000);
                         }
                     }
 
