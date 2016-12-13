@@ -31,6 +31,9 @@ namespace OnlineElection.DAL
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<bool> AdminApproved { get; set; }
+        public Nullable<System.Guid> batchID { get; set; }
+        public Nullable<System.DateTime> RegDate { get; set; }
+        public string image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
@@ -38,5 +41,6 @@ namespace OnlineElection.DAL
         public virtual student student { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<votes_person> votes_person { get; set; }
+        public virtual batch batch { get; set; }
     }
 }

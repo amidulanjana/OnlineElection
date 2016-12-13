@@ -11,8 +11,8 @@
 @section Styles {
     <link href="~/Content/vendors/bootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
     <link href="~/Content/vendors/bootstrapValidator/icon_refresh.css" rel="stylesheet" />
-<link href="~/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
+    <!-- Bootstrap DateTimePicker-->
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet">
 }
 
 
@@ -72,11 +72,23 @@
                         </div>
                     </div>
 
-                    @* Timer DateRangePicker *@
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date and Time</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" name="daterange" id="reservation" class="form-control" />
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date</label>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="startDate" placeholder="Start Date"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="endDate" placeholder="End Date" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -91,44 +103,25 @@
                         </div>
                     </div>
 
-
-
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Eligible Voters</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="candidates form-control " multiple="multiple" name="Faculty" style="width: 100%" id="faculty">
-                                @*<option>Computer</option>
-                                <option>Business</option>
-                                <option>Engineering</option>*@
+                                @* faculty are getting from the partial View*@
 
-                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml",Model)
-                            </select>
-                        </div>
-                    </div>
-
-                    @*<div class="form-group">
-                        <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
-                            <select class="candidates form-control " multiple="multiple" name="Year" style="width: 100%">
-                                <option>Year 1</option>
-                                <option>Year 2</option>
-                                <option>Year 3</option>
-                                <option>Year 4</option>
+                                @Html.Partial("~/ViewsAdmin/Polls/_GetFaculties.cshtml", Model)
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
-                            <select class="candidates form-control " multiple="multiple" name="batch" style="width: 100%">
-                               <option>Batch 1</option>
-                               <option>Batch 2</option>
-                            </select>
+                            <div class='checkbox' id="batches">
+                                @* Load <option></option> value from ajax call
+                                    function -> getBatches()
+                                *@
+                            </div>
                         </div>
-                    </div>*@
-
-                    <div id="batches">
-                        
                     </div>
 
                     <div class="form-group" id="year" style="display:none">
@@ -144,6 +137,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -153,32 +147,79 @@
 {
     <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
     <script src="~/Content/vendors/bootstrapValidator/bootstrapValidator.js"></script>
-<script src="~/Content/vendors/iCheck/icheck.min.js"></script>
+    @*<script src="~/Content/vendors/iCheck/icheck.min.js"></script>*@
+    <!-- Bootstrap DateTimePicker-->
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#startDate').datetimepicker({
+                minDate: new Date(),
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+            $('#endDate').datetimepicker({
+                useCurrent: false, //Important!
+                widgetPositioning: {
+                    horizontal: 'auto',
+                    vertical: 'bottom'
+                }
+            });
+            $("#startDate").on("dp.change", function (e) {
+
+                $('#endDate').data("DateTimePicker").minDate(e.date);
+            });
+            $("#endDate").on("dp.change", function (e) {
+                $('#startDate').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
 
     <script type="text/javascript">
 
+        function getChekedBatches() {
+            var allVals = [];
+            $('#batches :checked').each(function () {
+                allVals.push($(this).val());
+            });
+            return allVals;
+        }
+
+
         $(document).ready(function () {
+
+            //images are passed for the selec2 input box
+            //call this function in templateResult
+            function getCandidateImage(selection) {
+                if (!selection.id) { return selection.text; }
+                var thumb = $(selection.element).data('thumb');
+                if (!thumb) {
+                    return selection.text;
+                } else {
+                    var $selection = $(
+                  '<img src="' + thumb + '" alt=""><span class="img-changer-text">' + $(selection.element).text() + '</span>'
+                );
+                    return $selection;
+                }
+            }
+
+            //checkkBox click event
 
 
             //select2 functions
             $(".candidates").select2({
                 allowClear: true,
+                templateResult: getCandidateImage,
+                templateSelection: getCandidateImage,
+                placeholder: "Candidates",
 
             });
 
-            $("#Faculty").select2({
+            $("#faculty").select2({
                 allowClear: true,
                 placeholder: "Faculty",
-            });
-
-            $("#Year").select2({
-                allowClear: true,
-                placeholder: "Year",
-            });
-
-            $("#batch").select2({
-                allowClear: true,
-                placeholder: "Batch",
             });
 
 
@@ -210,40 +251,44 @@
 
             function getBatches(id) {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'GetBatches',
-                    contentType: 'application/json',
-                    data: JSON.stringify(id),
-                    dataType: 'Json',
-                    async: true,
-                    success: function (data) {
-                        //if (data == true) {
-                        //    $("#AddPollForm").bootstrapValidator('resetForm', true);
-                        //}
-                        console.log(data);
-                        var batches = [];
-                        for (var i = 0; i < data.length; i++) {
+                if (id != null) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'GetBatches',
+                        contentType: 'application/json',
+                        data: JSON.stringify(id),
+                        dataType: 'Json',
+                        async: true,
+                        success: function (data) {
+                            //if (data == true) {
+                            //    $("#AddPollForm").bootstrapValidator('resetForm', true);
+                            //}
+                            console.log(data);
+                            var batches = [];
+                            for (var i = 0; i < data.length; i++) {
 
-                            batches.push(
-                                ' <div class="checkbox">' +
-                                            '<label>' +
-                                                '<input type="checkbox" class="flat" checked="checked">' + data[i].name +
-                                            '</label>' +
-                                        '</div>'
-                            )
-                            
-                            console.log(data[i].name);
+                                batches.push(
+
+                                                "<label class='checkbox-inline'>" +
+                                                    "<input type='checkbox' value='" + data[i].BatchID + "' >" + data[i].FacultyName + " " + data[i].name +
+                                                "</label>"
+
+                                )
+
+                                console.log(data[i].name);
+
+                            }
+                            $('#batches').html(batches.join(" "))
+
 
                         }
-                        $('#batches').html(batches.join(" "))
-                                        
 
-                    }
-
-                });
+                    });
+                }
+                else {
+                    $('#batches').html(" ");
+                }
             }
-
 
 
 
@@ -305,29 +350,35 @@
 
                 var pollType = $("[name='pollType']").val();
                 var name = $("[name='name']").val();
-                var daterange = $("[name='daterange']").val();
-                var Faculty= $("[name='Faculty']").val();
-                var Year= $("[name='Year']").val();
-                var batch = $("[name='batch']").val();
-                var candidate = $("[name='candidates']").val();            
-                var obj = $("#candidates").select2("data")
-                var candidateID=new Array();
-                for (var i = 0; i < obj.length; i++) {
-                    candidateID[i] = obj[i].id;
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+                var Faculty = $("[name='Faculty']").val();
+                var Year = $("[name='Year']").val();
+
+                var batches = [];
+                $('#batches input:checked').each(function () {
+                    batches.push(this.value);
+                });
+
+
+                var candidate = $("#candidates").select2("data")
+                var candidateID = new Array();
+                for (var i = 0; i < candidate.length; i++) {
+                    candidateID[i] = candidate[i].id;
                 }
 
                 var poll = {
 
                     pollType: pollType,
                     name: name,
-                    daterange: daterange,
+                    startDate: startDate,
+                    endDate: endDate,
                     Faculty: Faculty,
                     Year: Year,
-                    batch: batch,
+                    batch: batches,
                     candidateID: candidateID
                 }
 
-                //console.log(candidate, pollType, name, daterange, Faculty, Year, batch, candidateID);
 
                 $.ajax({
                     type: 'POST',
@@ -338,7 +389,11 @@
                     async: true,
                     success: function (data) {
                         if (data == true) {
-                            $("#AddPollForm").bootstrapValidator('resetForm', true);
+                            $('#candidates').val('').trigger('change');
+                            $('#faculty').val('').trigger('change');
+                            $("#AddPollForm").bootstrapValidator('resetForm', true);                          
+                            $('#AddPollForm')[0].reset();
+                            
                         }
                     }
 
@@ -347,21 +402,6 @@
                 $('#btn').prop('disabled', false);
             });
         });
-
-        
-
-        $(function () {
-            $('input[name="daterange"]').daterangepicker({
-                timePicker: true,
-                timePickerIncrement: 30,
-                //startDate: '@DateTime.Now.ToString("MMM dd yyyy h:MM tt")',
-                opens: 'right',
-                locale: {
-                    format: 'MM/DD/YYYY h:mm A'
-                }
-            });
-        });
-
 
 
         //Ajax function
@@ -372,7 +412,6 @@
                 type: 'POST',
                 dataType: 'html',
                 success: function (data) {
-                    //console.log(data);
                     $('#candidates').html(data);
                 }
             });

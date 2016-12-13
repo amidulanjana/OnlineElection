@@ -26,5 +26,6 @@ namespace OnlineElection.Controllers
 
             return View();
         }
+
     }
 }

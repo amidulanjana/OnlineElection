@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "CreatePoll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+
+
+    <style>
+        .registerform {
+            margin-top: 50px;
+        }
+    </style>
+
+}
+
+
+
+<div class="row registerform">
+    <div class="col s12 m10 l6 offset-l3 offset-m1">
+
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title center-align"><h4>Create Poll</h4></div>
+                
+
+
+                <div class="row">
+
+                    <form id="form" method="post">
+                        <div class="row">
+
+                            <div class="input-field col s12 ">
+                                <i class="material-icons prefix">person_pin</i>
+                                <input disabled value="Batch Rep" id="pollType" type="text" class="validate">
+                                <label for="Phone">Poll Type</label>
+                            </div>                                                                            
+
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">dashboard</i>
+                                <input id="pollName" name="pollName" type="text" class="validate">
+                                <label for="email">Poll Name</label>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">today</i>
+                                    <input type="date" id="sdate" name="sdate" class="datepicker">
+                                    <label for="sdate">Start Date</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">today</i>
+                                    <input type="date" id="edate" name="edate" class="datepicker">
+                                    <label for="edate">End Date</label>
+                                </div>
+                                
+                            </div>
+
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">supervisor_account</i>
+                                <select multiple id="candidates" name="candidates" class="validate">
+                                    
+                                    @*<option value="" disabled selected>Choose your option</option>
+                                    <option value="A" data-icon=@Url.Content("~/Content/Images/bg.jpg") class="left circle">example 1</option>
+                                    <option value="B" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">example 2</option>
+                                    <option value="C" data-icon=@Url.Content("~/Content/Images/user2.png") class="left circle">example 3</option>*@
+                                </select>
+                                <label>Select candidate</label>
+                            </div>
+
+
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light" id="submit" type="submit" name="action" style="width:100%">Create Poll</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts
+{
+
+    <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        
+        var dataObject;
+        getCandidates();
+
+        function getCandidates() {
+           
+            $.ajax({
+                url: 'GetCandidates',
+                type: 'POST',
+                dataType: 'html',
+                success: function (data) {
+                    //$('#candidates').html(data);
+                }
+            });
+            
+        }
+        //$('#candidates').html('<option>A</option>');
+
+
+        console.log(getCandidates());
+        $('#candidates').html('<optgroup>'+dataObject+'<optgroup/>');
+        
+        $(document).ready(function () {
+         
+            $('select').material_select();
+           
+           
+           
+           
+        });
+
+
+        $('#sdate').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            format: 'yyyy-mm-dd',
+            min: new Date()
+        });
+
+        $('#sdate').click(function () {
+            var input = $('#sdate').val();
+            console.log(input);
+        })
+
+        $('#edate').pickadate({
+            selectMonths: true, 
+            selectYears: 15, 
+            format: 'yyyy-mm-dd',           
+            min: new Date()
+        });
+
+        $(document).ready(function () {
+
+            $.validator.setDefaults({
+                errorClass: 'invalid',
+                validClass: "valid",
+                ignore: [],
+                errorPlacement: function (error, element) {
+                    $(element)
+                        .closest("form")
+                        .find("label[for='" + element.attr("id") + "']")
+                        .attr('data-error', error.text());
+                },
+                submitHandler: function () {
+
+                    event.preventDefault();
+                    var pollName = $("[name='pollName']").val();
+                    var sdate = $("[name='sdate']").val();
+                    var edate = $("[name='edate']").val();
+                    var candidates = $("[name='candidates']").val();
+
+                    console.log(pollName + sdate + edate + candidates);
+
+
+
+
+
+                    //var user = {
+
+                    //    SID: SID,
+                    //    email: email,
+                    //    password: password
+
+                    //}
+
+                    // console.log(SID + " " + email + " " + password);
+
+                    //$.ajax({
+                    //    type: 'POST',
+                    //    url: 'Register',
+                    //    contentType: 'application/json',
+                    //    data: JSON.stringify(user),
+                    //    dataType: 'Json',
+                    //    async: true,
+                    //    success: function (data) {
+                    //        if (data == true) {
+                    //            Materialize.toast('You will recieve an email by confirming </br> your request. Thank you !', 4000, 'blue')
+                    //        }
+                    //    }
+
+                    //});
+
+                }
+
+            });
+
+            $("#form").validate({
+                rules: {
+                    pollName: {
+                        required: true
+                    },
+
+                    candidates: {
+                        required: true
+                    },
+
+                    sdate: {
+                        required: true
+                    },
+
+                    edate: {
+                        required: true
+                    },
+
+                   
+                },
+
+                messages: {
+                    SID: {
+                        minlength: "Enter valid SLIIT ID",
+                        maxlength: "Enter valid SLIIT ID"
+                    }
+                }
+            });
+
+        });
+
+
+        
+
+    </script>
+}
+

@@ -94,7 +94,7 @@ namespace OnlineElection.Controllers
         {
             if (Session["userID"].ToString() == null) return View("Login");
             
-            return RedirectToAction("Index","Home");
+            return RedirectToRoute("Default",new { controller="Home",action="index"});
             
         }
 

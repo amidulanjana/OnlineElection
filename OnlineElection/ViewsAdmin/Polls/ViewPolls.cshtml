@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "ViewPolls";
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles {
+    <style>
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Total Polls</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <p class="text-muted font-13 m-b-30">
+                    Admin can Delete or Accept User request
+                </p>
+                <div id="myPartialContainer">
+
+                    @* Load _TableViewPolls partial view using ajax *@
+
+                </div>
+
+                @* View Candidate Model *@
+                <div class="modal fade bs-ViewCandidate-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Assigned Candidates</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <ul class="list-unstyled msg_list" id="candidateDetails">
+                                    <li>
+                                        <a>
+                                            <span class="image">
+                                                <img src="~/Content/Images/user.png" alt="img" />
+                                            </span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">X </span>
+                                            </span>
+                                            <table>
+                                                <tr>
+                                                    <td><strong>SID : </strong>IT14053610 </td>
+                                                    <td><strong>Faculty : </strong>Computing</td>
+                                                    <td><strong>Batch : </strong>Batch 1</td>
+                                                </tr>
+                                            </table>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* View Candidate model End *@
+
+                @* Delete Model *@
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" onclick="DeleteUser(this)" id="deleteButton" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Delete model *@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/Content/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            getAllPolls();
+
+        });
+
+        //to get candidates for a relevent poll id
+        function getAssignedCandidates(pollID) {
+
+            $.ajax({
+                type: 'GET',
+                url: 'GetAssignedCandidates',
+                contentType: 'application/json',
+                data: { pollID: pollID },
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    var candidates = [];
+                    for (var i = 0; i < data.length; i++) {
+                        candidates.push(
+                            '<li>' +
+                                '<a>' +
+                                    '<span class="image">' +
+                                        '<img src=@Href("~/Content/Images/user.png") alt="img" />' +
+                                    '</span>' +
+                                    '<span>' +
+                                        '<span>' + data[i].CandidateName + '</span>' +
+                                        '<span class="time">X </span>' +
+                                    '</span>' +
+                                    '<table>' +
+                                        '<tr>' +
+                                            '<td><strong>SID : </strong>' + data[i].SID + '</td>' +
+                                            '<td><strong>Faculty : </strong>' + data[i].Faculty + '</td>' +
+                                            '<td><strong>Batch : </strong>' + data[i].Batch + '</td>' +
+                                        '</tr>' +
+                                    '</table>' +
+                                '</a>' +
+                            '</li>'
+                         )
+                    }
+
+                    $('#candidateDetails').html(candidates.join(" "))
+
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
+        }
+
+        //to get poll id
+        //this method call in onclick method
+        function getPollID(elem) {
+            console.log("test" + $(elem).data('assigned-id'));
+            var id = $(elem).data('assigned-id');
+            getAssignedCandidates(id);
+
+
+        }
+
+        //Admin Approve
+        //this method call in onclick method
+        function approve(elem) {
+
+            var id = $(elem).data('assigned-id');
+            var user = {
+
+                Person_ID: id,
+                AdminApproved: true
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'AdminApproveOrIgnore',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    data ? getAllUsers() : alert("Theres some problem in server");
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+        }
+
+        //Admin Ignore
+        //this method call in onclick method
+        function ignore(elem) {
+
+            var id = $(elem).data('assigned-id');
+            var user = {
+
+                Person_ID: id,
+                AdminApproved: false
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'AdminApproveOrIgnore',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    data ? getAllUsers() : alert("Theres some problem in server");
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
+        }
+
+
+        function assignIDModel(elem) {
+            var ID = $(elem).data('assigned-id');
+            $('#deleteButton').data('assigned-id', ID);
+            console.log(ID);
+        }
+
+
+        //Delete User
+        //this method call in onclick method
+        function DeleteUser(elem) {
+            var id = $(elem).data('assigned-id');
+
+
+            $.ajax({
+
+                url: 'DeleteUser',
+                contentType: 'application/json',
+                data: { id: id },
+                type: 'GET',
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    data ? (getAllUsers(), $('.bs-example-modal-sm').modal('toggle')) : alert("Theres some problem in server");
+
+                },
+                error: function (exception) { console.log('Exeption:' + exception); }
+            });
+
+
+        }
+
+
+
+        //Dispaly all the users details in tabel
+        //This method call in ready function
+        function getAllPolls() {
+
+            $.ajax({
+                url: 'GetAllPolls',
+                type: 'post',
+                dataType: 'html',
+                success: function (data) {
+                    $('#myPartialContainer').html(data);
+                    //dataTable
+                    $('#datatable-checkbox').DataTable();
+                }
+            });
+
+        }
+
+
+
+    </script>
+}
+
+
+

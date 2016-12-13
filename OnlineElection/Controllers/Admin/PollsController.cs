@@ -32,12 +32,19 @@ namespace OnlineElection.Controllers.Admin
             return PartialView("~/ViewsAdmin/Polls/_GetCandidates.cshtml", personRepository.GetAll());
         }
 
+        /**
+          * @desc Insert the Poll details admin have created
+          * @param PollModel object
+          * @return Json - success/Failure
+        */
         [HttpPost]
         public JsonResult CreatePoll(PollModel polls)
         {
+            bool status;
             pollRepository = new PollRepository();
-            pollRepository.InsertPolls(polls);
-            return Json(null,null);
+            status = pollRepository.InsertPolls(polls);
+
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -46,14 +53,49 @@ namespace OnlineElection.Controllers.Admin
           * @param Faculty ID/IDs
           * @return Json - Batch Details or success/Failure
         */
-
         public JsonResult GetBatches(Guid[] ids)
         {
 
             facultyRepository = new FacultyRepository();
-            var batches=facultyRepository.GetBatches(ids);
+            var batches = facultyRepository.GetBatches(ids);
 
-            return Json(batches,JsonRequestBehavior.AllowGet);
+            return Json(batches, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /**
+          * @desc Return ViewPolls page
+          * @param No param
+          * @return View - ViewPolls page
+        */
+        public ActionResult ViewPolls()
+        {
+            return View("~/ViewsAdmin/Polls/ViewPolls.cshtml");
+        }
+
+        /**
+          * @desc Return _TableViewPolls partial view page.This is called by an AJAX function
+          * @param No param
+          * @return PartialView - _TableViewPolls page
+        */
+        public ActionResult GetAllPolls()
+        {
+            pollRepository = new PollRepository();
+            return PartialView("~/ViewsAdmin/Polls/_TableViewPolls.cshtml", pollRepository.GetAllPolls());
+        }
+
+
+        /**
+          * @desc Return Assigned candidates to the ViewPolls page.This is called by an AJAX function
+          * @param - (GUID) poll ID
+          * @return Json - AssignedCanidateDomain object
+        */
+        [HttpGet]
+        public JsonResult GetAssignedCandidates(Guid pollID)
+        {
+            pollRepository = new PollRepository();
+            var assignedCandidates=pollRepository.GetAssignedCandidates(pollID);
+            return Json(assignedCandidates,JsonRequestBehavior.AllowGet);
         }
 
     }

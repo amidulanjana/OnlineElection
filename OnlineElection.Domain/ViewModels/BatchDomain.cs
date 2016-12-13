@@ -11,5 +11,6 @@ namespace OnlineElection.Domain.ViewModels
         public Guid BatchID { get; set; }
         public Guid? facultyD { get; set; }
         public string name { get; set; }
+        public string FacultyName { get; set; }
     }
 }
