@@ -96,5 +96,25 @@ namespace OnlineElection.BLL.Repository
 
             return AssignedCandidates;
         }
+
+        public List<Poll> ViewPolls()
+        {
+
+            var viewPolls = (from b in _dbContext.Polls
+                             where b.adminApproved == true
+                             select b
+                             ).ToList();
+            return viewPolls;
+        }
+
+        public List<votes_person> CheckPoll(Guid userID)
+        {
+            var status = (from c in _dbContext.votes_person
+                          where c.Person_ID == userID
+                          select c
+                         ).ToList();
+
+            return status;
+        }
     }
 }

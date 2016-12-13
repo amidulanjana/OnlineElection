@@ -74,6 +74,9 @@
     <Compile Include="MessegeConv.cs">
       <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>OnlineElectionDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="OnlineElectionDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

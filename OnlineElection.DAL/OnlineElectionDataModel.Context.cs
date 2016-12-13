@@ -39,6 +39,7 @@ namespace OnlineElection.DAL
         public virtual DbSet<PollEligibleUser> PollEligibleUsers { get; set; }
         public virtual DbSet<Messege> Messeges { get; set; }
         public virtual DbSet<MessegeConv> MessegeConvs { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
     
         public virtual ObjectResult<PollResult_Result> PollResult()
         {

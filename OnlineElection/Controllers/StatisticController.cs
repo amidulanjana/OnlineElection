@@ -13,7 +13,7 @@ namespace OnlineElection.Controllers
         // GET: Statistic
         public ActionResult Index()
         {
-            Guid id = new Guid("a4875028-3d9d-e611-9c1d-bcee7b170632");
+            Guid id = new Guid(Session["userID"].ToString());
             repo = new PersonRepository();
             repo.getUserVoted(id);
             return View(repo.getUserVoted(id));

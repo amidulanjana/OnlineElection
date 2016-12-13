@@ -329,6 +329,7 @@
     <Content Include="Views\Poll\CreatePoll.cshtml" />
     <Content Include="Views\Poll\_GetCandidates.cshtml" />
     <Content Include="ViewsAdmin\Account\Index.cshtml" />
+    <Content Include="Views\Vote\ViewPolls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

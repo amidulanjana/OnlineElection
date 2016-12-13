@@ -110,7 +110,36 @@ namespace OnlineElection.Controllers
             }
         }
 
-        
-     
+
+        public ActionResult ViewPolls()
+        {
+            PollRepository poll = new PollRepository();
+            ViewBag.poll1 = poll.ViewPolls();
+
+            return View("ViewPolls");
+        }
+
+        [HttpGet]
+
+        public bool CheckPoll(string userID)
+        {
+            Guid id = new Guid(userID);
+            PollRepository poll = new PollRepository();
+            bool status = true;
+            var check = poll.CheckPoll(id);
+
+            if (check != null)
+            {
+                status = false;
+            }
+            else
+            {
+                status = true;
+            }
+            return status;
+        }
+
+
+
     }
 }
