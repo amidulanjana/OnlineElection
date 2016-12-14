@@ -11,7 +11,7 @@ namespace OnlineElection.BLL.Repository
     public class StudentRepository : IStudentRepository
     {
 
-        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ConnectionString);
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString);
 
         public void InsertCandidate()
         {
@@ -23,8 +23,21 @@ namespace OnlineElection.BLL.Repository
             connection.Open();
             try
             {
+                string facc = "";
+                if (fac == "foc")
+                {
+                    facc = "Computing";
+                }
+                else if (fac == "fob")
+                {
+                    facc = "Business";
+                }
+                else if (fac == "foe")
+                {
+                    facc = "engineering";
+                }
                 List<string> stuList = new List<string>();
-                SqlCommand command = new SqlCommand("select Person_ID from student where Degree_ID = (select Degree_ID from degree where Department_ID = (select Department_ID from Department where Fac_ID = (select Fac_ID from Faculty where Name ='" + fac + "' )))", connection);
+                SqlCommand command = new SqlCommand("select Person_ID from person where batchID in (select batch_ID from batch where fac_ID= (select Fac_ID from Faculty where Name='" + facc + "' ))", connection);
                 SqlDataReader rdr = command.ExecuteReader();
                 if (rdr.HasRows)
                 {
@@ -50,7 +63,7 @@ namespace OnlineElection.BLL.Repository
             try
             {
                 List<string> stuList = new List<string>();
-                SqlCommand command = new SqlCommand("select Person_ID from student where batch_ID = '" + batch + "' ",connection);
+                SqlCommand command = new SqlCommand("select Person_ID from person where batchID = '" + batch + "' ",connection);
                 SqlDataReader rdr = command.ExecuteReader();
                 if (rdr.HasRows)
                 {

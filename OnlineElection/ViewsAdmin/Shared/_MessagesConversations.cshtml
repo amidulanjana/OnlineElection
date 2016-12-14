@@ -10,34 +10,19 @@
 
     @foreach (var item in Model)
     {
-        if (item.to == user)
-        {
-            <li class="self">
-                <a class="content ConversationView">
-                    <div class="avatar"><img src="~/Content/Images/user.png" draggable="false" /></div>
-                    <div class="msg">
-                        <p>@item.UserName</p>
-                        <p>@item.body</p>
-                        <time>@item.MessageDateString</time>
-                    </div>
-                    <input type="text" class="M_ID" hidden="hidden" value="@item.MessageID">
-                </a>
-            </li>
-        }
-        else
-        {
+        
             <li class="other">
-                <a class="content ConversationView">
+                <a class="content ConversationView" style="width:50%;color:black">
                     <div class="avatar"><img src="~/Content/Images/user.png" draggable="false" /></div>
                     <div class="msg">
-                        <p>@item.UserName</p>
-                        <p>@item.body</p>
-                        <time>@item.MessageDateString</time>
+                        <p style="font-size:1.8rem">@item.UserName</p>
+                        <p style="font-size:1.8rem">@item.body</p>
+                        <time style="font-size:1.8rem">@item.MessageDateString</time>
                     </div>
                     <input type="text" class="M_ID" hidden="hidden" value="@item.MessageID">
                 </a>
             </li>
-        }
+        
 
         
 

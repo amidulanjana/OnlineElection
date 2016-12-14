@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace OnlineElection.Domain.ViewModels
 {
-    public class NotificationsViewModel
+    public class NotoficationsDetailsViewModel
     {
-        public string PollID { get; set; }
-        public string Name { get; set; }
+        public string poll_ID { get; set; }
+        public string Date { get; set; }
         public string type { get; set; }
-        public string date { get; set; }
         public string comment { get; set; }
     }
 }

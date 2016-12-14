@@ -237,6 +237,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\msgNotif.png" />
     <Content Include="Content\js\Morris\morris.js" />
     <Content Include="Content\js\Morris\morris.min.js" />
     <Content Include="Content\js\Morris\raphael.js" />
@@ -365,7 +366,6 @@
     <Content Include="ViewsAdmin\Messeging\Index.cshtml" />
     <Content Include="ViewsAdmin\Shared\_MessagesList.cshtml" />
     <Content Include="ViewsAdmin\Messeging\Messeges.cshtml" />
-    <Content Include="ViewsAdmin\Shared\_MessegeListForView.cshtml" />
     <Content Include="ViewsAdmin\Shared\_MessgingInterfaceMessegeList.cshtml" />
     <Content Include="ViewsAdmin\Shared\_MessagesConversations.cshtml" />
     <Content Include="ViewsAdmin\Home\PollResults.cshtml" />
@@ -383,15 +383,17 @@
     <Content Include="Views\Poll\_GetCandidates.cshtml" />
     <Content Include="ViewsAdmin\Account\Index.cshtml" />
     <Content Include="Views\Vote\ViewPolls.cshtml" />
+    <Content Include="Views\Shared\_MessagesList.cshtml" />
+    <Content Include="Views\Shared\_MessagesListNotifications.cshtml" />
+    <Content Include="Views\Shared\_PollNotifications.cshtml" />
+    <Content Include="Views\Shared\_PollNotificationsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\build\css\" />
     <Folder Include="Content\build\js\" />
-    <Folder Include="Content\js\" />
-    <Folder Include="Content\vendors\" />
-    <Folder Include="Views\Messeging\" />
     <Folder Include="Content\vendors\bootstrapValidator\language\" />
+    <Folder Include="Views\Messeging\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

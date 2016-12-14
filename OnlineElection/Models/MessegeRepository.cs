@@ -13,8 +13,8 @@ namespace OnlineElection.BLL.Repository
 {
     public class MessegeRepository
     {
-        readonly string _connString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ConnectionString;
-        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ConnectionString);
+        readonly string _connString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString;
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString);
 
 
         public IEnumerable<MessegeViewModel> GetAllMessages(string id)
@@ -47,7 +47,7 @@ namespace OnlineElection.BLL.Repository
 
                 foreach (var item in messages)
                 {
-                    SqlCommand cmd = new SqlCommand("select FirstName, LastName, imageUrl from person where Person_ID = '" + item.from + "'", connection);
+                    SqlCommand cmd = new SqlCommand("select FirstName, LastName, image from person where Person_ID = '" + item.from + "'", connection);
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
@@ -55,7 +55,7 @@ namespace OnlineElection.BLL.Repository
                         name = name + " " + (rdr["LastName"].ToString());
 
                         item.UserName = name;
-                        item.UserImage = rdr["imageUrl"].ToString();
+                        item.UserImage = rdr["image"].ToString();
                     }
 
 
@@ -146,7 +146,7 @@ namespace OnlineElection.BLL.Repository
 
                 foreach (var item in messages)
                 {
-                    SqlCommand cmd = new SqlCommand("select FirstName, LastName, imageUrl from person where Person_ID = '" + item.from + "'", connection);
+                    SqlCommand cmd = new SqlCommand("select FirstName, LastName, image from person where Person_ID = '" + item.from + "'", connection);
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
@@ -154,7 +154,7 @@ namespace OnlineElection.BLL.Repository
                         name = name + " " + (rdr["LastName"].ToString());
 
                         item.UserName = name;
-                        item.UserImage = rdr["imageUrl"].ToString();
+                        item.UserImage = rdr["image"].ToString();
                     }
 
 
@@ -227,6 +227,73 @@ namespace OnlineElection.BLL.Repository
             return MessList;
         }
 
+        public IEnumerable<NotificationsViewModel> GetAllNotifications(string id)
+        {
+
+
+            var Notifs = new List<NotificationsViewModel>();
+            using (var connection = new SqlConnection(_connString))
+            {
+                connection.Open();
+                List<string> pollID = new List<string>();
+                SqlCommand cmdn = new SqlCommand("select [PollID] from [dbo].[PollEligibleUsers] where [BatchID] = (select [batchID] from [dbo].[person] where [Person_ID]= '" + id + "')", connection);
+                SqlDataReader rdr2 = cmdn.ExecuteReader();
+                if (rdr2.HasRows)
+                {
+                    while (rdr2.Read())
+                    {
+                        pollID.Add(rdr2["PollID"].ToString());
+                    }
+                }
+                rdr2.Close();
+
+                using (var command = new SqlCommand("SELECT [PollID], [notification_type],[date], [comment] FROM [dbo].[Notifications] order by [date] desc", connection))
+                {
+                    command.Notification = null;
+
+                    var dependency = new SqlDependency(command);
+                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
+
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    var reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        foreach (var item in pollID)
+                        {
+                            if (reader["PollID"].ToString() == item)
+                            {
+                                Notifs.Add(item: new NotificationsViewModel { PollID = reader["PollID"].ToString(), date = reader["date"].ToString(), type = reader["notification_type"].ToString(), comment = reader["comment"].ToString() });
+                            }
+                        }
+                    }
+                    reader.Close();
+                }
+
+                foreach (var item in Notifs)
+                {
+                    SqlCommand cmd = new SqlCommand("select [Name] from [dbo].[Poll] where [ID] = '" + item.PollID + "' ", connection);
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            item.Name = rdr["Name"].ToString();
+                        }
+                    }
+
+                }
+
+            }
+
+            connection.Close();
+            return Notifs;
+
+
+        }
+
         private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
         {
             if (e.Type == SqlNotificationType.Change)
@@ -261,5 +328,9 @@ namespace OnlineElection.BLL.Repository
             
 
         }
+
+       
+
+
     }
 }

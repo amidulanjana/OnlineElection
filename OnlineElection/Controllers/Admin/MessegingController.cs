@@ -30,18 +30,9 @@ namespace OnlineElection.Controllers.Admin
             return View("~/ViewsAdmin/Messeging/Index.cshtml");
         }
 
-        public ActionResult Messeges()
+        public ActionResult Messeges(string id)
         {
-
-            
-            Session["messID"] = "1";
-            if (Session["messID"] == null)
-            {
-                Session["messID"] = "null";
-            }
-
-            string messID = (string)Session["messID"];
-            ViewBag.MessegeID = messID;
+            ViewBag.MessegeID = id;
 
 
             //get the user ID

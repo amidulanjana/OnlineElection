@@ -1,27 +1,26 @@
 ﻿
-@model IEnumerable<OnlineElection.Domain.ViewModels.PollsDetailsViewModel>
+@model IEnumerable<OnlineElection.Domain.ViewModels.NotificationsViewModel>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/lobibox.min.js"></script>
 <link rel="stylesheet" href="~/Content/lobibox.min.css" />
 
 @foreach (var item in Model)
 {
-    string status="";
-    string msg="";
+    string status = "";
+    string msg = "";
 
-    if (@item.status == "start")
+    if (@item.Type == "start")
     {
         status = "Started";
         msg = "Please Vote Here";
     }
-    else if (@item.status == "ended")
+    else if (@item.Type == "ended")
     {
         status = "Ended";
-        msg="Just Go and See the Results in few minutes";
+        msg = "You can watch the results";
     }
 
     <script type="text/javascript">
-    var IMG_PREFIX = 'Content/Images/';
             Lobibox.notify('success', {
                 position: 'bottom right',
                 title: '@item.Name'+' is just ' + '@status',
@@ -30,5 +29,3 @@
             });
     </script>
 }
-
-

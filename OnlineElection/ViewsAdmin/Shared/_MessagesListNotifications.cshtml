@@ -7,13 +7,12 @@
 @foreach (var item in Model)
 {
     <script type="text/javascript">
-    var IMG_PREFIX = 'Content/Images/';
             Lobibox.notify('success', {
                 position: 'bottom right',
-                img: IMG_PREFIX + 'user.png',
-                title: 'Success title',
+                img: '../../Content/Images/@item.UserImage',
+                title: '@item.UserName',
                 size: 'mini',
-                msg: 'Lorem ipsum dolor sit amet against apennine any created, spend loveliest, building stripes.'
+                msg: '@item.body'
             });
     </script>
 }

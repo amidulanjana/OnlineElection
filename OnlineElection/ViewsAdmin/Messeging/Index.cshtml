@@ -39,28 +39,41 @@
                         </a>
                     </h5>
                 </div>
+                
                 <div id="computing" class="panel-collapse collapse">
                     @*All of FOC*@
-                    <div class="panel-body">
+                    @if (ViewBag.FOCbatchDetails != null)
+                    {
+                        <div class="panel-body">
                             <h5 class="panel-title">
-                                    <b>
-                                        All of FOC Students
-                                    </b>
-                                    <div class="btn-group" data-toggle="buttons" style="float:right">
-                                        <label class="btn btn-default">
-                                            <input type="checkbox" autocomplete="off" id="foc" name="foc" >
-                                            <span class="glyphicon glyphicon-ok"></span>
-                                        </label>
-                                    </div> 
+                                <b>
+                                    All of FOC Students
+                                </b>
+                                <div class="btn-group" data-toggle="buttons" style="float:right">
+                                    <label class="btn btn-default">
+                                        <input type="checkbox" autocomplete="off" id="foc" name="foc">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </label>
+                                </div>
                             </h5>
-                    </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="panel-body">
+                            <h5 class="panel-title">
+                                No Batches
+                            </h5>
+                        </div>
+                    }
+
                     @foreach (var item in ViewBag.FOCbatchDetails as List<OnlineElection.Domain.ViewModels.BatchDetailsViewModel>)
                     {
                         <div class="panel-body">
                             <h5 class="panel-title">
                                 <b>
-                                    Year = @item.Year
-                                    Name = @item.Name
+                                    Year @item.Year
+                                    @item.Name
                                 </b>
                                 <div class="btn-group" data-toggle="buttons" style="float:right">
                                     <label class="btn btn-default">
@@ -92,8 +105,10 @@
                 </div>
                 <div id="business" class="panel-collapse collapse">
                     @*All Of FOB*@
-                    <div class="panel-body">
-                        <h5 class="panel-title">
+                    @if (ViewBag.FOBbatchDetails != null)
+                    {
+                        <div class="panel-body">
+                            <h5 class="panel-title">
                                 <b>
                                     All of FOB Students
                                 </b>
@@ -102,16 +117,26 @@
                                         <input type="checkbox" autocomplete="off" id="fob" name="fob">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </label>
-                                </div>                       
-                        </h5>
-                    </div>
+                                </div>
+                            </h5>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="panel-body">
+                            <h5 class="panel-title">
+                                No Batches
+                            </h5>
+                        </div>
+                    }
+                    
                     @foreach (var item in ViewBag.FOBbatchDetails as List<OnlineElection.Domain.ViewModels.BatchDetailsViewModel>)
                     {
                         <div class="panel-body">
                             <h5 class="panel-title">
                                 <b>
-                                    Year = @item.Year
-                                    Name = @item.Name
+                                    Year @item.Year
+                                    @item.Name
                                 </b>
                                 <div class="btn-group" data-toggle="buttons" style="float:right">
                                     <label class="btn btn-default">
@@ -141,26 +166,38 @@
                 </div>
                 <div id="engineering" class="panel-collapse collapse">
                     @*All Of FOE*@
-                    <div class="panel-body">
-                        <h5 class="panel-title">
-                            <b>
-                                All of FOE Students
-                            </b>
-                            <div class="btn-group" data-toggle="buttons" style="float:right">
-                                <label class="btn btn-default">
-                                    <input type="checkbox" autocomplete="off" id="foe" name="foe">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </label>
-                            </div> 
-                        </h5>
-                    </div>
+                    @if (ViewBag.FOEbatchDetails != null)
+                    {
+                        <div class="panel-body">
+                            <h5 class="panel-title">
+                                <b>
+                                    All of FOE Students
+                                </b>
+                                <div class="btn-group" data-toggle="buttons" style="float:right">
+                                    <label class="btn btn-default">
+                                        <input type="checkbox" autocomplete="off" id="foe" name="foe">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </label>
+                                </div>
+                            </h5>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="panel-body">
+                            <h5 class="panel-title">
+                                No Batches
+                            </h5>
+                        </div>
+                    }
+                    
                     @foreach (var item in ViewBag.FOEbatchDetails as List<OnlineElection.Domain.ViewModels.BatchDetailsViewModel>)
                     {
                         <div class="panel-body">
                             <h5 class="panel-title">
                                 <b>
-                                    Year = @item.Year
-                                    Name = @item.Name
+                                    Year @item.Year
+                                    @item.Name
                                 </b>
                                 <div class="btn-group" data-toggle="buttons" style="float:right">
                                     <label class="btn btn-default">

@@ -37,15 +37,25 @@ namespace OnlineElection.Controllers
         {
             string user = "21781DD9-4A1C-4DFB-933F-21633B94B61B";
 
-            return PartialView("~/ViewsAdmin/Shared/_MessagesList.cshtml", _messageRepository.GetAllMessages(user));
+            return PartialView("~/Views/Shared/_MessagesList.cshtml", _messageRepository.GetAllMessages(user));
         }
 
         public ActionResult GetNotifications()
         {
             string user = "21781DD9-4A1C-4DFB-933F-21633B94B61B";
 
-            return PartialView("~/ViewsAdmin/Shared/_MessagesListNotifications.cshtml", _messageRepository.GetAllMessagesNew(user));
+            return PartialView("~/Views/Shared/_MessagesListNotifications.cshtml", _messageRepository.GetAllMessagesNew(user));
         }
+
+
+        //Poll Nitificatioins Partial View
+        public ActionResult GetAllPollNotifications()
+        {
+            string user = "21781DD9-4A1C-4DFB-933F-21633B94B61B";
+
+            return PartialView("~/Views/Shared/_PollNotificationsList.cshtml", _messageRepository.GetAllNotifications(user));
+        }
+
 
     }
 }

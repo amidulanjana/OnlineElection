@@ -6,7 +6,7 @@ namespace OnlineElection.Hubs
 {
     public class MessagesHub : Hub
     {
-        private static string conString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ToString();
+        private static string conString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ToString();
         public void Hello()
         {
             Clients.All.hello();

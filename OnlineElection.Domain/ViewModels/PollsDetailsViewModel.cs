@@ -16,5 +16,6 @@ namespace OnlineElection.Domain.ViewModels
         public string Type{ get; set; }
         public string maxCandidates { get; set; }
         public string No_of_votes { get; set; }
+        
     }
 }

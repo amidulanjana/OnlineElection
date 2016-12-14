@@ -115,14 +115,14 @@ namespace OnlineElection.BLL.Repository
                     {
                         PollsDetailsViewModel poll = new PollsDetailsViewModel();
 
-                        poll.poll_ID = rdr.GetOrdinal("ID").ToString();
-                        poll.Name = rdr.GetOrdinal("Name").ToString();
-                        poll.No_of_votes= rdr.GetString(rdr.GetOrdinal("No_of_Votes"));
-                        poll.maxCandidates = rdr.GetOrdinal("max_candidates").ToString();
+                        poll.poll_ID = rdr["ID"].ToString();
+                        poll.Name = rdr["Name"].ToString();
+                        poll.No_of_votes= rdr["No_of_Votes"].ToString();
+                        poll.maxCandidates = rdr["max_candidates"].ToString();
                         poll.Type = rdr.GetOrdinal("Type").ToString();
-                        poll.StartTime = rdr.GetOrdinal("starttime").ToString();
-                        poll.Date = rdr.GetString(rdr.GetOrdinal("poll_date"));
-                        poll.EndTime = rdr.GetString(rdr.GetOrdinal("endtime"));
+                        poll.StartTime = rdr["starttime"].ToString();
+                        poll.Date = rdr["poll_date"].ToString();
+                        poll.EndTime = rdr["endtime"].ToString(); ;
 
 
                         pollDetails.Add(poll);

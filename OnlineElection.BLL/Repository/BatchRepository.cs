@@ -22,7 +22,7 @@ namespace OnlineElection.BLL.Repository
                 connection.Open();
 
                 List<BatchDetailsViewModel> batchDetails = new List<BatchDetailsViewModel>();
-                string faculty = "foc";
+                string faculty = "Computing";
                 SqlCommand command = new SqlCommand("select * from batch where fac_ID = (select Fac_ID from Faculty where Name = '"+ faculty + "' )",connection);
                 SqlDataReader rdr = command.ExecuteReader();
                 if (rdr.HasRows)
@@ -31,10 +31,10 @@ namespace OnlineElection.BLL.Repository
                     {
                         BatchDetailsViewModel batch = new BatchDetailsViewModel();
 
-                        batch.batch_ID = rdr.GetOrdinal("batch_ID").ToString();
-                        batch.fac_ID = rdr.GetOrdinal("fac_ID").ToString();
-                        batch.Name = rdr.GetString(rdr.GetOrdinal("Name"));
-                        batch.Year = rdr.GetString(rdr.GetOrdinal("Year"));
+                        batch.batch_ID = rdr["batch_ID"].ToString();
+                        batch.fac_ID = rdr["fac_ID"].ToString();
+                        batch.Name = rdr["Name"].ToString();
+                        batch.Year = rdr["Year"].ToString();
 
 
                         batchDetails.Add(batch);
@@ -61,7 +61,7 @@ namespace OnlineElection.BLL.Repository
                 connection.Open();
 
                 List<BatchDetailsViewModel> batchDetails = new List<BatchDetailsViewModel>();
-                string faculty = "fob";
+                string faculty = "Business";
                 SqlCommand command = new SqlCommand("select * from batch where fac_ID = (select Fac_ID from Faculty where Name = '" + faculty + "' )", connection);
                 SqlDataReader rdr = command.ExecuteReader();
                 if (rdr.HasRows)
@@ -70,10 +70,10 @@ namespace OnlineElection.BLL.Repository
                     {
                         BatchDetailsViewModel batch = new BatchDetailsViewModel();
 
-                        batch.batch_ID = rdr.GetOrdinal("batch_ID").ToString();
-                        batch.fac_ID = rdr.GetOrdinal("fac_ID").ToString();
-                        batch.Name = rdr.GetString(rdr.GetOrdinal("Name"));
-                        batch.Year = rdr.GetString(rdr.GetOrdinal("Year"));
+                        batch.batch_ID = rdr["batch_ID"].ToString();
+                        batch.fac_ID = rdr["fac_ID"].ToString();
+                        batch.Name = rdr["Name"].ToString();
+                        batch.Year = rdr["Year"].ToString();
 
 
                         batchDetails.Add(batch);
@@ -100,7 +100,7 @@ namespace OnlineElection.BLL.Repository
                 connection.Open();
 
                 List<BatchDetailsViewModel> batchDetails = new List<BatchDetailsViewModel>();
-                string faculty = "foe";
+                string faculty = "engineering";
                 SqlCommand command = new SqlCommand("select * from batch where fac_ID = (select Fac_ID from Faculty where Name = '" + faculty + "' )", connection);
                 SqlDataReader rdr = command.ExecuteReader();
                 if (rdr.HasRows)
@@ -109,10 +109,10 @@ namespace OnlineElection.BLL.Repository
                     {
                         BatchDetailsViewModel batch = new BatchDetailsViewModel();
 
-                        batch.batch_ID = rdr.GetOrdinal("batch_ID").ToString();
-                        batch.fac_ID = rdr.GetOrdinal("fac_ID").ToString();
-                        batch.Name = rdr.GetString(rdr.GetOrdinal("Name"));
-                        batch.Year = rdr.GetString(rdr.GetOrdinal("Year"));
+                        batch.batch_ID = rdr["batch_ID"].ToString();
+                        batch.fac_ID = rdr["fac_ID"].ToString();
+                        batch.Name = rdr["Name"].ToString();
+                        batch.Year = rdr["Year"].ToString();
 
 
                         batchDetails.Add(batch);
@@ -182,38 +182,54 @@ namespace OnlineElection.BLL.Repository
                 //Please Take the loggedIn Admin LoggedIn ID
                 string UserFrom = "21781dd9-4a1c-4dfb-933f-21633b94b61b";
 
-
-                int id = 1;
+                
                 foreach (var item in UserList)
                 {
                     DateTime date = DateTime.Now;
-                    SqlCommand command;
                     
                     SqlCommand newcmd = new SqlCommand("select * from Messege where ([from] = '"+UserFrom+"' AND [to] = '"+item+ "') or ([from] = '" + item + "' AND [to] = '" + UserFrom + "')", connection);
+                    int count = Convert.ToInt32(newcmd.ExecuteScalar());
                     SqlDataReader rdr = newcmd.ExecuteReader();
+                    List<int> MessIDs = new List<int>();
+                    int messgeID = 0;
                     if (rdr.HasRows)
                     {
                         while (rdr.Read())
                         {
-                            int MessID = (int)rdr["ID"];
-                            command = new SqlCommand("update Messege set Subject = '"+ subject + "', body = '"+body+"', date = '"+date+"' where ID = "+ MessID + " ", connection);
-                            command.ExecuteNonQuery();
+                            MessIDs.Add((int)rdr["ID"]);
+                            messgeID = (int)rdr["ID"];
+
+
                         }
-                        rdr.Close();
+                        
                     }
-                    else
+                    rdr.Close();
+
+                    foreach (int no in MessIDs)
+                    {
+                        SqlCommand comm = new SqlCommand("update Messege set Subject = '" + subject + "', body = '" + body + "', date = '" + date + "' where ID = " + no + " ", connection);
+                        comm.ExecuteNonQuery();
+                        
+                    }
+                    
+
+                    if (count== 0)
                     {
                         //change ID to AutoIncrement
-                        SqlCommand command2 = new SqlCommand("insert into Messege values ('" + id + "','" + date + "','" + UserFrom + "','" + item + "','" + subject + "','" + body + "',"+0+")", connection);
+                        SqlCommand command2 = new SqlCommand("insert into Messege([date],[from],[to],[subject],[body],[read]) values ('" + date + "','" + UserFrom + "','" + item + "','" + subject + "','" + body + "',"+0+")", connection);
                         command2.ExecuteNonQuery();
+
+                        SqlCommand cmmnd = new SqlCommand("select * from Messege where ([from] = '" + UserFrom + "' AND [to] = '" + item + "') or ([from] = '" + item + "' AND [to] = '" + UserFrom + "')", connection);
+                        int co = Convert.ToInt32(cmmnd.ExecuteScalar());
+                        co++;
+                        
+                        
+                        messgeID = co;
                     }
+
                     //change ID to AutoIncrement
-                     SqlCommand command3 = new SqlCommand("insert into MessegeConv values ('" + id + "','" + date + "','" + UserFrom + "','" + item + "','" + subject + "','" + body + "'," + 0 + ")", connection);
+                     SqlCommand command3 = new SqlCommand("insert into MessegeConv values ('" + messgeID + "','" + date + "','" + UserFrom + "','" + item + "','" + subject + "','" + body + "'," + 0 + ")", connection);
                     command3.ExecuteNonQuery();
-
-
-
-                    id++;
                 }
                 
 
