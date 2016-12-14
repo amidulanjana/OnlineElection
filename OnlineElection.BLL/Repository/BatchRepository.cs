@@ -12,7 +12,7 @@ namespace OnlineElection.BLL.Repository
     public class BatchRepository:IBatchRepository
     {
         
-        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ConnectionString);
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString);
         StudentRepository _studentRepository = new StudentRepository();
         //Sasindu
         public IEnumerable<BatchDetailsViewModel> GetFOCBatchDetails()

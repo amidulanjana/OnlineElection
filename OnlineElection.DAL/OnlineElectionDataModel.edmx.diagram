@@ -26,6 +26,7 @@
         <AssociationConnector Association="OnlineElectionDbModel.FK_person_batch" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.Messege" Width="1.5" PointX="6.5" PointY="8.25" />
         <EntityTypeShape EntityType="OnlineElectionDbModel.MessegeConv" Width="1.5" PointX="9.875" PointY="7" />
+        <EntityTypeShape EntityType="OnlineElectionDbModel.Notification" Width="1.5" PointX="0.75" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -7,6 +7,7 @@ using OnlineElection.DAL;
 using OnlineElection.BLL;
 
 using System.Data.Entity;
+using OnlineElection.Domain.ViewModels;
 
 namespace OnlineElection.BLL.Repository
 {
@@ -36,7 +37,7 @@ namespace OnlineElection.BLL.Repository
 
 
             if (querySID != null)
-            {             
+            {
                 return (from u in _dbContext.people
                         where u.SID == User.SID
                         select u).FirstOrDefault();
@@ -89,13 +90,54 @@ namespace OnlineElection.BLL.Repository
                                      where p.Person_ID == ID
                                      select p).SingleOrDefault();
             _dbContext.people.Remove(ToDeletePerson);
-         
+
             if (_dbContext.SaveChanges() > 0)
             {
                 return true;
             }
 
             return false;
+        }
+
+
+        public List<AllVotedPoll> getUserVoted(Guid id)
+        {
+            
+
+            List<AllVotedPoll> votedPoll = new List<AllVotedPoll>();
+
+            List<UserVoted> candidateList = new List<UserVoted>();
+
+            List<userVotedPoll> pollIDList = (from vp in _dbContext.votes_person
+                                     where vp.Person_ID == id
+                                     select new userVotedPoll
+                                     {
+                                         pollID=vp.Poll_ID,
+                                         pollName=vp.Poll.Name
+                                     }
+                                ).ToList();
+
+ 
+                foreach (var polls in pollIDList)
+                {
+                    candidateList = (from c in _dbContext.candidates
+                                     where c.Poll_ID == polls.pollID
+                                     select new UserVoted
+                                     {
+                                         candidateName=c.person.FirstName +" " + c.person.LastName,
+                                         noOfVotes = c.Poll.No_of_Votes != null ? (int)c.Poll.No_of_Votes : 0,
+                                         votesOfCandidate = c.vote_count != null ? (int)c.vote_count : 0,
+                                         pollName = c.Poll.Name
+
+                                     }
+                                    ).ToList();
+                    votedPoll.Add(new AllVotedPoll(polls.pollName, candidateList));
+
+
+                }
+
+            return votedPoll;
+
         }
     }
 }

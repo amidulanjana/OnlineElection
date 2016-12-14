@@ -14,6 +14,7 @@ namespace OnlineElection.BLL.Repository
 {
     public class PollRepository : IPollRepository
     {
+        SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString);
         OnlineElectionEntities _dbContext = new OnlineElectionEntities();
         Poll polls;
         candidate candidates;
@@ -138,6 +139,11 @@ namespace OnlineElection.BLL.Repository
                 throw;
             }           
 
+        }
+
+        public void InsertCandidate()
+        {
+            throw new NotImplementedException();
         }
 
         //public IEnumerable<PollsDetailsViewModel> GetRunningPolls()

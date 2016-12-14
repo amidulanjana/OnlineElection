@@ -1,0 +1,80 @@
+﻿@model IEnumerable<OnlineElection.Domain.ViewModels.NotificationsViewModel>
+
+@{
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            string status = "";
+            string msg = "";
+
+            if (@item.type == "start" || @item.type == "Start")
+            {
+                string timelong = "";
+                TimeSpan time = DateTime.Now - DateTime.Parse(@item.date);
+                double val = time.TotalMinutes;
+
+                if (val < 50)
+                {
+                    timelong = Math.Round(val).ToString() + " minutes ago";
+                }
+                else if (time.TotalHours < 24)
+                {
+                    timelong = Math.Round(time.TotalHours).ToString() + " hours ago";
+                }
+                else
+                {
+                    timelong = Math.Round(time.TotalDays).ToString() + " days ago";
+                }
+
+                status = "Started " + timelong;
+                msg = "Please Vote Here";
+            }
+            else if (@item.type == "ended")
+            {
+                string timelong = "";
+                TimeSpan time = DateTime.Now - DateTime.Parse(@item.date);
+                double val = time.TotalMinutes;
+                if (val > 50)
+                {
+                    timelong = val.ToString() + " minutes ago";
+                }
+                else if (time.TotalHours > 24)
+                {
+                    timelong = time.TotalHours.ToString() + " hours ago";
+                }
+                else
+                {
+                    timelong = time.TotalDays.ToString() + " days ago";
+                }
+
+
+                status = "Ended " + timelong;
+                msg = "Just Go and See the Results in few minutes";
+            }
+
+
+            <div style="float:left;border-style:groove;width:100%" class="row">
+                <p style="float:left">
+                    @item.Name Poll is @status
+                    <br />
+                    @msg
+                </p>
+            </div>
+
+        }
+
+    }
+    else
+    {
+        <div style="float:left;border-style:groove;width:100%" class="row">
+            <p style="float:left">
+                No notifications
+            </p>
+        </div>
+    }
+}
+
+
+
+

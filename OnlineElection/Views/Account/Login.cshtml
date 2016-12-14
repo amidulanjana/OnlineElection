@@ -24,9 +24,7 @@
             <div class="card-content">
                 <div class="card-title center-align"><h4>Login Form</h4></div>
                 <div class="row">
-                    @*@Html.BeginForm("Register", "Account", FormMethod.Post,new { @id = "form", @class = "col s12", novalidate = "novalidate" })
-                    {
-                    @Html.AntiForgeryToken()*@
+
                     <form id="form" class="col s12" novalidate="novalidate" method="post">
                         <div class="row">
 
@@ -69,7 +67,7 @@
                             </div>
                         </div>
                     </form>
-                    @*}*@
+
                 </div>
             </div>
         </div>

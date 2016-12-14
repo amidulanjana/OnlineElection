@@ -13,7 +13,7 @@ namespace OnlineElection
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        string connString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities"].ConnectionString;
+        string connString = ConfigurationManager.ConnectionStrings["OnlineElectionEntities2"].ConnectionString;
 
         protected void Application_Start()
         {

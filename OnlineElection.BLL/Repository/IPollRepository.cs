@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OnlineElection.Domain;
+using OnlineElection.Domain.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -208,6 +208,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountController1.cs" />
+    <Compile Include="Controllers\Admin\AccountController.cs" />
     <Compile Include="Controllers\Admin\HomeController.cs" />
     <Compile Include="Controllers\Admin\MessegingController.cs" />
     <Compile Include="Controllers\Admin\PollsController.cs" />
@@ -215,6 +216,8 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PollController.cs" />
+    <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +237,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\js\Morris\morris.js" />
+    <Content Include="Content\js\Morris\morris.min.js" />
+    <Content Include="Content\js\Morris\raphael.js" />
+    <Content Include="Content\js\Morris\raphael.min.js" />
+    <Content Include="Content\js\Morris\raphael.no-deps.js" />
+    <Content Include="Content\js\Morris\raphael.no-deps.min.js" />
+    <Content Include="Content\js\Morris\webpack.config.js" />
+    <Content Include="Content\morris.css" />
     <Content Include="Content\vendors\bootstrapValidator\bootstrapValidator.css" />
     <Content Include="Content\icons\create_poll.svg" />
     <Content Include="Content\icons\view_vote.svg" />
@@ -332,7 +343,6 @@
     <Content Include="ViewsAdmin\_ViewStart.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -342,7 +352,6 @@
     <Content Include="Views\Candidate\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register2.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="ViewsAdmin\Home\Index.cshtml" />
@@ -369,6 +378,11 @@
     <Content Include="ViewsAdmin\Polls\_GetFaculties.cshtml" />
     <Content Include="ViewsAdmin\Polls\ViewPolls.cshtml" />
     <Content Include="ViewsAdmin\Polls\_TableViewPolls.cshtml" />
+    <Content Include="Views\Statistic\Index.cshtml" />
+    <Content Include="Views\Poll\CreatePoll.cshtml" />
+    <Content Include="Views\Poll\_GetCandidates.cshtml" />
+    <Content Include="ViewsAdmin\Account\Index.cshtml" />
+    <Content Include="Views\Vote\ViewPolls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

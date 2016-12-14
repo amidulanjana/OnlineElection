@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
-namespace OnlineElection.Controllers
+namespace OnlineElection.Controllers.Admin
 {
 
     public class AccountController : Controller
@@ -19,7 +19,7 @@ namespace OnlineElection.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            return View();
+            return View("~/ViewsAdmin/Account/Index.cshtml");
         }
 
         public ActionResult Register()
@@ -94,7 +94,7 @@ namespace OnlineElection.Controllers
         {
             if (Session["userID"].ToString() == null) return View("Login");
             
-            return RedirectToRoute("Default",new { controller="Home",action="index"});
+            return RedirectToAction("Index","Home");
             
         }
 

@@ -1,0 +1,23 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/lobibox.min.js"></script>
+<link rel="stylesheet" href="~/Content/lobibox.min.css" />
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("getMessegeViewByClick", "Messeging" , new { id = item.MessageID })">
+    <script type="text/javascript">
+    var IMG_PREFIX = 'Content/Images/';
+            Lobibox.notify('success', {
+                position: 'bottom right',
+                img: IMG_PREFIX + '~/Content/Images/@item.UserImage',
+                title: '@item.UserName',
+                size: 'mini',
+                msg: '@item.body'
+            });
+    </script>
+    </a>
+}
+
+

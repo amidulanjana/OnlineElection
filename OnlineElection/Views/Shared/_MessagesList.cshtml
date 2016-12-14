@@ -1,0 +1,17 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.MessegeViewModel>
+
+
+
+@foreach (var item in Model)
+{
+    <div style="float:left;border-style:groove;width:100%" class="row">
+        <img src="~/Content/Images/user.png" class="img-circle img-responsive" style="height:50px;width:50px;float:left">
+        <p style="float:left">
+            Name:@item.UserName
+        <br />
+             @item.body    
+        </p>
+    </div>
+
+}

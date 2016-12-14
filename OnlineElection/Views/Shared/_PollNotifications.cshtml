@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<OnlineElection.Domain.ViewModels.PollsDetailsViewModel>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/lobibox.min.js"></script>
+<link rel="stylesheet" href="~/Content/lobibox.min.css" />
+
+@foreach (var item in Model)
+{
+    string status="";
+    string msg="";
+
+    if (@item.status == "start")
+    {
+        status = "Started";
+        msg = "Please Vote Here";
+    }
+    else if (@item.status == "ended")
+    {
+        status = "Ended";
+        msg="Just Go and See the Results in few minutes";
+    }
+
+    <script type="text/javascript">
+    var IMG_PREFIX = 'Content/Images/';
+            Lobibox.notify('success', {
+                position: 'bottom right',
+                title: '@item.Name'+' is just ' + '@status',
+                size: 'mini',
+                msg: '@msg'
+            });
+    </script>
+}
+
+

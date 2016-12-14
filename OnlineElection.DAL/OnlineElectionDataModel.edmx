@@ -56,6 +56,17 @@
           <Property Name="body" Type="varchar" MaxLength="1000" />
           <Property Name="read" Type="int" />
         </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="PollID" />
+            <PropertyRef Name="notification_type" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="PollID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="notification_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="person">
           <Key>
             <PropertyRef Name="Person_ID" />
@@ -72,6 +83,7 @@
           <Property Name="AdminApproved" Type="bit" />
           <Property Name="batchID" Type="uniqueidentifier" />
           <Property Name="RegDate" Type="date" />
+          <Property Name="image" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Poll">
           <Key>
@@ -85,6 +97,7 @@
           <Property Name="max_candidates" Type="int" />
           <Property Name="No_of_Votes" Type="int" />
           <Property Name="adminApproved" Type="bit" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="poll_access">
           <Key>
@@ -244,6 +257,7 @@
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messege" EntityType="Self.Messege" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessegeConv" EntityType="Self.MessegeConv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Poll" EntityType="Self.Poll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="poll_access" EntityType="Self.poll_access" Schema="dbo" store:Type="Tables" />
@@ -343,6 +357,7 @@
           <EntitySet Name="MessegeConvs" EntityType="OnlineElectionDbModel.MessegeConv" />
           <FunctionImport Name="PollResult" ReturnType="Collection(OnlineElectionDbModel.PollResult_Result)" />
           <FunctionImport Name="UpdateYear_Semester" />
+          <EntitySet Name="Notifications" EntityType="OnlineElectionDbModel.Notification" />
           </EntityContainer>
         <EntityType Name="staff">
           <Key>
@@ -412,6 +427,7 @@
           <Property Name="batchID" Type="Guid" />
           <NavigationProperty Name="batch" Relationship="OnlineElectionDbModel.FK_person_batch" FromRole="person" ToRole="batch" />
           <Property Name="RegDate" Type="DateTime" Precision="0" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="candidate_fk2">
           <End Type="OnlineElectionDbModel.person" Role="person" Multiplicity="1" />
@@ -476,6 +492,7 @@
           <NavigationProperty Name="votes_person" Relationship="OnlineElectionDbModel.votes_personfk3" FromRole="Poll" ToRole="votes_person" />
           <NavigationProperty Name="PollEligibleUsers" Relationship="OnlineElectionDbModel.FK_PollEligibleUsers_Poll" FromRole="Poll" ToRole="PollEligibleUser" />
           <Property Name="adminApproved" Type="Boolean" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="candidate_fk3">
           <End Type="OnlineElectionDbModel.Poll" Role="Poll" Multiplicity="1" />
@@ -595,6 +612,17 @@
           <Property Type="Int32" Name="vote_count" Nullable="true" />
           <Property Type="String" Name="FirstName" Nullable="true" MaxLength="25" />
         </ComplexType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="PollID" />
+            <PropertyRef Name="notification_type" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="PollID" Type="Guid" Nullable="false" />
+          <Property Name="notification_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="comment" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -648,6 +676,7 @@
           <EntitySetMapping Name="people">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.person">
               <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="RegDate" ColumnName="RegDate" />
                 <ScalarProperty Name="batchID" ColumnName="batchID" />
                 <ScalarProperty Name="AdminApproved" ColumnName="AdminApproved" />
@@ -666,6 +695,7 @@
           <EntitySetMapping Name="Polls">
             <EntityTypeMapping TypeName="OnlineElectionDbModel.Poll">
               <MappingFragment StoreEntitySet="Poll">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="adminApproved" ColumnName="adminApproved" />
                 <ScalarProperty Name="No_of_Votes" ColumnName="No_of_Votes" />
                 <ScalarProperty Name="max_candidates" ColumnName="max_candidates" />
@@ -739,6 +769,16 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UpdateYear_Semester" FunctionName="OnlineElectionDbModel.Store.UpdateYear_Semester" />
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="OnlineElectionDbModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="notification_type" ColumnName="notification_type" />
+                <ScalarProperty Name="PollID" ColumnName="PollID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

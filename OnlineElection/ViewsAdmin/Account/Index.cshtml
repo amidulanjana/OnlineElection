@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/Content/vendors/animate.css/animate.min.css" rel="stylesheet">
+    <!-- iCheck -->
+    
+    <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
+
+
+
+</head>
+<body>
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form>
+                        <h1>Login Form</h1>
+                        <div>
+                            <input type="text" class="form-control" name="username" placeholder="Username" required="" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+                        </div>
+                        <div>
+                            <a class="btn btn-default submit" id="login" href="index.html">Log in</a>
+                            <a class="reset_pass" href="#">Lost your password?</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">                           
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-university"></i> Online Election</h1>
+                                <p>©2016 All Rights Reserved. Online Election SLIIT SEP-29 Project. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/Content/vendors/jquery/dist/jquery.min.js"></script>
+
+    <script>
+
+       // var username = $('#username').val();
+        //var password = $('#password').val();
+
+
+
+      
+
+        $('#login').click(function (e) {
+
+            e.preventDefault();
+            var username = $("[name='username']").val();
+            var password = $("[name='password']").val();
+
+            console.log(username + password)
+       
+            var user = {
+                SID: username,
+                password: password
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: 'Login',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'Json',
+                async: true,
+                success: function (data) {
+                    if (data.userFound == false) {
+                        alert("User is Not Found");
+                    }
+                    else if (!data.passwordVerify) {
+                        alert("Password is invalid");
+                    }
+                    else if (!data.adminApprove) {
+                        alert("Admin is not approved your account");
+                    }
+                    else {
+                        window.location.href = "@Url.RouteUrl("AdminPanel", new { controller="Home",action="index"})";
+                    }
+
+                }
+            });
+
+        })
+
+
+
+    </script>
+
+</body>
+
+
+</html>

@@ -69,6 +69,7 @@
     <Compile Include="ViewModels\CandidateViewModel.cs" />
     <Compile Include="ViewModels\MessegeViewModel.cs" />
     <Compile Include="ViewModels\PollsDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserVoted.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
