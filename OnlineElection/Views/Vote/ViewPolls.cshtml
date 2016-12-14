@@ -4,34 +4,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-   @foreach (var item in ViewBag.poll1)
-   {
-
 <div style="margin-top:5%" class="row">
+    <div class="row">
+        @foreach (var item in ViewBag.poll1)
+        {
 
-        <div class="card blue-grey darken-1" style="width:30%;height:30%;">
-            <div class="card-image">               
-            </div>
-            <div class="right-content ">
-                <div class="card-content white-text" onclick="checkdetails(this)" id="polldetails">
-                    ElectionName          :@item.Name <br />
-                    Type                  :@item.Type <br />
-                    NumOfCadidates        :@item.max_candidates <br />
-                    startDate             :@item.startDate <br />
-                    endDate               :@item.endDate
-                    <span id="@item.ID" hidden>@item.ID</span>
+
+            <div class="col s4">
+            <div class="card blue-grey darken-1" style="width:100%;height:30%;">
+                <div class="card-image">
+                </div>
+                <div class="right-content ">
+                    <div class="card-content white-text" onclick="checkdetails(this)" id="polldetails">
+                        ElectionName          :@item.Name <br />
+                        Type                  :@item.Type <br />
+                        NumOfCadidates        :@item.max_candidates <br />
+                        startDate             :@item.startDate <br />
+                        endDate               :@item.endDate
+                        <span id="@item.ID" hidden>@item.ID</span>
+                    </div>
                 </div>
             </div>
-        </div>
+            </div>
 
+        }
+    </div>
 </div>
-   }
-
 
 <script>
 
-    function checkdetails(x)
-    {
+    function checkdetails(x) {
         alert(x);
         var userID = 'A4875028-3D9D-E611-9C1D-BCEE7B170632';
         console.log(id);
@@ -40,22 +42,20 @@
             type: 'GET',
             url: 'CheckPoll',
             contentType: 'application/json',
-            data: {userID:userID},
+            data: { userID: userID },
             dataType: 'Json',
             async: true,
             success: function (data) {
-                if(status=true)
-                {
+                if (status = true) {
                     //alert("you can vote");
-                    window.location.href="@Url.RouteUrl("Default", new { controller = "Vote", action = "VotingPage" })"
+                    window.location.href = "@Url.RouteUrl("Default", new { controller = "Vote", action = "VotingPage" })"
                 }
-                else
-                {
+                else {
                     //alert("you can't vote");
                 }
             }
 
-            
+
         })
     }
 </script>

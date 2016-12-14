@@ -140,6 +140,10 @@ namespace OnlineElection.Controllers
         }
 
 
+        public ActionResult VotingPage()
+        {
+            return View();
+        }
 
     }
 }

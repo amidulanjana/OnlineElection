@@ -10,6 +10,7 @@ namespace OnlineElection.Controllers
     {
         public ActionResult Index()
         {
+           
             return View();
         }
 

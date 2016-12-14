@@ -60,10 +60,11 @@
                                 <i class="material-icons prefix">supervisor_account</i>
                                 <select multiple id="candidates" name="candidates" class="validate">
                                     
-                                    @*<option value="" disabled selected>Choose your option</option>
-                                    <option value="A" data-icon=@Url.Content("~/Content/Images/bg.jpg") class="left circle">example 1</option>
-                                    <option value="B" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">example 2</option>
-                                    <option value="C" data-icon=@Url.Content("~/Content/Images/user2.png") class="left circle">example 3</option>*@
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option value="B" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">IT14051613</option>
+                                    <option value="B" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">IT14053613</option>
+                                    <option value="C" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">IT14053611</option>
+                                    <option value="A" data-icon=@Url.Content("~/Content/Images/user.png") class="left circle">IT14053610</option>
                                 </select>
                                 <label>Select candidate</label>
                             </div>
@@ -89,8 +90,8 @@
     <script src="~/Content/vendors/select2/dist/js/select2.full.min.js"></script>
     <script>
         
-        var dataObject;
-        getCandidates();
+
+       
 
         function getCandidates() {
            
@@ -104,19 +105,12 @@
             });
             
         }
-        //$('#candidates').html('<option>A</option>');
 
-
-        console.log(getCandidates());
-        $('#candidates').html('<optgroup>'+dataObject+'<optgroup/>');
         
         $(document).ready(function () {
-         
+            getCandidates();
             $('select').material_select();
-           
-           
-           
-           
+            
         });
 
 
@@ -154,41 +148,47 @@
                 submitHandler: function () {
 
                     event.preventDefault();
+                    var pollType="Batch Rep"
                     var pollName = $("[name='pollName']").val();
                     var sdate = $("[name='sdate']").val();
                     var edate = $("[name='edate']").val();
                     var candidates = $("[name='candidates']").val();
-
+                    Faculty = "Computing";
+                    batches = "be68ec67-b19e-e611-9c1e-bcee7b170632";
+                    candidateID = "CD731374-2BA1-E611-9C1F-BCEE7B170632";
+                   
                     console.log(pollName + sdate + edate + candidates);
 
 
 
 
+                    var polls = {
 
-                    //var user = {
+                        pollType: pollType,
+                        name: pollName,
+                        startDate: sdate,
+                        endDate: edate,
+                        Faculty: Faculty,
+                        batch: batches,
+                        candidateID:candidateID
+                    }
 
-                    //    SID: SID,
-                    //    email: email,
-                    //    password: password
+                     //console.log(SID + " " + email + " " + password);
 
-                    //}
+                    $.ajax({
+                        type: 'POST',
+                        url: 'CreatePoll',
+                        contentType: 'application/json',
+                        data: JSON.stringify(polls),
+                        dataType: 'Json',
+                        async: true,
+                        success: function (data) {
+                            if (data == true) {
+                                Materialize.toast('Poll created Successfully!', 4000, 'blue')
+                            }
+                        }
 
-                    // console.log(SID + " " + email + " " + password);
-
-                    //$.ajax({
-                    //    type: 'POST',
-                    //    url: 'Register',
-                    //    contentType: 'application/json',
-                    //    data: JSON.stringify(user),
-                    //    dataType: 'Json',
-                    //    async: true,
-                    //    success: function (data) {
-                    //        if (data == true) {
-                    //            Materialize.toast('You will recieve an email by confirming </br> your request. Thank you !', 4000, 'blue')
-                    //        }
-                    //    }
-
-                    //});
+                    });
 
                 }
 

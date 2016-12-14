@@ -201,6 +201,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\right.png" />
     <Content Include="Content\js\Morris\morris.js" />
     <Content Include="Content\js\Morris\morris.min.js" />
     <Content Include="Content\js\Morris\raphael.js" />
@@ -229,6 +230,7 @@
     <Content Include="Content\vendors\bootstrapValidator\bootstrapValidator.min.js" />
     <Content Include="Content\vendors\bootstrapValidator\icon_refresh.css" />
     <Content Include="Content\voteDesign.css" />
+    <Content Include="Content\votingPage.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -330,16 +332,11 @@
     <Content Include="Views\Poll\_GetCandidates.cshtml" />
     <Content Include="ViewsAdmin\Account\Index.cshtml" />
     <Content Include="Views\Vote\ViewPolls.cshtml" />
-    <Content Include="Views\CreatePoll\Index.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="ViewsAdmin\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Vote\VotingPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Admin\" />
-    <Folder Include="ViewsAdmin\Home\" />
-    <Folder Include="ViewsAdmin\Polls\" />
-    <Folder Include="ViewsAdmin\User\" />
     <Folder Include="Content\build\css\" />
     <Folder Include="Content\build\js\" />
     <Folder Include="Content\vendors\bootstrapValidator\language\" />

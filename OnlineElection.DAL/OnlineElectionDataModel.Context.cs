@@ -50,5 +50,15 @@ namespace OnlineElection.DAL
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateYear_Semester");
         }
+    
+        public virtual int changeStatus()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("changeStatus");
+        }
+    
+        public virtual int insert_notifications()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_notifications");
+        }
     }
 }

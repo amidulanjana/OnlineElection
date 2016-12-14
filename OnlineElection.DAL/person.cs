@@ -36,7 +36,6 @@ namespace OnlineElection.DAL
         public string image { get; set; }
         public string FullName { get { return FirstName + "" + LastName; } }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<candidate> candidates { get; set; }
         public virtual staff staff { get; set; }

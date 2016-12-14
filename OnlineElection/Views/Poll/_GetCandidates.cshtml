@@ -3,7 +3,7 @@
 
     @foreach (var item in Model)
     {
-        <option value="A" data-icon=@Url.Content("~/Content/Images/bg.jpg") class="left circle">@item.FirstName</option>
+        <option value="@item.Person_ID" data-icon=@Url.Content("~/Content/Images/bg.jpg") class="left circle">@item.FirstName</option>
     }
 
 

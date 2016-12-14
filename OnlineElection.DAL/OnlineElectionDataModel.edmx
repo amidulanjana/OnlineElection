@@ -154,7 +154,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="candidate_fk3">
-          <End Role="Poll" Type="Self.Poll" Multiplicity="1" />
+          <End Role="Poll" Type="Self.Poll" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="candidate" Type="Self.candidate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Poll">
@@ -190,7 +192,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PollEligibleUsers_Poll">
-          <End Role="Poll" Type="Self.Poll" Multiplicity="1" />
+          <End Role="Poll" Type="Self.Poll" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="PollEligibleUsers" Type="Self.PollEligibleUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Poll">
@@ -238,7 +242,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="votes_personfk3">
-          <End Role="Poll" Type="Self.Poll" Multiplicity="1" />
+          <End Role="Poll" Type="Self.Poll" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="votes_person" Type="Self.votes_person" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Poll">
@@ -249,6 +255,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="changeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="insert_notifications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PollResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UpdateYear_Semester" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OnlineElectionDbModelStoreContainer">
@@ -358,6 +366,8 @@
           <FunctionImport Name="PollResult" ReturnType="Collection(OnlineElectionDbModel.PollResult_Result)" />
           <FunctionImport Name="UpdateYear_Semester" />
           <EntitySet Name="Notifications" EntityType="OnlineElectionDbModel.Notification" />
+          <FunctionImport Name="changeStatus" />
+          <FunctionImport Name="insert_notifications" />
           </EntityContainer>
         <EntityType Name="staff">
           <Key>
@@ -779,6 +789,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="changeStatus" FunctionName="OnlineElectionDbModel.Store.changeStatus" />
+          <FunctionImportMapping FunctionImportName="insert_notifications" FunctionName="OnlineElectionDbModel.Store.insert_notifications" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
