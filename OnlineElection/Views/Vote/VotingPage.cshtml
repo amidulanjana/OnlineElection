@@ -15,35 +15,31 @@
 
 <div class="radio-tile-group" style="margin-top:55px">
 
+    @foreach (var can in ViewBag.candidateList as List<OnlineElection.Domain.ViewModels.CandidateDetailedViewModel>)
+    {
+        <img class="img-responsive img-circle" style="width:10%;" src="~/Content/Images/@can.ImageUrl">
+
+
+
+
+    
+
+
     <div class="input-container" style="height:200px;width:200px">
-        <input id="walk" class="radio-button" type="radio" name="radio" assigned-id="img1" onclick="showImage(this)"/>
+        <input id="walk" class="radio-button" type="radio" value="@can.person_ID" name="radio" assigned-id="img1" />
         <div class="radio-tile">
             <div class="icon walk-icon" name="img1" style="margin-left:120px;margin-bottom:20px" hidden>
                 <img src="~/Content/Images/right.png" width="50" height="50" name="img"/>
             </div>
-            <label for="walk" class="radio-tile-label">FirstName</label>
-            <label for="walk" class="radio-tile-label">LastName</label>
-            <label for="walk" class="radio-tile-label">Year</label>
-            <label for="walk" class="radio-tile-label">Sem</label>
-            <label for="walk" class="radio-tile-label">Telephone</label>
-            <label for="walk" class="radio-tile-label">Degree</label>
+            <label for="walk" class="radio-tile-label">@can.FirstName</label>
+            <label for="walk" class="radio-tile-label">@can.LastName</label>
+            <label for="walk" class="radio-tile-label">@can.Year</label>
+            <label for="walk" class="radio-tile-label">@can.Sem</label>
+
         </div>
     </div>
 
-    <div class="input-container" style="height:200px;width:200px">
-        <input id="walk1" class="radio-button" type="radio" name="radio" />
-        <div class="radio-tile">
-            <div class="icon walk1-icon" assigned-id="img2" style="margin-left:120px;margin-bottom:20px" hidden>
-                <img src="~/Content/Images/right.png" width="50" height="50" />
-            </div>
-            <label for="walk1" class="radio-tile-label">FirstName</label>
-            <label for="walk1" class="radio-tile-label">LastName</label>
-            <label for="walk1" class="radio-tile-label">Year</label>
-            <label for="walk1" class="radio-tile-label">Sem</label>
-            <label for="walk1" class="radio-tile-label">Telephone</label>
-            <label for="walk1" class="radio-tile-label">Degree</label>
-        </div>
-    </div>
+   }
 
 
 
@@ -59,12 +55,7 @@
 
         //});
 
-        function showImage(elem)
-        {
-            var id = $(elem).data('assigned-id');
-            console.log(id);
-            $("[name="+id+"]").show();
-        }
+    
 
     </script>
 }
